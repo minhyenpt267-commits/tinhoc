@@ -1,2790 +1,573 @@
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ôn tập Tin học lớp 3</title>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mưa Chữ Cái — Luyện Gõ 10 Ngón</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --giay:#F2F6FC;
-  --oli:#CFE0F4;
-  --oli-dam:#A9C8E8;
-  --muc:#1B4B8F;
-  --muc-dam:#0F2E5C;
-  --but-do:#D93B3B;
-  --sticker:#FFC93C;
-  --dung:#2E9E5B;
-  --chu:#1F2A37;
-  --xam:#6B7A8F;
-  --trang:#FFFFFF;
-  --go:#F0DCB4;
-  --bong:0 2px 0 var(--oli-dam), 0 6px 18px rgba(27,75,143,.10);
-}
+  :root{
+    --sky-top:#bfe6ff;
+    --sky-bottom:#eaf7ff;
+    --ink:#233047;
+    --coral:#ff6f61;
+    --coral-dark:#e6543f;
+    --sun:#ffc93c;
+    --leaf:#5ec269;
+    --grape:#9b6bd9;
+    --card:#ffffff;
+    --cloud:#ffffff;
+    --shadow: 0 10px 24px rgba(35,48,71,0.15);
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0; padding:0; height:100%;
+    font-family:'Quicksand', sans-serif;
+    color:var(--ink);
+    background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-bottom) 55%, #ffffff 100%);
+    overflow:hidden;
+  }
+  h1,h2,h3, .display{
+    font-family:'Baloo 2', cursive;
+  }
 
-*{box-sizing:border-box;margin:0;padding:0}
+  /* decorative clouds */
+  .cloud{
+    position:fixed; background:var(--cloud); border-radius:50px;
+    opacity:0.9; filter: drop-shadow(0 6px 6px rgba(0,0,0,0.05));
+    z-index:0;
+  }
+  .cloud::before, .cloud::after{
+    content:""; position:absolute; background:var(--cloud); border-radius:50%;
+  }
 
-body{
-  font-family:'Be Vietnam Pro','Segoe UI',Tahoma,sans-serif;
-  font-size:19px;
-  line-height:1.55;
-  color:var(--chu);
-  background-color:var(--giay);
-  background-image:
-    repeating-linear-gradient(to right, var(--oli) 0 1px, transparent 1px 26px),
-    repeating-linear-gradient(to bottom, var(--oli) 0 1px, transparent 1px 26px),
-    repeating-linear-gradient(to right, var(--oli-dam) 0 1.5px, transparent 1.5px 104px),
-    repeating-linear-gradient(to bottom, var(--oli-dam) 0 1.5px, transparent 1.5px 104px);
-  min-height:100vh;
-  padding:0 0 60px;
-}
+  #app{ position:relative; width:100%; height:100vh; z-index:1; }
 
-.khung{max-width:880px;margin:0 auto;padding:0 18px}
+  /* ---------- SETUP SCREEN ---------- */
+  #setup{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    padding: 24px;
+  }
+  .panel{
+    background:var(--card);
+    border-radius:28px;
+    box-shadow: var(--shadow);
+    padding: 32px 36px 28px;
+    max-width: 760px;
+    width:100%;
+    max-height: 92vh;
+    overflow-y:auto;
+  }
+  .title-row{ text-align:center; margin-bottom: 6px; }
+  .title-row h1{
+    font-size: clamp(28px, 4vw, 40px);
+    margin: 0 0 4px;
+    color: var(--coral-dark);
+    letter-spacing: 0.5px;
+  }
+  .title-row .subtitle{
+    margin:0; color:#5b6b85; font-weight:600; font-size:15px;
+  }
+  .section-label{
+    font-family:'Baloo 2', cursive;
+    font-size: 18px; font-weight:700; margin: 22px 0 10px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .badge-num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:26px; height:26px; border-radius:50%;
+    background:var(--sun); color:#5c3d00; font-size:14px; font-weight:800;
+  }
 
-h1,h2,h3,.hienthi{font-family:'Baloo 2','Segoe UI',Tahoma,sans-serif;font-weight:800;letter-spacing:-.01em;line-height:1.2}
+  .finger-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:10px;
+  }
+  @media (max-width:600px){ .finger-grid{ grid-template-columns: repeat(2, 1fr);} }
 
-/* ---------- Thanh đầu trang ---------- */
-.dau{
-  background:var(--muc);
-  color:#fff;
-  padding:14px 0;
-  margin-bottom:26px;
-  box-shadow:0 3px 0 rgba(15,46,92,.35);
-}
-.dau .khung{display:flex;align-items:center;gap:14px}
-.huy-hieu{
-  width:44px;height:44px;flex:0 0 44px;border-radius:10px;
-  background:var(--sticker);
-  display:grid;place-items:center;
-  font-family:'Baloo 2',sans-serif;font-weight:800;font-size:20px;color:var(--muc-dam);
-}
-.dau h1{font-size:26px;color:#fff;flex:1}
-.dau .phu{font-size:14px;font-weight:400;color:#BBD2EF;display:block;letter-spacing:0;font-family:'Be Vietnam Pro',sans-serif}
+  .finger-btn{
+    border: 2.5px solid #e3ecf7;
+    background:#f7fbff;
+    border-radius:16px;
+    padding:10px 8px;
+    cursor:pointer;
+    font-family:'Quicksand', sans-serif;
+    font-weight:700;
+    font-size:13.5px;
+    color:var(--ink);
+    text-align:center;
+    transition: all .15s ease;
+    line-height:1.3;
+  }
+  .finger-btn .hand-dot{
+    width:14px;height:14px;border-radius:50%;
+    background:#cfe0f5; margin:0 auto 6px;
+  }
+  .finger-btn:hover{ transform: translateY(-2px); box-shadow: 0 6px 14px rgba(35,48,71,0.12); }
+  .finger-btn.selected{
+    border-color: var(--coral);
+    background: #fff1ef;
+    color: var(--coral-dark);
+  }
+  .finger-btn.selected .hand-dot{ background: var(--coral); }
+  .finger-btn .keys{
+    display:block; margin-top:3px; font-size:12px; color:#8a97ab; font-weight:600;
+  }
+  .finger-btn.selected .keys{ color: var(--coral-dark); opacity:0.8;}
+  .finger-btn.all-fingers{
+    grid-column: span 3;
+  }
+  @media (max-width:600px){ .finger-btn.all-fingers{ grid-column: span 2; } }
 
-/* ---------- Thẻ giấy ---------- */
-.the{
-  background:var(--trang);
-  border:2px solid var(--oli-dam);
-  border-radius:14px;
-  box-shadow:var(--bong);
-  padding:22px;
-  margin-bottom:20px;
-}
+  .speed-row{ display:flex; gap:10px; flex-wrap:wrap; }
+  .speed-btn{
+    flex:1; min-width:110px;
+    border:2.5px solid #e3ecf7;
+    background:#f7fbff;
+    border-radius:16px;
+    padding:14px 10px;
+    cursor:pointer;
+    font-family:'Baloo 2', cursive;
+    font-weight:700;
+    font-size:16px;
+    color: var(--ink);
+    transition: all .15s ease;
+    text-align:center;
+  }
+  .speed-btn .emoji{ font-size:22px; display:block; margin-bottom:4px; }
+  .speed-btn:hover{ transform: translateY(-2px); box-shadow: 0 6px 14px rgba(35,48,71,0.12);}
+  .speed-btn.selected{ border-color: var(--leaf); background:#effaf0; color:#2a7d3a;}
 
-/* ---------- Nút ---------- */
-button{font-family:inherit;font-size:inherit;cursor:pointer;border:none;background:none;color:inherit}
-button:focus-visible{outline:3px solid var(--but-do);outline-offset:3px}
+  .start-btn{
+    display:block; width:100%; margin-top: 26px;
+    background: linear-gradient(180deg, #ff8a7a, var(--coral));
+    color:white; border:none; border-radius:20px;
+    padding:16px; font-family:'Baloo 2', cursive; font-size:22px; font-weight:800;
+    letter-spacing:0.5px;
+    cursor:pointer; box-shadow: 0 8px 0 var(--coral-dark), 0 12px 20px rgba(230,84,63,0.35);
+    transition: transform .08s ease, box-shadow .08s ease;
+  }
+  .start-btn:active{ transform: translateY(6px); box-shadow: 0 2px 0 var(--coral-dark), 0 6px 10px rgba(230,84,63,0.3); }
+  .start-btn:disabled{
+    background:#cfd6e0; box-shadow:none; cursor:not-allowed; color:#8a97ab;
+  }
+  .hint{ text-align:center; font-size:13px; color:#8a97ab; margin-top:10px; font-weight:600; min-height:18px;}
 
-.nut{
-  background:var(--muc);color:#fff;
-  border-radius:12px;
-  padding:14px 26px;
-  min-height:52px;
-  font-weight:600;
-  box-shadow:0 3px 0 var(--muc-dam);
-  transition:transform .08s;
-}
-.nut:hover{background:#22589F}
-.nut:active{transform:translateY(3px);box-shadow:none}
-.nut.phu{background:var(--trang);color:var(--muc);border:2px solid var(--muc);box-shadow:0 3px 0 var(--oli-dam)}
-.nut.phu:hover{background:#EAF1FB}
-.nut[disabled]{background:#B6C4D6;box-shadow:0 3px 0 #93A3B8;cursor:not-allowed}
+  /* ---------- GAME SCREEN ---------- */
+  #game{
+    position:absolute; inset:0; display:none;
+    flex-direction:column;
+  }
+  #hud{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 14px 22px;
+    z-index:5;
+  }
+  .hud-chip{
+    background:rgba(255,255,255,0.85);
+    border-radius:16px; padding:8px 16px;
+    box-shadow: var(--shadow);
+    font-family:'Baloo 2', cursive; font-weight:700; font-size:16px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .hud-chip .label{ font-size:12px; color:#8a97ab; font-family:'Quicksand'; font-weight:700; }
+  #timeChip.warning{ color:var(--coral-dark); }
+  #stopBtn{
+    background:white; border:2px solid #e3ecf7; border-radius:14px;
+    padding:8px 14px; font-family:'Quicksand'; font-weight:700; cursor:pointer;
+    color:#5b6b85;
+  }
+  #stopBtn:hover{ background:#f7fbff; }
 
-/* ---------- Trang chủ: 3 chế độ ---------- */
-.chedo{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
-.the-chedo{
-  background:var(--trang);
-  border:2px solid var(--oli-dam);
-  border-radius:16px;
-  box-shadow:var(--bong);
-  padding:24px 18px;
-  text-align:left;
-  transition:transform .12s, border-color .12s;
-}
-.the-chedo:hover{transform:translateY(-3px);border-color:var(--muc)}
-.the-chedo .bieutuong{font-size:34px;line-height:1;display:block;margin-bottom:10px}
-.the-chedo h3{font-size:21px;color:var(--muc);margin-bottom:6px}
-.the-chedo p{font-size:15px;color:var(--xam);line-height:1.45}
+  #playfield{
+    position:relative; flex:1; overflow:hidden;
+    background: linear-gradient(180deg, #d8f0ff 0%, #f2fbff 100%);
+    margin: 0 16px 16px;
+    border-radius: 24px;
+    box-shadow: inset 0 2px 10px rgba(35,48,71,0.06);
+  }
+  .ground-line{
+    position:absolute; left:0; right:0; bottom:56px;
+    border-top: 3px dashed #ffb199;
+    opacity:0.6;
+  }
+  .falling-letter{
+    position:absolute;
+    top:-60px;
+    width:56px; height:56px;
+    border-radius:16px;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Baloo 2', cursive; font-weight:800; font-size:26px;
+    color:white;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+    user-select:none;
+    will-change: transform;
+  }
+  .falling-letter.pop{
+    animation: popOut .25s ease forwards;
+  }
+  @keyframes popOut{
+    0%{ transform:scale(1); opacity:1;}
+    100%{ transform:scale(1.6); opacity:0;}
+  }
+  .falling-letter.missed{
+    animation: sink .35s ease forwards;
+  }
+  @keyframes sink{
+    0%{ transform:scale(1); opacity:1;}
+    100%{ transform:scale(0.7) translateY(6px); opacity:0;}
+  }
 
-/* ---------- Chọn chủ đề ---------- */
-.luoi-chude{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.o-chude{
-  display:flex;align-items:center;gap:14px;
-  background:var(--trang);border:2px solid var(--oli-dam);border-radius:12px;
-  padding:14px 16px;text-align:left;box-shadow:0 2px 0 var(--oli-dam);
-}
-.o-chude:hover{border-color:var(--muc);background:#F7FAFE}
-.o-chude .so{
-  width:38px;height:38px;flex:0 0 38px;border-radius:9px;
-  background:var(--muc);color:#fff;display:grid;place-items:center;
-  font-family:'Baloo 2',sans-serif;font-weight:800;font-size:19px;
-}
-.o-chude .ten{font-weight:600;font-size:16px;line-height:1.3}
-.o-chude .dem{font-size:13px;color:var(--xam)}
+  #finish-flash{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    background: rgba(35,48,71,0.35);
+    z-index:10;
+  }
+  .result-card{
+    background:white; border-radius:28px; padding:36px 40px; text-align:center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    max-width: 420px; width:90%;
+  }
+  .result-card h2{ margin:6px 0 2px; font-size:28px; color:var(--coral-dark); }
+  .result-card .big-score{
+    font-family:'Baloo 2', cursive; font-size:64px; font-weight:800; color:var(--leaf);
+    margin: 10px 0 0;
+  }
+  .result-card .score-label{ color:#5b6b85; font-weight:700; font-size:14px; margin-bottom: 4px;}
+  .result-card .stats{ display:flex; justify-content:center; gap:22px; margin: 18px 0 6px; }
+  .stat-box{ background:#f7fbff; border-radius:14px; padding:10px 14px; min-width:80px;}
+  .stat-box .num{ font-family:'Baloo 2', cursive; font-size:22px; font-weight:700; color:var(--ink);}
+  .stat-box .lbl{ font-size:11px; color:#8a97ab; font-weight:700; }
+  .result-card .praise{ font-size:15px; font-weight:700; color:#5b6b85; margin: 8px 0 20px;}
+  .again-btn{
+    background: linear-gradient(180deg, #ff8a7a, var(--coral));
+    color:white; border:none; border-radius:16px;
+    padding:12px 28px; font-family:'Baloo 2', cursive; font-size:18px; font-weight:800;
+    cursor:pointer; box-shadow: 0 6px 0 var(--coral-dark);
+  }
+  .again-btn:active{ transform: translateY(4px); box-shadow:none; }
 
-/* ---------- Thước kẻ tiến độ (điểm nhấn) ---------- */
-.thuoc{
-  position:relative;height:40px;border-radius:7px;margin-bottom:22px;
-  background:var(--go);
-  border:2px solid #D9BE8A;
-  box-shadow:inset 0 -6px 0 rgba(0,0,0,.06);
-  background-image:repeating-linear-gradient(to right,
-    #B99659 0 1.5px, transparent 1.5px 10%);
-  background-position:left top;
-}
-.thuoc::after{
-  content:'';position:absolute;left:0;right:0;top:0;height:12px;
-  background-image:repeating-linear-gradient(to right,#B99659 0 1.5px, transparent 1.5px 2%);
-}
-.con-truot{
-  position:absolute;top:-9px;width:0;height:0;
-  border-left:11px solid transparent;border-right:11px solid transparent;
-  border-top:15px solid var(--but-do);
-  transform:translateX(-11px);
-  transition:left .3s ease;
-}
-.nhan-thuoc{
-  position:absolute;right:10px;top:50%;transform:translateY(-50%);
-  font-family:'Baloo 2',sans-serif;font-weight:700;font-size:15px;color:#7A5C28;
-}
+  .confetti{
+    position:absolute; width:8px; height:14px; top:-20px; opacity:0.9;
+    animation-name: fall; animation-timing-function: linear; animation-fill-mode: forwards;
+  }
+  @keyframes fall{
+    to{ transform: translateY(110vh) rotate(360deg); opacity:0.3; }
+  }
 
-/* ---------- Câu hỏi ---------- */
-.dong-tren{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap}
-.the-mucdo{
-  display:inline-block;font-size:13px;font-weight:600;
-  background:#EAF1FB;color:var(--muc);border-radius:20px;padding:4px 12px;
-}
-.dong-ho{
-  font-family:'Baloo 2',sans-serif;font-weight:800;font-size:22px;color:var(--muc);
-  background:#EAF1FB;border-radius:10px;padding:4px 14px;
-}
-.dong-ho.gap{color:var(--but-do);background:#FCECEC}
-
-.de-bai{font-size:23px;font-weight:600;line-height:1.45;margin-bottom:20px}
-.hinh-mo-ta{
-  font-family:ui-monospace,'Consolas',monospace;font-size:16px;
-  background:#F7FAFE;border:2px dashed var(--oli-dam);border-radius:10px;
-  padding:14px 16px;margin-bottom:18px;white-space:pre-wrap;line-height:1.6;
-}
-
-.dap-an{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.pa{
-  display:flex;align-items:center;gap:14px;
-  background:var(--trang);border:2px solid var(--oli-dam);border-radius:12px;
-  padding:14px 16px;text-align:left;min-height:64px;
-  box-shadow:0 2px 0 var(--oli-dam);
-  transition:border-color .12s;
-}
-.pa:hover:not([disabled]){border-color:var(--muc);background:#F7FAFE}
-.pa .chu-cai{
-  width:36px;height:36px;flex:0 0 36px;border-radius:50%;
-  background:#EAF1FB;color:var(--muc);display:grid;place-items:center;
-  font-family:'Baloo 2',sans-serif;font-weight:800;font-size:18px;
-}
-.pa.dung{border-color:var(--dung);background:#EDF9F1}
-.pa.dung .chu-cai{background:var(--dung);color:#fff}
-.pa.sai{border-color:var(--but-do);background:#FCECEC}
-.pa.sai .chu-cai{background:var(--but-do);color:#fff}
-.pa.chon{border-color:var(--muc);background:#EAF1FB}
-.pa[disabled]{cursor:default}
-
-/* Đúng/Sai */
-.dong-ds{
-  display:flex;align-items:center;gap:12px;
-  border-bottom:1.5px solid var(--oli);padding:12px 0;flex-wrap:wrap;
-}
-.dong-ds .noi-dung{flex:1;min-width:220px;font-size:18px}
-.nut-ds{
-  border:2px solid var(--oli-dam);border-radius:10px;background:var(--trang);
-  padding:8px 18px;min-height:46px;font-weight:600;box-shadow:0 2px 0 var(--oli-dam);
-}
-.nut-ds.chon{background:var(--muc);color:#fff;border-color:var(--muc)}
-.nut-ds.dung{background:var(--dung);color:#fff;border-color:var(--dung)}
-.nut-ds.sai{background:var(--but-do);color:#fff;border-color:var(--but-do)}
-
-/* Sắp xếp */
-.buoc{
-  display:flex;align-items:center;gap:14px;width:100%;
-  background:var(--trang);border:2px solid var(--oli-dam);border-radius:12px;
-  padding:14px 16px;margin-bottom:10px;text-align:left;min-height:60px;
-  box-shadow:0 2px 0 var(--oli-dam);
-}
-.buoc:hover:not([disabled]){border-color:var(--muc)}
-.buoc .thu-tu{
-  width:36px;height:36px;flex:0 0 36px;border-radius:9px;
-  background:#EAF1FB;color:var(--muc);display:grid;place-items:center;
-  font-family:'Baloo 2',sans-serif;font-weight:800;font-size:18px;
-}
-.buoc.da-chon .thu-tu{background:var(--muc);color:#fff}
-.buoc.dung{border-color:var(--dung);background:#EDF9F1}
-.buoc.sai{border-color:var(--but-do);background:#FCECEC}
-
-/* Nối cột */
-.noi{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.cot h4{font-size:15px;color:var(--xam);margin-bottom:10px;font-family:'Be Vietnam Pro',sans-serif;font-weight:600}
-.muc-noi{
-  display:flex;align-items:center;gap:12px;width:100%;
-  background:var(--trang);border:2px solid var(--oli-dam);border-radius:12px;
-  padding:12px 14px;margin-bottom:10px;text-align:left;min-height:58px;font-size:17px;
-  box-shadow:0 2px 0 var(--oli-dam);
-}
-.muc-noi:hover:not([disabled]){border-color:var(--muc)}
-.muc-noi.dang-chon{border-color:var(--muc);background:#EAF1FB}
-.muc-noi .cap{
-  width:30px;height:30px;flex:0 0 30px;border-radius:50%;
-  display:grid;place-items:center;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:15px;
-  background:#EAF1FB;color:var(--muc);
-}
-.muc-noi.da-noi .cap{background:var(--sticker);color:var(--muc-dam)}
-.muc-noi.dung{border-color:var(--dung);background:#EDF9F1}
-.muc-noi.sai{border-color:var(--but-do);background:#FCECEC}
-
-/* Tự luận */
-textarea{
-  width:100%;min-height:120px;font-family:inherit;font-size:18px;line-height:1.6;
-  border:2px solid var(--oli-dam);border-radius:12px;padding:14px;resize:vertical;
-  background:var(--trang);color:var(--chu);
-}
-textarea:focus{outline:none;border-color:var(--muc)}
-
-/* ---------- Phản hồi ---------- */
-.phan-hoi{
-  display:flex;align-items:flex-start;gap:14px;
-  border-radius:12px;padding:16px 18px;margin-top:18px;
-}
-.phan-hoi.tot{background:#EDF9F1;border:2px solid var(--dung)}
-.phan-hoi.chua{background:#FFF6E0;border:2px solid var(--sticker)}
-.phan-hoi .dau-hieu{font-size:30px;line-height:1;flex:0 0 auto}
-.phan-hoi .tieu{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:19px;margin-bottom:3px}
-.phan-hoi .loi{font-size:17px;line-height:1.5}
-
-.hien-len{animation:hien .25s ease}
-@keyframes hien{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-
-.dong-duoi{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
-
-/* ---------- Kết quả ---------- */
-.diem-lon{text-align:center;padding:14px 0 6px}
-.diem-lon .con-so{
-  font-family:'Baloo 2',sans-serif;font-weight:800;font-size:76px;line-height:1;color:var(--muc);
-}
-.diem-lon .tren{font-size:16px;color:var(--xam)}
-.hang-sticker{display:flex;justify-content:center;gap:8px;margin:14px 0 4px;font-size:28px;flex-wrap:wrap}
-
-table{width:100%;border-collapse:collapse;margin-top:16px;font-size:17px}
-th,td{text-align:left;padding:11px 10px;border-bottom:1.5px solid var(--oli)}
-th{font-size:14px;color:var(--xam);text-transform:uppercase;letter-spacing:.04em;font-weight:600}
-td.giua,th.giua{text-align:center}
-.thanh{height:9px;border-radius:5px;background:var(--oli);overflow:hidden;min-width:70px}
-.thanh i{display:block;height:100%;background:var(--dung);border-radius:5px}
-.thanh.yeu i{background:var(--but-do)}
-
-.can-on{background:#FFF6E0;border:2px solid var(--sticker);border-radius:12px;padding:16px 18px;margin-top:18px}
-.can-on h4{font-family:'Baloo 2',sans-serif;font-size:18px;margin-bottom:8px}
-.can-on ul{margin-left:22px}
-.can-on li{margin-bottom:4px;font-size:17px}
-
-/* ---------- Bảng cô giáo ---------- */
-.ghi-chu{font-size:15px;color:var(--xam);line-height:1.5;margin-top:10px}
-.canh-bao{background:#FCECEC;border:2px solid var(--but-do);border-radius:10px;padding:12px 14px;font-size:16px;margin-top:12px}
-.thanh-cong{background:#EDF9F1;border:2px solid var(--dung);border-radius:10px;padding:12px 14px;font-size:16px;margin-top:12px}
-.lien-ket{background:none;color:var(--muc);text-decoration:underline;font-size:16px;padding:0;min-height:0}
-
-@media (max-width:640px){
-  body{font-size:18px}
-  .khung{padding:0 12px}
-  .chedo{grid-template-columns:1fr}
-  .luoi-chude{grid-template-columns:1fr}
-  .dap-an{grid-template-columns:1fr}
-  .noi{grid-template-columns:1fr}
-  .de-bai{font-size:20px}
-  .dau h1{font-size:21px}
-  .diem-lon .con-so{font-size:60px}
-}
-@media (prefers-reduced-motion:reduce){
-  *{animation:none!important;transition:none!important}
-}
+  @media (prefers-reduced-motion: reduce){
+    .falling-letter, .confetti, .again-btn, .start-btn { animation: none !important; transition: none !important; }
+  }
 </style>
+</head>
+<body>
 
-<div class="dau"><div class="khung">
-  <div class="huy-hieu">T3</div>
-  <h1>Ôn tập Tin học lớp 3<span class="phu">Kết nối tri thức với cuộc sống</span></h1>
-  <button class="nut phu" id="nut-co-giao" style="min-height:44px;padding:10px 18px;font-size:16px">Cô giáo</button>
-</div></div>
+<div class="cloud" style="width:120px;height:44px; top:8%; left:6%;"></div>
+<div class="cloud" style="width:90px;height:34px; top:16%; left:80%;"></div>
+<div class="cloud" style="width:70px;height:28px; top:6%; left:45%;"></div>
 
-<div class="khung" id="man-hinh"></div>
+<div id="app">
+
+  <!-- SETUP SCREEN -->
+  <div id="setup">
+    <div class="panel">
+      <div class="title-row">
+        <h1>🌧️ Mưa Chữ Cái</h1>
+        <p class="subtitle">Luyện gõ 10 ngón dành cho học sinh tiểu học</p>
+      </div>
+
+      <div class="section-label"><span class="badge-num">1</span> Chọn ngón tay muốn luyện</div>
+      <div class="finger-grid" id="fingerGrid"></div>
+
+      <div class="section-label"><span class="badge-num">2</span> Chọn tốc độ rơi</div>
+      <div class="speed-row" id="speedRow">
+        <div class="speed-btn" data-speed="slow"><span class="emoji">🐢</span>Chậm</div>
+        <div class="speed-btn" data-speed="medium"><span class="emoji">🐇</span>Trung bình</div>
+        <div class="speed-btn" data-speed="fast"><span class="emoji">🚀</span>Nhanh</div>
+      </div>
+
+      <button class="start-btn" id="startBtn" disabled>▶ BẮT ĐẦU (10 phút)</button>
+      <p class="hint" id="hint">Hãy chọn ngón tay và tốc độ nhé!</p>
+    </div>
+  </div>
+
+  <!-- GAME SCREEN -->
+  <div id="game">
+    <div id="hud">
+      <div class="hud-chip">⌨️ <span id="fingerLabel">—</span></div>
+      <div class="hud-chip" id="timeChip">⏳ <span id="timeLeft">10:00</span></div>
+      <div class="hud-chip">⭐ <span class="label">Số chữ đúng:&nbsp;</span><span id="scoreVal">0</span></div>
+      <button id="stopBtn">⏹ Dừng lại</button>
+    </div>
+    <div id="playfield">
+      <div class="ground-line"></div>
+    </div>
+  </div>
+
+</div>
 
 <script>
-/* ======================================================================
-   NGÂN HÀNG CÂU HỎI
-   Cô giáo có thể thay bằng file JSON riêng ở mục "Cô giáo".
-   ====================================================================== */
-const TEN_CHU_DE = {
-  1:"Máy tính và em",
-  2:"Mạng máy tính và Internet",
-  3:"Tổ chức lưu trữ, tìm kiếm và trao đổi thông tin",
-  4:"Đạo đức, pháp luật và văn hóa trong môi trường số",
-  5:"Ứng dụng tin học",
-  6:"Giải quyết vấn đề với sự trợ giúp của máy tính"
-};
+(function(){
+  // ---------- Cấu hình ngón tay & phím tương ứng ----------
+  const FINGER_GROUPS = [
+    { id:'lp',  name:'Út (trái)',     keys:['Q','A','Z'] },
+    { id:'lr',  name:'Áp út (trái)',  keys:['W','S','X'] },
+    { id:'lm',  name:'Giữa (trái)',   keys:['E','D','C'] },
+    { id:'li',  name:'Trỏ (trái)',    keys:['R','F','V','T','G','B'] },
+    { id:'ri',  name:'Trỏ (phải)',    keys:['Y','H','N','U','J','M'] },
+    { id:'rm',  name:'Giữa (phải)',   keys:['I','K'] },
+    { id:'rr',  name:'Áp út (phải)',  keys:['O','L'] },
+    { id:'rp',  name:'Út (phải)',     keys:['P'] },
+  ];
+  const ALL_KEYS = FINGER_GROUPS.flatMap(f=>f.keys);
 
-let NGAN_HANG = [
- {
-  "id": "CD1.B1.M1.001",
-  "chu_de": 1,
-  "bai": 1,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Khi nghe thấy tiếng trống trường, em biết đã đến giờ vào lớp. Tiếng trống trường là gì?",
-  "phuong_an": [
-   "Thông tin",
-   "Quyết định",
-   "Đồ vật",
-   "Máy tính"
-  ],
-  "dap_an": 0,
-  "giai_thich": "Tiếng trống là thông tin mà em thu nhận được bằng tai."
- },
- {
-  "id": "CD1.B1.M1.002",
-  "chu_de": 1,
-  "bai": 1,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Bộ phận nào của cơ thể giúp em nghe được âm thanh?",
-  "phuong_an": [
-   "Mắt",
-   "Tai",
-   "Mũi",
-   "Tay"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Tai giúp em thu nhận thông tin dạng âm thanh."
- },
- {
-  "id": "CD1.B1.M1.003",
-  "chu_de": 1,
-  "bai": 1,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Nhờ có thông tin, em làm được điều gì?",
-  "phuong_an": [
-   "Đưa ra quyết định đúng",
-   "Cao lớn hơn",
-   "Chạy nhanh hơn",
-   "Ngủ ngon hơn"
-  ],
-  "dap_an": 0,
-  "giai_thich": "Em thu nhận thông tin rồi dựa vào đó để quyết định nên làm gì."
- },
- {
-  "id": "CD1.B2.M1.004",
-  "chu_de": 1,
-  "bai": 2,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Bộ phận nào của cơ thể giúp em suy nghĩ và xử lí thông tin?",
-  "phuong_an": [
-   "Bộ não",
-   "Bàn chân",
-   "Lá phổi",
-   "Cánh tay"
-  ],
-  "dap_an": 0,
-  "giai_thich": "Bộ não là nơi xử lí mọi thông tin mà các giác quan thu nhận được."
- },
- {
-  "id": "CD1.B2.M1.005",
-  "chu_de": 1,
-  "bai": 2,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Quá trình xử lí thông tin gồm mấy bước?",
-  "phuong_an": [
-   "Một bước",
-   "Hai bước",
-   "Ba bước",
-   "Bốn bước"
-  ],
-  "dap_an": 2,
-  "giai_thich": "Ba bước: nhận thông tin vào, xử lí, rồi đưa ra kết quả."
- },
- {
-  "id": "CD1.B3.M1.006",
-  "chu_de": 1,
-  "bai": 3,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Bộ phận nào của máy tính giúp em nhìn thấy hình ảnh và chữ?",
-  "phuong_an": [
-   "Bàn phím",
-   "Màn hình",
-   "Con chuột",
-   "Thân máy"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Màn hình là nơi máy tính hiển thị thông tin cho em xem."
- },
- {
-  "id": "CD1.B3.M1.007",
-  "chu_de": 1,
-  "bai": 3,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Bộ phận nào của máy tính dùng để gõ chữ và số?",
-  "phuong_an": [
-   "Loa",
-   "Màn hình",
-   "Bàn phím",
-   "Máy in"
-  ],
-  "dap_an": 2,
-  "giai_thich": "Bàn phím giúp em đưa chữ và số vào máy tính."
- },
- {
-  "id": "CD1.B3.M1.008",
-  "chu_de": 1,
-  "bai": 3,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Loại máy tính nào có thể gập lại và mang theo bên mình?",
-  "phuong_an": [
-   "Máy tính để bàn",
-   "Máy tính xách tay",
-   "Máy in",
-   "Máy chiếu"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Máy tính xách tay gọn nhẹ nên em mang đi được nhiều nơi."
- },
- {
-  "id": "CD1.B3.M1.009",
-  "chu_de": 1,
-  "bai": 3,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Bộ phận nào của máy tính giúp em nghe được âm thanh?",
-  "phuong_an": [
-   "Loa",
-   "Chuột",
-   "Bàn phím",
-   "Màn hình"
-  ],
-  "dap_an": 0,
-  "giai_thich": "Loa đưa thông tin dạng âm thanh ra ngoài cho em nghe."
- },
- {
-  "id": "CD1.B3.M1.010",
-  "chu_de": 1,
-  "bai": 3,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "noi_cot",
-  "diem": 2,
-  "cau_hoi": "Nối mỗi bộ phận của máy tính với chức năng đúng.",
-  "cot_a": [
-   "Màn hình",
-   "Bàn phím",
-   "Con chuột",
-   "Loa"
-  ],
-  "cot_b": [
-   "Hiện hình ảnh và chữ cho em xem",
-   "Dùng để gõ chữ và số",
-   "Dùng để trỏ và nháy chọn",
-   "Phát ra âm thanh"
-  ],
-  "dap_an": [
-   0,
-   1,
-   2,
-   3
-  ],
-  "giai_thich": "Mỗi bộ phận của máy tính có một nhiệm vụ riêng."
- },
- {
-  "id": "CD1.B4.M1.011",
-  "chu_de": 1,
-  "bai": 4,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Trước khi tắt máy tính, việc đầu tiên em cần làm là gì?",
-  "phuong_an": [
-   "Rút dây điện ra",
-   "Đóng các chương trình đang mở",
-   "Tắt màn hình",
-   "Gấp máy lại"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Đóng chương trình trước để không mất bài em đang làm."
- },
- {
-  "id": "CD1.B4.M1.012",
-  "chu_de": 1,
-  "bai": 4,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Khi ngồi học với máy tính, mắt em nên cách màn hình khoảng bao xa?",
-  "phuong_an": [
-   "Sát vào màn hình",
-   "Khoảng một cánh tay",
-   "Xa hết cỡ căn phòng",
-   "Bao xa cũng được"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Khoảng một cánh tay giúp mắt em đỡ mỏi khi nhìn lâu."
- },
- {
-  "id": "CD1.B5.M1.013",
-  "chu_de": 1,
-  "bai": 5,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Hàng phím có hai phím có gai là hàng phím nào?",
-  "phuong_an": [
-   "Hàng phím số",
-   "Hàng phím trên",
-   "Hàng phím cơ sở",
-   "Hàng phím dưới"
-  ],
-  "dap_an": 2,
-  "giai_thich": "Hai phím có gai nằm ở hàng phím cơ sở."
- },
- {
-  "id": "CD1.B5.M1.014",
-  "chu_de": 1,
-  "bai": 5,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Hai phím có gai trên bàn phím là hai phím nào?",
-  "phuong_an": [
-   "A và L",
-   "F và J",
-   "Q và P",
-   "Z và M"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Hai ngón trỏ đặt lên phím F và J để em gõ mà không cần nhìn."
- },
- {
-  "id": "CD1.B5.M1.015",
-  "chu_de": 1,
-  "bai": 5,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Phím dài nhất trên bàn phím dùng để làm gì?",
-  "phuong_an": [
-   "Xóa chữ",
-   "Gõ dấu cách giữa hai từ",
-   "Xuống dòng",
-   "Viết chữ hoa"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Phím cách tạo khoảng trống giữa các từ."
- },
- {
-  "id": "CD1.B2.M2.016",
-  "chu_de": 1,
-  "bai": 2,
-  "hoc_ki": 1,
-  "muc_do": 2,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Em nhìn thấy đèn giao thông màu đỏ nên em dừng lại. Việc dừng lại là gì?",
-  "phuong_an": [
-   "Thông tin nhận vào",
-   "Kết quả xử lí thông tin",
-   "Việc lưu trữ",
-   "Việc in ra"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Nhìn thấy đèn đỏ là thông tin vào, em suy nghĩ rồi dừng lại — đó là kết quả."
- },
- {
-  "id": "CD1.B2.M2.017",
-  "chu_de": 1,
-  "bai": 2,
-  "hoc_ki": 1,
-  "muc_do": 2,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Em ngửi thấy mùi thơm từ nhà bếp nên biết mẹ đang nấu ăn. Mùi thơm đó là gì?",
-  "phuong_an": [
-   "Thông tin nhận vào",
-   "Kết quả xử lí",
-   "Quyết định của em",
-   "Một đồ vật"
-  ],
-  "dap_an": 0,
-  "giai_thich": "Mùi thơm là thông tin em thu nhận được bằng mũi."
- },
- {
-  "id": "CD1.B2.M2.018",
-  "chu_de": 1,
-  "bai": 2,
-  "hoc_ki": 1,
-  "muc_do": 2,
-  "dang": "noi_cot",
-  "diem": 2,
-  "cau_hoi": "Nối mỗi giác quan với loại thông tin mà nó thu nhận được.",
-  "cot_a": [
-   "Mắt",
-   "Tai",
-   "Mũi",
-   "Lưỡi"
-  ],
-  "cot_b": [
-   "Hình ảnh, màu sắc",
-   "Âm thanh, tiếng động",
-   "Mùi hương",
-   "Vị chua, ngọt, mặn"
-  ],
-  "dap_an": [
-   0,
-   1,
-   2,
-   3
-  ],
-  "giai_thich": "Mỗi giác quan giúp em thu nhận một loại thông tin khác nhau."
- },
- {
-  "id": "CD1.B3.M2.019",
-  "chu_de": 1,
-  "bai": 3,
-  "hoc_ki": 1,
-  "muc_do": 2,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Hai bộ phận nào của máy tính dùng để đưa thông tin vào?",
-  "phuong_an": [
-   "Màn hình và loa",
-   "Bàn phím và con chuột",
-   "Loa và máy in",
-   "Màn hình và thân máy"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Bàn phím và chuột nhận thông tin từ em, còn màn hình và loa đưa kết quả ra."
- },
- {
-  "id": "CD1.B3.M2.020",
-  "chu_de": 1,
-  "bai": 3,
-  "hoc_ki": 1,
-  "muc_do": 2,
-  "dang": "sap_xep",
-  "diem": 1,
-  "cau_hoi": "Hãy bấm lần lượt để sắp xếp đúng thứ tự các bước khởi động máy tính để bàn.",
-  "cac_buoc": [
-   "Chờ màn hình hiện ra để bắt đầu làm việc",
-   "Bật công tắc trên thân máy",
-   "Bật công tắc màn hình"
-  ],
-  "dap_an": [
-   1,
-   2,
-   0
-  ],
-  "giai_thich": "Bật thân máy trước, rồi bật màn hình, sau đó chờ máy sẵn sàng."
- },
- {
-  "id": "CD1.B3.M2.021",
-  "chu_de": 1,
-  "bai": 3,
-  "hoc_ki": 1,
-  "muc_do": 2,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Bạn Hoa muốn in bài vẽ của mình ra giấy. Bạn cần thêm thiết bị nào?",
-  "phuong_an": [
-   "Máy in",
-   "Cái loa",
-   "Con chuột",
-   "Bàn phím"
-  ],
-  "dap_an": 0,
-  "giai_thich": "Máy in đưa thông tin từ máy tính ra giấy."
- },
- {
-  "id": "CD1.B4.M2.022",
-  "chu_de": 1,
-  "bai": 4,
-  "hoc_ki": 1,
-  "muc_do": 2,
-  "dang": "sap_xep",
-  "diem": 1,
-  "cau_hoi": "Hãy bấm lần lượt để sắp xếp đúng thứ tự các bước tắt máy tính.",
-  "cac_buoc": [
-   "Chọn Shut down",
-   "Đóng các chương trình đang mở",
-   "Tắt màn hình (nếu cần)",
-   "Nháy chuột vào nút Start"
-  ],
-  "dap_an": [
-   1,
-   3,
-   0,
-   2
-  ],
-  "giai_thich": "Đóng chương trình trước để không mất bài đang làm, rồi mới tắt máy."
- },
- {
-  "id": "CD1.B4.M2.023",
-  "chu_de": 1,
-  "bai": 4,
-  "hoc_ki": 1,
-  "muc_do": 2,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Ngồi học với máy tính đúng cách là ngồi như thế nào?",
-  "phuong_an": [
-   "Nằm dài trên ghế",
-   "Lưng thẳng, hai chân đặt trên sàn",
-   "Cúi sát mặt vào màn hình",
-   "Ngồi nghiêng hẳn sang một bên"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Ngồi thẳng lưng giúp em bảo vệ mắt và cột sống."
- },
- {
-  "id": "CD1.B4.M2.024",
-  "chu_de": 1,
-  "bai": 4,
-  "hoc_ki": 1,
-  "muc_do": 2,
-  "dang": "dung_sai",
-  "diem": 1,
-  "cau_hoi": "Chọn Đúng hoặc Sai cho mỗi việc làm khi sử dụng máy tính.",
-  "cac_y": [
-   "Cứ khoảng 20 phút em nên nhìn ra xa cho đỡ mỏi mắt.",
-   "Em vừa ăn uống vừa dùng máy tính cũng không sao.",
-   "Em tắt máy tính đúng cách trước khi ra về.",
-   "Em kéo mạnh dây điện để tắt máy cho nhanh."
-  ],
-  "dap_an": [
-   true,
-   false,
-   true,
-   false
-  ],
-  "giai_thich": "Nghỉ mắt và tắt máy đúng cách giúp em khỏe và máy bền hơn."
- },
- {
-  "id": "CD1.B4.M2.025",
-  "chu_de": 1,
-  "bai": 4,
-  "hoc_ki": 1,
-  "muc_do": 2,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Bạn Lan dùng máy tính liên tục ba giờ không nghỉ. Điều gì có thể xảy ra với bạn?",
-  "phuong_an": [
-   "Bạn học giỏi hơn",
-   "Mắt bạn bị mỏi và lưng bị đau",
-   "Máy tính chạy nhanh hơn",
-   "Không có gì xảy ra"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Dùng máy quá lâu làm mỏi mắt và đau lưng, cần nghỉ giữa giờ."
- },
- {
-  "id": "CD1.B5.M2.026",
-  "chu_de": 1,
-  "bai": 5,
-  "hoc_ki": 1,
-  "muc_do": 2,
-  "dang": "dung_sai",
-  "diem": 1,
-  "cau_hoi": "Chọn Đúng hoặc Sai cho mỗi việc làm khi gõ bàn phím.",
-  "cac_y": [
-   "Đặt hai ngón trỏ lên hai phím có gai.",
-   "Vừa gõ vừa nhìn chằm chằm vào bàn phím.",
-   "Gõ phím dứt khoát, không đập mạnh.",
-   "Ngồi thẳng lưng khi gõ."
-  ],
-  "dap_an": [
-   true,
-   false,
-   true,
-   true
-  ],
-  "giai_thich": "Gõ đúng cách giúp em gõ nhanh hơn và không mỏi tay."
- },
- {
-  "id": "CD1.B5.M2.027",
-  "chu_de": 1,
-  "bai": 5,
-  "hoc_ki": 1,
-  "muc_do": 2,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Vì sao hai phím có gai lại quan trọng khi em tập gõ?",
-  "phuong_an": [
-   "Vì hai phím đó gõ được nhiều chữ nhất",
-   "Vì chúng giúp em đặt tay đúng chỗ mà không cần nhìn",
-   "Vì chúng có màu khác các phím kia",
-   "Vì chúng nằm ở giữa bàn phím"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Sờ thấy gai là em biết ngay hai ngón trỏ đã đúng vị trí."
- },
- {
-  "id": "CD1.B5.M2.028",
-  "chu_de": 1,
-  "bai": 5,
-  "hoc_ki": 1,
-  "muc_do": 2,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Em gõ nhầm một chữ cái. Em nên làm gì?",
-  "phuong_an": [
-   "Tắt máy đi làm lại từ đầu",
-   "Dùng phím xóa để xóa chữ đó rồi gõ lại",
-   "Cứ để nguyên như vậy",
-   "Gọi bạn gõ hộ"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Phím xóa giúp em sửa lỗi ngay mà không phải làm lại từ đầu."
- },
- {
-  "id": "CD1.B2.M3.029",
-  "chu_de": 1,
-  "bai": 2,
-  "hoc_ki": 1,
-  "muc_do": 3,
-  "dang": "tu_luan_ngan",
-  "diem": 1,
-  "cau_hoi": "Em hãy nêu một việc trong ngày của em và chỉ ra đâu là thông tin nhận vào, đâu là kết quả.",
-  "dap_an_goi_y": "Ví dụ: em nhìn thấy trời tối và có mây đen (thông tin nhận vào), em suy nghĩ rồi mang theo áo mưa khi đi học (kết quả)."
- },
- {
-  "id": "CD1.B3.M3.030",
-  "chu_de": 1,
-  "bai": 3,
-  "hoc_ki": 1,
-  "muc_do": 3,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Một bạn nói: “Máy tính tự nó biết làm bài tập cho em.” Ý kiến đó đúng hay sai?",
-  "phuong_an": [
-   "Đúng, máy tính tự làm được tất cả",
-   "Sai, máy tính chỉ giúp em khi em ra lệnh cho nó",
-   "Đúng, vì máy tính thông minh hơn người",
-   "Sai, vì máy tính không làm được gì cả"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Máy tính là công cụ giúp em, nhưng em mới là người quyết định phải làm gì."
- },
- {
-  "id": "CD1.B4.M3.031",
-  "chu_de": 1,
-  "bai": 4,
-  "hoc_ki": 1,
-  "muc_do": 3,
-  "dang": "tu_luan_ngan",
-  "diem": 1,
-  "cau_hoi": "Em thấy bạn ngồi cúi sát mặt vào màn hình máy tính và đã ngồi rất lâu. Em sẽ khuyên bạn điều gì?",
-  "dap_an_goi_y": "Khuyên bạn ngồi thẳng lưng, để mắt cách màn hình khoảng một cánh tay, và nên nghỉ giải lao nhìn ra xa cho đỡ mỏi mắt."
- },
- {
-  "id": "CD1.B4.M3.032",
-  "chu_de": 1,
-  "bai": 4,
-  "hoc_ki": 1,
-  "muc_do": 3,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Đang làm bài dở trên máy thì đến giờ về. Em nên làm gì trước tiên?",
-  "phuong_an": [
-   "Tắt màn hình rồi đi về ngay",
-   "Lưu bài lại, đóng chương trình rồi tắt máy đúng cách",
-   "Rút dây điện cho nhanh",
-   "Để nguyên máy đang bật"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Lưu bài trước thì lần sau em mở ra làm tiếp được."
- },
- {
-  "id": "CD1.B5.M3.033",
-  "chu_de": 1,
-  "bai": 5,
-  "hoc_ki": 1,
-  "muc_do": 3,
-  "dang": "tu_luan_ngan",
-  "diem": 1,
-  "cau_hoi": "Vì sao thầy cô khuyên em tập gõ bàn phím mà không nhìn xuống tay?",
-  "dap_an_goi_y": "Vì khi quen rồi em sẽ gõ nhanh hơn nhiều, mắt được nhìn lên màn hình để kiểm tra bài, và cổ đỡ mỏi vì không phải cúi xuống."
- },
- {
-  "id": "CD2.B6.M1.034",
-  "chu_de": 2,
-  "bai": 6,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Em có thể dùng Internet để làm việc nào sau đây?",
-  "phuong_an": [
-   "Quét nhà giúp mẹ",
-   "Tưới cây trong vườn",
-   "Tìm thông tin và xem tin tức",
-   "Nấu bữa cơm tối"
-  ],
-  "dap_an": 2,
-  "giai_thich": "Internet giúp em tìm thông tin, học tập và giải trí."
- },
- {
-  "id": "CD2.B6.M1.035",
-  "chu_de": 2,
-  "bai": 6,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Trên Internet, thông tin thường được đặt ở đâu để em xem?",
-  "phuong_an": [
-   "Các trang web",
-   "Các quyển vở",
-   "Các bức tường",
-   "Các chiếc hộp"
-  ],
-  "dap_an": 0,
-  "giai_thich": "Mỗi trang web chứa chữ, hình ảnh, video để em xem."
- },
- {
-  "id": "CD2.B6.M1.036",
-  "chu_de": 2,
-  "bai": 6,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Muốn mở một trang web, em cần biết điều gì?",
-  "phuong_an": [
-   "Địa chỉ của trang web",
-   "Tên người làm ra trang web",
-   "Ngày trang web ra đời",
-   "Màu sắc của trang web"
-  ],
-  "dap_an": 0,
-  "giai_thich": "Địa chỉ trang web giống địa chỉ nhà, giúp máy tính tìm đúng nơi cần đến."
- },
- {
-  "id": "CD2.B6.M1.037",
-  "chu_de": 2,
-  "bai": 6,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Khi muốn truy cập Internet ở nhà, em nên làm gì?",
-  "phuong_an": [
-   "Tự vào lúc nào cũng được",
-   "Xin phép và nhờ người lớn hướng dẫn",
-   "Chỉ vào lúc đêm khuya",
-   "Không cho ai biết"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Có người lớn bên cạnh, em sẽ tránh được những trang không phù hợp."
- },
- {
-  "id": "CD2.B6.M2.038",
-  "chu_de": 2,
-  "bai": 6,
-  "hoc_ki": 1,
-  "muc_do": 2,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Em cần tìm hình con voi để làm bài tập. Cách nào là hợp lí nhất?",
-  "phuong_an": [
-   "Vào trang tìm kiếm và gõ chữ “con voi”",
-   "Mở một trò chơi ra chơi",
-   "Gõ tên bạn cùng lớp để tìm",
-   "Tắt máy tính đi"
-  ],
-  "dap_an": 0,
-  "giai_thich": "Trang tìm kiếm giúp em tìm đúng thứ mình cần bằng từ khóa."
- },
- {
-  "id": "CD2.B6.M2.039",
-  "chu_de": 2,
-  "bai": 6,
-  "hoc_ki": 1,
-  "muc_do": 2,
-  "dang": "dung_sai",
-  "diem": 1,
-  "cau_hoi": "Chọn Đúng hoặc Sai cho mỗi việc làm khi dùng Internet.",
-  "cac_y": [
-   "Em xem bài giảng và video học tập trên Internet.",
-   "Em bấm vào mọi quảng cáo hiện lên trên màn hình.",
-   "Em hỏi thầy cô khi gặp trang web lạ.",
-   "Em ngồi xem Internet suốt cả buổi tối."
-  ],
-  "dap_an": [
-   true,
-   false,
-   true,
-   false
-  ],
-  "giai_thich": "Internet rất hữu ích nhưng em cần dùng có chừng mực và cẩn thận."
- },
- {
-  "id": "CD2.B6.M2.040",
-  "chu_de": 2,
-  "bai": 6,
-  "hoc_ki": 1,
-  "muc_do": 2,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Đang xem bài học thì một cửa sổ quảng cáo trò chơi hiện lên. Em nên làm gì?",
-  "phuong_an": [
-   "Bấm vào chơi thử một chút",
-   "Đóng cửa sổ đó lại và học tiếp",
-   "Nhập tên mình vào đó",
-   "Gọi các bạn cùng vào chơi"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Quảng cáo lạ có thể dẫn tới trang không an toàn, tốt nhất là đóng lại."
- },
- {
-  "id": "CD2.B6.M2.041",
-  "chu_de": 2,
-  "bai": 6,
-  "hoc_ki": 1,
-  "muc_do": 2,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Việc nào sau đây em KHÔNG cần dùng Internet vẫn làm được?",
-  "phuong_an": [
-   "Gọi video cho ông bà ở xa",
-   "Vẽ một bức tranh vào vở",
-   "Xem dự báo thời tiết ngày mai",
-   "Tìm bài hát mới"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Vẽ vào vở là việc em làm trực tiếp, không cần đến Internet."
- },
- {
-  "id": "CD2.B6.M3.042",
-  "chu_de": 2,
-  "bai": 6,
-  "hoc_ki": 1,
-  "muc_do": 3,
-  "dang": "tu_luan_ngan",
-  "diem": 1,
-  "cau_hoi": "Khi đang tìm hình con voi trên Internet, một trang web lạ hiện ra và yêu cầu em nhập tên, tuổi, số điện thoại của bố mẹ. Em sẽ làm gì? Vì sao?",
-  "dap_an_goi_y": "Không nhập bất kì thông tin nào và đóng trang web đó lại. Báo ngay cho thầy cô hoặc bố mẹ, vì thông tin cá nhân cần được giữ bí mật."
- },
- {
-  "id": "CD2.B6.M3.043",
-  "chu_de": 2,
-  "bai": 6,
-  "hoc_ki": 1,
-  "muc_do": 3,
-  "dang": "tu_luan_ngan",
-  "diem": 1,
-  "cau_hoi": "Em hãy nêu hai việc có ích mà em đã làm được nhờ Internet.",
-  "dap_an_goi_y": "Ví dụ: tìm hình ảnh và thông tin về các loài vật để làm bài; xem video hướng dẫn gấp giấy; gọi điện có hình cho ông bà ở xa."
- },
- {
-  "id": "CD3.B7.M1.044",
-  "chu_de": 3,
-  "bai": 7,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Sắp xếp sách vở và đồ dùng gọn gàng mang lại lợi ích gì?",
-  "phuong_an": [
-   "Tìm được nhanh hơn",
-   "Sách mới hơn",
-   "Bài dễ hơn",
-   "Cặp nhẹ hơn"
-  ],
-  "dap_an": 0,
-  "giai_thich": "Mọi thứ có chỗ riêng thì em tìm rất nhanh."
- },
- {
-  "id": "CD3.B7.M1.045",
-  "chu_de": 3,
-  "bai": 7,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Cách sắp xếp nào sau đây là hợp lí nhất cho giá sách của em?",
-  "phuong_an": [
-   "Xếp lẫn lộn cho nhanh",
-   "Xếp sách theo từng môn học",
-   "Xếp theo độ dày của sách",
-   "Chồng tất cả thành một đống"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Xếp theo nhóm giống nhau là cách dễ tìm nhất."
- },
- {
-  "id": "CD3.B8.M1.046",
-  "chu_de": 3,
-  "bai": 8,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Trong sơ đồ hình cây, thư mục ngoài cùng chứa tất cả các thư mục khác được gọi là gì?",
-  "phuong_an": [
-   "Thư mục gốc",
-   "Thư mục con",
-   "Tệp",
-   "Biểu tượng"
-  ],
-  "dap_an": 0,
-  "giai_thich": "Thư mục gốc giống như gốc cây, các thư mục con mọc ra từ đó."
- },
- {
-  "id": "CD3.B8.M1.047",
-  "chu_de": 3,
-  "bai": 8,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "quan_sat_hinh",
-  "diem": 1,
-  "cau_hoi": "Quan sát sơ đồ hình cây và trả lời: a) Thư mục LOP3A có mấy thư mục con? b) Tệp Tranh2 nằm trong thư mục nào?",
-  "mo_ta_hinh": "LOP3A\n ├── TOAN\n ├── TIENGVIET\n └── MITHUAT\n      ├── Tranh1\n      └── Tranh2",
-  "dap_an_goi_y": "a) 3 thư mục con.   b) Thư mục MITHUAT."
- },
- {
-  "id": "CD3.B9.M1.048",
-  "chu_de": 3,
-  "bai": 9,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Trong máy tính, nơi dùng để chứa các tệp và các thư mục khác được gọi là gì?",
-  "phuong_an": [
-   "Thư mục",
-   "Bàn phím",
-   "Con chuột",
-   "Màn hình"
-  ],
-  "dap_an": 0,
-  "giai_thich": "Thư mục giống chiếc hộp để cất giữ tệp và các thư mục nhỏ hơn."
- },
- {
-  "id": "CD3.B9.M1.049",
-  "chu_de": 3,
-  "bai": 9,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Muốn mở một thư mục trong máy tính, em thường dùng thao tác nào?",
-  "phuong_an": [
-   "Nháy đúp chuột vào thư mục",
-   "Gõ phím cách",
-   "Tắt màn hình",
-   "Kéo thư mục ra ngoài"
-  ],
-  "dap_an": 0,
-  "giai_thich": "Nháy đúp chuột là thao tác quen thuộc để mở tệp hoặc thư mục."
- },
- {
-  "id": "CD3.B9.M1.050",
-  "chu_de": 3,
-  "bai": 9,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "noi_cot",
-  "diem": 2,
-  "cau_hoi": "Nối mỗi tệp với loại nội dung mà nó chứa.",
-  "cot_a": [
-   "Tệp hình ảnh",
-   "Tệp âm thanh",
-   "Tệp văn bản",
-   "Tệp trình chiếu"
-  ],
-  "cot_b": [
-   "Bức tranh em vẽ",
-   "Bài hát em thích",
-   "Bài văn em viết",
-   "Các trang chiếu bài học"
-  ],
-  "dap_an": [
-   0,
-   1,
-   2,
-   3
-  ],
-  "giai_thich": "Mỗi loại tệp chứa một dạng thông tin khác nhau."
- },
- {
-  "id": "CD3.B9.M1.051",
-  "chu_de": 3,
-  "bai": 9,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Mỗi tệp trong máy tính đều có gì để em phân biệt với tệp khác?",
-  "phuong_an": [
-   "Một cái tên",
-   "Một màu sắc",
-   "Một mùi hương",
-   "Một âm thanh"
-  ],
-  "dap_an": 0,
-  "giai_thich": "Tên tệp giúp em biết tệp đó chứa gì và tìm lại được."
- },
- {
-  "id": "CD3.B7.M2.052",
-  "chu_de": 3,
-  "bai": 7,
-  "hoc_ki": 1,
-  "muc_do": 2,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Trong máy tính của Mai có nhiều tranh vẽ, bài hát và bài tập để lẫn lộn. Cách nào giúp Mai tìm nhanh nhất?",
-  "phuong_an": [
-   "Xóa bớt các tệp đi",
-   "Tạo ba thư mục riêng cho từng loại",
-   "Đổi tên tất cả các tệp thành số",
-   "Để nguyên như cũ"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Sắp xếp theo nhóm giúp tìm kiếm nhanh hơn nhiều."
- },
- {
-  "id": "CD3.B8.M2.053",
-  "chu_de": 3,
-  "bai": 8,
-  "hoc_ki": 1,
-  "muc_do": 2,
-  "dang": "quan_sat_hinh",
-  "diem": 1,
-  "cau_hoi": "Quan sát sơ đồ và trả lời: a) Thư mục HOCTAP có mấy thư mục con? b) Muốn mở tệp Bai1, em phải đi qua những thư mục nào?",
-  "mo_ta_hinh": "HOCTAP\n ├── TOAN\n │    ├── Bai1\n │    └── Bai2\n └── TIENGVIET\n      └── Chinhta",
-  "dap_an_goi_y": "a) 2 thư mục con là TOAN và TIENGVIET.   b) Mở HOCTAP rồi mở TOAN thì thấy tệp Bai1."
- },
- {
-  "id": "CD3.B8.M2.054",
-  "chu_de": 3,
-  "bai": 8,
-  "hoc_ki": 1,
-  "muc_do": 2,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Vì sao người ta gọi cách tổ chức thông tin trong máy tính là “sơ đồ hình cây”?",
-  "phuong_an": [
-   "Vì máy tính làm bằng gỗ",
-   "Vì các thư mục phân nhánh ra giống cành cây",
-   "Vì thư mục có màu xanh lá",
-   "Vì phải trồng cây mới dùng được"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Từ một thư mục gốc, các thư mục con phân nhánh ra giống các cành cây."
- },
- {
-  "id": "CD3.B9.M2.055",
-  "chu_de": 3,
-  "bai": 9,
-  "hoc_ki": 1,
-  "muc_do": 2,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Cách đặt tên thư mục nào sau đây giúp em dễ tìm nhất?",
-  "phuong_an": [
-   "aaa",
-   "Bai tap Toan lop 3",
-   "xxx123",
-   "Thư mục mới"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Tên nói rõ bên trong chứa gì thì lần sau em tìm rất nhanh."
- },
- {
-  "id": "CD3.B9.M2.056",
-  "chu_de": 3,
-  "bai": 9,
-  "hoc_ki": 1,
-  "muc_do": 2,
-  "dang": "dung_sai",
-  "diem": 1,
-  "cau_hoi": "Chọn Đúng hoặc Sai cho mỗi việc làm khi sắp xếp tệp trong máy tính.",
-  "cac_y": [
-   "Đặt tên thư mục rõ nghĩa để dễ nhận ra.",
-   "Xóa những tệp em không biết là của ai.",
-   "Gom các tệp cùng loại vào một thư mục.",
-   "Để tất cả tệp rải rác trên màn hình nền."
-  ],
-  "dap_an": [
-   true,
-   false,
-   true,
-   false
-  ],
-  "giai_thich": "Tệp lạ có thể là của thầy cô hoặc của máy, em không nên tự ý xóa."
- },
- {
-  "id": "CD3.B9.M2.057",
-  "chu_de": 3,
-  "bai": 9,
-  "hoc_ki": 1,
-  "muc_do": 2,
-  "dang": "sap_xep",
-  "diem": 1,
-  "cau_hoi": "Hãy bấm lần lượt để sắp xếp đúng thứ tự các bước tạo một thư mục mới.",
-  "cac_buoc": [
-   "Gõ tên cho thư mục mới",
-   "Mở nơi em muốn đặt thư mục",
-   "Chọn lệnh tạo thư mục mới",
-   "Nhấn phím Enter để hoàn tất"
-  ],
-  "dap_an": [
-   1,
-   2,
-   0,
-   3
-  ],
-  "giai_thich": "Mở đúng nơi cần đặt trước, rồi mới tạo và đặt tên cho thư mục."
- },
- {
-  "id": "CD3.B9.M2.058",
-  "chu_de": 3,
-  "bai": 9,
-  "hoc_ki": 1,
-  "muc_do": 2,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Em đặt hai thư mục cùng tên “BAITAP” trong cùng một chỗ. Điều gì xảy ra?",
-  "phuong_an": [
-   "Máy tính không cho phép vì tên bị trùng",
-   "Máy tính tự ghép hai thư mục lại",
-   "Máy tính tắt đi",
-   "Không có gì xảy ra"
-  ],
-  "dap_an": 0,
-  "giai_thich": "Trong cùng một nơi, mỗi thư mục phải có một tên riêng để không nhầm lẫn."
- },
- {
-  "id": "CD3.B7.M3.059",
-  "chu_de": 3,
-  "bai": 7,
-  "hoc_ki": 1,
-  "muc_do": 3,
-  "dang": "tu_luan_ngan",
-  "diem": 1,
-  "cau_hoi": "Bạn Nam có 12 bức ảnh chuyến đi chơi và 8 bài tập Toán để lẫn trên màn hình nền nên tìm rất lâu. Em hãy nêu cách giúp bạn sắp xếp lại.",
-  "dap_an_goi_y": "Tạo hai thư mục riêng, đặt tên rõ nghĩa (ví dụ Anh di choi, Bai tap Toan), rồi chuyển đúng tệp vào từng thư mục."
- },
- {
-  "id": "CD3.B8.M3.060",
-  "chu_de": 3,
-  "bai": 8,
-  "hoc_ki": 1,
-  "muc_do": 3,
-  "dang": "tu_luan_ngan",
-  "diem": 1,
-  "cau_hoi": "Em muốn cất giữ bài học của ba môn Toán, Tiếng Việt và Mĩ thuật trong máy tính. Em sẽ tạo các thư mục như thế nào?",
-  "dap_an_goi_y": "Tạo một thư mục chung tên HOCTAP, bên trong tạo ba thư mục con là TOAN, TIENGVIET, MITHUAT, rồi đưa bài của môn nào vào thư mục của môn đó."
- },
- {
-  "id": "CD3.B9.M3.061",
-  "chu_de": 3,
-  "bai": 9,
-  "hoc_ki": 1,
-  "muc_do": 3,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Bạn Hà đặt tên tất cả các tệp bài vẽ là “abc1, abc2, abc3”. Vì sao cách này chưa tốt?",
-  "phuong_an": [
-   "Vì tên quá ngắn",
-   "Vì nhìn tên không biết mỗi tệp vẽ gì",
-   "Vì tên có chữ số",
-   "Vì tên viết bằng chữ thường"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Tên tệp nên cho biết nội dung bên trong để lần sau tìm lại được ngay."
- },
- {
-  "id": "CD4.B10.M1.062",
-  "chu_de": 4,
-  "bai": 10,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Thông tin nào sau đây là thông tin cá nhân em cần giữ bí mật?",
-  "phuong_an": [
-   "Tên loài hoa em thích",
-   "Số điện thoại của bố mẹ",
-   "Màu sắc em yêu thích",
-   "Tên môn học em thích"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Số điện thoại, địa chỉ nhà, mật khẩu đều là thông tin cần giữ bí mật."
- },
- {
-  "id": "CD4.B10.M1.063",
-  "chu_de": 4,
-  "bai": 10,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Mật khẩu dùng để làm gì?",
-  "phuong_an": [
-   "Trang trí cho máy tính",
-   "Bảo vệ không cho người khác vào máy của em",
-   "Làm máy chạy nhanh hơn",
-   "Gọi điện cho bạn bè"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Mật khẩu giống chiếc khóa cửa, chỉ mình em biết."
- },
- {
-  "id": "CD4.B10.M1.064",
-  "chu_de": 4,
-  "bai": 10,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Khi gặp điều gì đó khiến em thấy sợ hoặc khó chịu trên máy tính, em nên làm gì?",
-  "phuong_an": [
-   "Giấu không cho ai biết",
-   "Nói ngay với thầy cô hoặc bố mẹ",
-   "Xóa hết bài của mình",
-   "Tắt máy rồi quên đi"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Người lớn sẽ giúp em xử lí và em sẽ an toàn hơn."
- },
- {
-  "id": "CD4.B10.M1.065",
-  "chu_de": 4,
-  "bai": 10,
-  "hoc_ki": 1,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Dùng xong máy tính chung ở phòng máy, em nên làm gì với tài khoản của mình?",
-  "phuong_an": [
-   "Để nguyên đang đăng nhập",
-   "Đăng xuất ra khỏi tài khoản",
-   "Đổi tên tài khoản",
-   "Xóa tài khoản đi"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Đăng xuất để bạn khác không vào được tài khoản của em."
- },
- {
-  "id": "CD4.B10.M2.066",
-  "chu_de": 4,
-  "bai": 10,
-  "hoc_ki": 1,
-  "muc_do": 2,
-  "dang": "dung_sai",
-  "diem": 1,
-  "cau_hoi": "Chọn Đúng hoặc Sai cho mỗi việc làm sau.",
-  "cac_y": [
-   "Em nói mật khẩu máy tính của mình cho các bạn cùng biết.",
-   "Em chỉ sử dụng máy tính khi được thầy cô hoặc bố mẹ cho phép.",
-   "Khi thấy hình ảnh lạ, đáng sợ hiện lên, em báo ngay cho người lớn.",
-   "Em ghi số điện thoại và địa chỉ nhà mình lên một trang web lạ."
-  ],
-  "dap_an": [
-   false,
-   true,
-   true,
-   false
-  ],
-  "giai_thich": "Thông tin cá nhân cần giữ bí mật và luôn hỏi người lớn khi gặp điều lạ."
- },
- {
-  "id": "CD4.B10.M2.067",
-  "chu_de": 4,
-  "bai": 10,
-  "hoc_ki": 1,
-  "muc_do": 2,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Một bạn mượn máy tính của em và hỏi mật khẩu. Em nên làm thế nào?",
-  "phuong_an": [
-   "Nói mật khẩu cho bạn vì là bạn thân",
-   "Không nói, và tự em mở máy giúp bạn nếu cần",
-   "Viết mật khẩu ra giấy đưa bạn",
-   "Đổi mật khẩu thành tên bạn"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Mật khẩu là của riêng em, không nên chia sẻ với ai."
- },
- {
-  "id": "CD4.B10.M2.068",
-  "chu_de": 4,
-  "bai": 10,
-  "hoc_ki": 1,
-  "muc_do": 2,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Em nhận được một thư lạ kèm đường liên kết hứa tặng quà. Em nên làm gì?",
-  "phuong_an": [
-   "Bấm vào ngay để nhận quà",
-   "Không bấm và hỏi ý kiến người lớn",
-   "Gửi tiếp cho các bạn",
-   "Trả lời thư đó bằng tên thật của em"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Những lời hứa tặng quà bất ngờ thường là bẫy lừa."
- },
- {
-  "id": "CD4.B10.M2.069",
-  "chu_de": 4,
-  "bai": 10,
-  "hoc_ki": 1,
-  "muc_do": 2,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Mật khẩu nào sau đây là khó đoán nhất?",
-  "phuong_an": [
-   "123456",
-   "Tên của em",
-   "Ngày sinh của em",
-   "Một câu chỉ mình em nhớ, có cả chữ và số"
-  ],
-  "dap_an": 3,
-  "giai_thich": "Mật khẩu càng riêng và càng khó đoán thì càng an toàn."
- },
- {
-  "id": "CD4.B10.M2.070",
-  "chu_de": 4,
-  "bai": 10,
-  "hoc_ki": 1,
-  "muc_do": 2,
-  "dang": "dung_sai",
-  "diem": 1,
-  "cau_hoi": "Chọn Đúng hoặc Sai cho mỗi việc làm khi dùng máy tính chung ở lớp.",
-  "cac_y": [
-   "Em tự ý mở và đọc bài của bạn khác.",
-   "Em giữ gìn máy tính cẩn thận, không viết vẽ lên máy.",
-   "Em xóa bài của bạn cho rộng chỗ.",
-   "Em báo thầy cô khi máy tính bị hỏng."
-  ],
-  "dap_an": [
-   false,
-   true,
-   false,
-   true
-  ],
-  "giai_thich": "Máy tính chung cần được giữ gìn và tôn trọng bài làm của bạn khác."
- },
- {
-  "id": "CD4.B10.M3.071",
-  "chu_de": 4,
-  "bai": 10,
-  "hoc_ki": 1,
-  "muc_do": 3,
-  "dang": "tu_luan_ngan",
-  "diem": 1,
-  "cau_hoi": "Em thấy bạn cùng lớp đang định ghi tên trường và địa chỉ nhà mình lên một trang web lạ. Em sẽ nói gì với bạn?",
-  "dap_an_goi_y": "Khuyên bạn dừng lại vì đó là thông tin cá nhân cần giữ bí mật, người lạ biết được có thể gây hại; nên hỏi ý kiến thầy cô hoặc bố mẹ trước."
- },
- {
-  "id": "CD4.B10.M3.072",
-  "chu_de": 4,
-  "bai": 10,
-  "hoc_ki": 1,
-  "muc_do": 3,
-  "dang": "tu_luan_ngan",
-  "diem": 1,
-  "cau_hoi": "Em hãy nêu ba việc em sẽ làm để giữ an toàn cho mình khi sử dụng máy tính.",
-  "dap_an_goi_y": "Ví dụ: không cho ai biết mật khẩu; không ghi thông tin cá nhân lên trang web lạ; báo ngay cho người lớn khi gặp điều lạ hoặc đáng sợ."
- },
- {
-  "id": "CD4.B10.M3.073",
-  "chu_de": 4,
-  "bai": 10,
-  "hoc_ki": 1,
-  "muc_do": 3,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Một người lạ trên mạng nhắn tin xưng là bạn của bố em và hỏi địa chỉ nhà. Em nên làm gì?",
-  "phuong_an": [
-   "Trả lời vì đó là bạn của bố",
-   "Không trả lời và kể ngay cho bố mẹ biết",
-   "Hỏi lại tên đầy đủ rồi mới trả lời",
-   "Nhờ bạn cùng lớp trả lời hộ"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Người lạ trên mạng có thể nói dối, em luôn hỏi bố mẹ trước."
- },
- {
-  "id": "CD5.B11.M1.074",
-  "chu_de": 5,
-  "bai": 11,
-  "hoc_ki": 2,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Một bài trình chiếu được tạo thành từ những gì?",
-  "phuong_an": [
-   "Các trang chiếu",
-   "Các thư mục",
-   "Các con chuột",
-   "Các bàn phím"
-  ],
-  "dap_an": 0,
-  "giai_thich": "Bài trình chiếu gồm nhiều trang chiếu nối tiếp nhau."
- },
- {
-  "id": "CD5.B11.M1.075",
-  "chu_de": 5,
-  "bai": 11,
-  "hoc_ki": 2,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Trên một trang chiếu, em có thể đặt những gì?",
-  "phuong_an": [
-   "Chỉ đặt được chữ",
-   "Chỉ đặt được hình ảnh",
-   "Cả chữ và hình ảnh",
-   "Không đặt được gì cả"
-  ],
-  "dap_an": 2,
-  "giai_thich": "Trang chiếu chứa được cả chữ, hình ảnh và nhiều nội dung khác."
- },
- {
-  "id": "CD5.B11.M1.076",
-  "chu_de": 5,
-  "bai": 11,
-  "hoc_ki": 2,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Bài trình chiếu thường được dùng để làm gì?",
-  "phuong_an": [
-   "Giới thiệu nội dung cho nhiều người cùng xem",
-   "Nghe nhạc một mình",
-   "Gọi điện thoại",
-   "Đo chiều cao"
-  ],
-  "dap_an": 0,
-  "giai_thich": "Bài trình chiếu giúp em trình bày nội dung trước lớp cho dễ hiểu."
- },
- {
-  "id": "CD5.B13.M1.077",
-  "chu_de": 5,
-  "bai": 13,
-  "hoc_ki": 2,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Thao tác nháy đúp chuột là gì?",
-  "phuong_an": [
-   "Nháy nút trái chuột hai lần thật nhanh",
-   "Nháy nút phải chuột một lần",
-   "Giữ chuột rồi kéo đi",
-   "Lắc con chuột hai lần"
-  ],
-  "dap_an": 0,
-  "giai_thich": "Nháy đúp thường dùng để mở một tệp hoặc thư mục."
- },
- {
-  "id": "CD5.B13.M1.078",
-  "chu_de": 5,
-  "bai": 13,
-  "hoc_ki": 2,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Con trỏ chuột trên màn hình thường có hình gì?",
-  "phuong_an": [
-   "Mũi tên",
-   "Ngôi sao",
-   "Trái tim",
-   "Hình vuông"
-  ],
-  "dap_an": 0,
-  "giai_thich": "Con trỏ chuột hình mũi tên di chuyển theo tay em."
- },
- {
-  "id": "CD5.B13.M1.079",
-  "chu_de": 5,
-  "bai": 13,
-  "hoc_ki": 2,
-  "muc_do": 1,
-  "dang": "noi_cot",
-  "diem": 2,
-  "cau_hoi": "Nối mỗi thao tác chuột với việc thường dùng nó.",
-  "cot_a": [
-   "Di chuyển chuột",
-   "Nháy chuột",
-   "Nháy đúp chuột",
-   "Kéo thả chuột"
-  ],
-  "cot_b": [
-   "Đưa con trỏ tới vị trí mong muốn",
-   "Chọn một đối tượng",
-   "Mở một tệp hoặc thư mục",
-   "Di chuyển một hình sang chỗ khác"
-  ],
-  "dap_an": [
-   0,
-   1,
-   2,
-   3
-  ],
-  "giai_thich": "Mỗi thao tác chuột dùng cho một việc khác nhau."
- },
- {
-  "id": "CD5.B12.M1.080",
-  "chu_de": 5,
-  "bai": 12,
-  "hoc_ki": 2,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Phần mềm học tập giúp em tìm hiểu về thế giới tự nhiên bằng cách nào?",
-  "phuong_an": [
-   "Cho em xem hình ảnh, âm thanh về cây cối và con vật",
-   "Cho em ăn trái cây",
-   "Đưa em ra ngoài vườn",
-   "Dạy em nấu ăn"
-  ],
-  "dap_an": 0,
-  "giai_thich": "Phần mềm giúp em quan sát những nơi và loài vật mà em khó tới gần."
- },
- {
-  "id": "CD5.B11.M2.081",
-  "chu_de": 5,
-  "bai": 11,
-  "hoc_ki": 2,
-  "muc_do": 2,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Đang xem bài trình chiếu, em muốn chuyển sang trang chiếu tiếp theo. Em có thể làm gì?",
-  "phuong_an": [
-   "Nhấn phím mũi tên sang phải",
-   "Tắt máy tính",
-   "Rút dây chuột",
-   "Gõ tên của em"
-  ],
-  "dap_an": 0,
-  "giai_thich": "Phím mũi tên hoặc nháy chuột đều giúp em chuyển trang chiếu."
- },
- {
-  "id": "CD5.B11.M2.082",
-  "chu_de": 5,
-  "bai": 11,
-  "hoc_ki": 2,
-  "muc_do": 2,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Vì sao trên một trang chiếu em không nên viết quá nhiều chữ?",
-  "phuong_an": [
-   "Vì máy tính sẽ hỏng",
-   "Vì người xem khó đọc và khó nhớ",
-   "Vì tốn giấy",
-   "Vì chữ sẽ biến mất"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Trang chiếu chỉ nên ghi ý chính thì người xem mới dễ theo dõi."
- },
- {
-  "id": "CD5.B13.M2.083",
-  "chu_de": 5,
-  "bai": 13,
-  "hoc_ki": 2,
-  "muc_do": 2,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Muốn di chuyển một hình từ chỗ này sang chỗ khác trên màn hình, em dùng thao tác nào?",
-  "phuong_an": [
-   "Nháy chuột",
-   "Nháy đúp chuột",
-   "Kéo thả chuột",
-   "Nháy nút phải chuột"
-  ],
-  "dap_an": 2,
-  "giai_thich": "Kéo thả là giữ nút trái chuột, di chuyển rồi thả ra ở vị trí mới."
- },
- {
-  "id": "CD5.B13.M2.084",
-  "chu_de": 5,
-  "bai": 13,
-  "hoc_ki": 2,
-  "muc_do": 2,
-  "dang": "dung_sai",
-  "diem": 1,
-  "cau_hoi": "Chọn Đúng hoặc Sai cho mỗi việc làm khi sử dụng chuột.",
-  "cac_y": [
-   "Đặt cả bàn tay nhẹ nhàng lên chuột, ngón trỏ ở nút trái.",
-   "Nhấc chuột lên đập xuống bàn khi máy chạy chậm.",
-   "Di chuyển chuột nhẹ nhàng trên mặt bàn phẳng.",
-   "Cầm chuột thật chặt và bấm thật mạnh."
-  ],
-  "dap_an": [
-   true,
-   false,
-   true,
-   false
-  ],
-  "giai_thich": "Dùng chuột nhẹ nhàng thì tay đỡ mỏi và chuột bền hơn."
- },
- {
-  "id": "CD5.B12.M2.085",
-  "chu_de": 5,
-  "bai": 12,
-  "hoc_ki": 2,
-  "muc_do": 2,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Em muốn tìm hiểu về loài chim cánh cụt sống ở Nam Cực. Cách nào thuận tiện nhất?",
-  "phuong_an": [
-   "Đi tới Nam Cực xem tận nơi",
-   "Xem hình ảnh và video trên phần mềm học tập",
-   "Hỏi bạn cùng bàn",
-   "Vẽ một con chim ra giấy"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Phần mềm và Internet giúp em quan sát những nơi rất xa."
- },
- {
-  "id": "CD5.B13.M2.086",
-  "chu_de": 5,
-  "bai": 13,
-  "hoc_ki": 2,
-  "muc_do": 2,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Em nháy đúp chuột vào một thư mục nhưng thư mục không mở ra. Nguyên nhân thường gặp nhất là gì?",
-  "phuong_an": [
-   "Máy tính đã hỏng hoàn toàn",
-   "Em nháy hai lần quá chậm nên máy hiểu thành hai lần nháy riêng",
-   "Thư mục đó không có thật",
-   "Chuột hết pin nên không dùng được nữa"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Nháy đúp cần hai lần bấm liền nhau thật nhanh."
- },
- {
-  "id": "CD5.B11.M3.087",
-  "chu_de": 5,
-  "bai": 11,
-  "hoc_ki": 2,
-  "muc_do": 3,
-  "dang": "tu_luan_ngan",
-  "diem": 1,
-  "cau_hoi": "Em được giao làm một bài trình chiếu ba trang giới thiệu về con vật em thích. Em sẽ đặt nội dung gì cho mỗi trang?",
-  "dap_an_goi_y": "Ví dụ: trang 1 ghi tên con vật kèm một bức ảnh; trang 2 nói con vật sống ở đâu và ăn gì; trang 3 nói vì sao em thích con vật đó."
- },
- {
-  "id": "CD5.B13.M3.088",
-  "chu_de": 5,
-  "bai": 13,
-  "hoc_ki": 2,
-  "muc_do": 3,
-  "dang": "tu_luan_ngan",
-  "diem": 1,
-  "cau_hoi": "Bạn em mới tập dùng chuột, cứ bấm rất mạnh và tay hay bị mỏi. Em sẽ hướng dẫn bạn thế nào?",
-  "dap_an_goi_y": "Hướng dẫn bạn đặt bàn tay nhẹ lên lưng chuột, ngón trỏ đặt sẵn ở nút trái, chỉ bấm nhẹ và di chuyển chuột từ tốn trên mặt bàn phẳng."
- },
- {
-  "id": "CD5.B12.M3.089",
-  "chu_de": 5,
-  "bai": 12,
-  "hoc_ki": 2,
-  "muc_do": 3,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Xem phần mềm học tập, em thấy hai thông tin khác nhau về cùng một loài cây. Em nên làm gì?",
-  "phuong_an": [
-   "Tin ngay thông tin đọc được trước",
-   "Hỏi thầy cô hoặc tìm thêm ở sách để kiểm tra lại",
-   "Bỏ qua không tìm hiểu nữa",
-   "Tin thông tin có hình đẹp hơn"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Thông tin cần được kiểm tra lại ở nguồn đáng tin cậy."
- },
- {
-  "id": "CD6.B14.M1.090",
-  "chu_de": 6,
-  "bai": 14,
-  "hoc_ki": 2,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Một công việc thường được thực hiện như thế nào?",
-  "phuong_an": [
-   "Theo các bước có thứ tự",
-   "Làm bước nào trước cũng được",
-   "Chỉ làm một bước duy nhất",
-   "Không cần bước nào cả"
-  ],
-  "dap_an": 0,
-  "giai_thich": "Làm đúng thứ tự các bước thì công việc mới có kết quả tốt."
- },
- {
-  "id": "CD6.B14.M1.091",
-  "chu_de": 6,
-  "bai": 14,
-  "hoc_ki": 2,
-  "muc_do": 1,
-  "dang": "sap_xep",
-  "diem": 1,
-  "cau_hoi": "Hãy bấm lần lượt để sắp xếp đúng thứ tự các bước rửa tay bằng xà phòng.",
-  "cac_buoc": [
-   "Xoa xà phòng đều hai bàn tay",
-   "Làm ướt hai bàn tay",
-   "Lau khô tay",
-   "Rửa lại bằng nước sạch"
-  ],
-  "dap_an": [
-   1,
-   0,
-   3,
-   2
-  ],
-  "giai_thich": "Mọi công việc đều được thực hiện theo các bước có thứ tự."
- },
- {
-  "id": "CD6.B15.M1.092",
-  "chu_de": 6,
-  "bai": 15,
-  "hoc_ki": 2,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Câu nào sau đây nói về công việc được thực hiện theo điều kiện?",
-  "phuong_an": [
-   "Nếu trời mưa thì em mang áo mưa",
-   "Em đánh răng mỗi sáng",
-   "Em tên là Nam",
-   "Cái bàn màu nâu"
-  ],
-  "dap_an": 0,
-  "giai_thich": "Câu có dạng “Nếu... thì...” cho biết việc chỉ làm khi điều kiện xảy ra."
- },
- {
-  "id": "CD6.B16.M1.093",
-  "chu_de": 6,
-  "bai": 16,
-  "hoc_ki": 2,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Việc nào sau đây máy tính có thể giúp em?",
-  "phuong_an": [
-   "Tìm nhanh thông tin về các loài vật",
-   "Ăn cơm thay em",
-   "Chạy thi thay em",
-   "Ngủ giúp em"
-  ],
-  "dap_an": 0,
-  "giai_thich": "Máy tính giúp em tìm và lưu trữ thông tin rất nhanh."
- },
- {
-  "id": "CD6.B16.M1.094",
-  "chu_de": 6,
-  "bai": 16,
-  "hoc_ki": 2,
-  "muc_do": 1,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Máy tính KHÔNG thể làm việc nào sau đây thay em?",
-  "phuong_an": [
-   "Lưu giữ bài vẽ của em",
-   "Tính kết quả một phép nhân",
-   "Quyết định em nên yêu quý ai",
-   "Phát bài hát em thích"
-  ],
-  "dap_an": 2,
-  "giai_thich": "Tình cảm và quyết định là của riêng em, máy tính không thay được."
- },
- {
-  "id": "CD6.B14.M2.095",
-  "chu_de": 6,
-  "bai": 14,
-  "hoc_ki": 2,
-  "muc_do": 2,
-  "dang": "sap_xep",
-  "diem": 1,
-  "cau_hoi": "Hãy bấm lần lượt để sắp xếp đúng thứ tự các bước pha một cốc nước cam.",
-  "cac_buoc": [
-   "Vắt cam lấy nước",
-   "Cắt đôi quả cam",
-   "Khuấy đều rồi thưởng thức",
-   "Rót nước cam ra cốc và thêm đường"
-  ],
-  "dap_an": [
-   1,
-   0,
-   3,
-   2
-  ],
-  "giai_thich": "Phải cắt cam rồi mới vắt được, cuối cùng mới khuấy và uống."
- },
- {
-  "id": "CD6.B15.M2.096",
-  "chu_de": 6,
-  "bai": 15,
-  "hoc_ki": 2,
-  "muc_do": 2,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "“Nếu đèn giao thông màu xanh thì em được đi.” Điều kiện trong câu này là gì?",
-  "phuong_an": [
-   "Em được đi",
-   "Đèn giao thông màu xanh",
-   "Em dừng lại",
-   "Em đi bộ"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Phần đứng sau chữ “Nếu” chính là điều kiện."
- },
- {
-  "id": "CD6.B15.M2.097",
-  "chu_de": 6,
-  "bai": 15,
-  "hoc_ki": 2,
-  "muc_do": 2,
-  "dang": "dung_sai",
-  "diem": 1,
-  "cau_hoi": "Chọn Đúng hoặc Sai: câu nào là công việc thực hiện theo điều kiện?",
-  "cac_y": [
-   "Nếu chuông báo thức kêu thì em thức dậy.",
-   "Em đi học lúc 6 giờ 30 mỗi ngày.",
-   "Nếu bài tập đã xong thì em được xem phim.",
-   "Quyển vở của em màu xanh."
-  ],
-  "dap_an": [
-   true,
-   false,
-   true,
-   false
-  ],
-  "giai_thich": "Chỉ những câu có “Nếu... thì...” mới là công việc theo điều kiện."
- },
- {
-  "id": "CD6.B15.M2.098",
-  "chu_de": 6,
-  "bai": 15,
-  "hoc_ki": 2,
-  "muc_do": 2,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "“Nếu trời nắng thì em đi đá bóng.” Hôm nay trời mưa. Em sẽ làm gì?",
-  "phuong_an": [
-   "Vẫn đi đá bóng",
-   "Không đi đá bóng vì điều kiện chưa xảy ra",
-   "Đi đá bóng vào đêm",
-   "Không làm gì cả suốt ngày"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Điều kiện không xảy ra thì việc đi kèm cũng không được thực hiện."
- },
- {
-  "id": "CD6.B16.M2.099",
-  "chu_de": 6,
-  "bai": 16,
-  "hoc_ki": 2,
-  "muc_do": 2,
-  "dang": "noi_cot",
-  "diem": 2,
-  "cau_hoi": "Nối mỗi việc với cách máy tính giúp em.",
-  "cot_a": [
-   "Tìm hiểu về loài voi",
-   "Giữ lại bức tranh em vẽ",
-   "Nghe bài hát mới",
-   "Trình bày bài trước lớp"
-  ],
-  "cot_b": [
-   "Tìm hình ảnh và thông tin trên Internet",
-   "Lưu tệp tranh vào thư mục",
-   "Mở tệp âm thanh cho em nghe",
-   "Chiếu bài trình chiếu lên màn hình lớn"
-  ],
-  "dap_an": [
-   0,
-   1,
-   2,
-   3
-  ],
-  "giai_thich": "Với mỗi công việc, máy tính có một cách trợ giúp riêng."
- },
- {
-  "id": "CD6.B16.M2.100",
-  "chu_de": 6,
-  "bai": 16,
-  "hoc_ki": 2,
-  "muc_do": 2,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Em cần cộng một dãy 20 số rất dài. Máy tính giúp em điều gì?",
-  "phuong_an": [
-   "Tính ra kết quả nhanh và ít nhầm hơn",
-   "Làm em hiểu bài mà không cần học",
-   "Nhớ bài thay em",
-   "Viết chữ đẹp thay em"
-  ],
-  "dap_an": 0,
-  "giai_thich": "Máy tính tính rất nhanh và chính xác, nhưng em vẫn phải hiểu cách làm."
- },
- {
-  "id": "CD6.B14.M3.101",
-  "chu_de": 6,
-  "bai": 14,
-  "hoc_ki": 2,
-  "muc_do": 3,
-  "dang": "tu_luan_ngan",
-  "diem": 1,
-  "cau_hoi": "Em hãy nêu các bước để chuẩn bị cặp sách đi học vào buổi tối hôm trước.",
-  "dap_an_goi_y": "Ví dụ: xem thời khóa biểu ngày mai; lấy sách vở của các môn đó ra; kiểm tra bút, thước, tẩy; xếp tất cả vào cặp; để cặp ở chỗ dễ lấy."
- },
- {
-  "id": "CD6.B15.M3.102",
-  "chu_de": 6,
-  "bai": 15,
-  "hoc_ki": 2,
-  "muc_do": 3,
-  "dang": "tu_luan_ngan",
-  "diem": 1,
-  "cau_hoi": "Em hãy đặt một câu có dạng “Nếu... thì...” nói về việc học tập của em.",
-  "dap_an_goi_y": "Ví dụ: Nếu em làm xong bài tập thì em được đọc truyện; Nếu ngày mai có tiết Tin học thì em mang theo vở Tin học."
- },
- {
-  "id": "CD6.B16.M3.103",
-  "chu_de": 6,
-  "bai": 16,
-  "hoc_ki": 2,
-  "muc_do": 3,
-  "dang": "tu_luan_ngan",
-  "diem": 1,
-  "cau_hoi": "Em hãy nêu một công việc học tập mà máy tính giúp em, và một công việc máy tính không thể làm thay em.",
-  "dap_an_goi_y": "Ví dụ: máy tính giúp em tìm hình ảnh các loài vật rất nhanh; nhưng máy tính không thể học thuộc bài thay em, em phải tự đọc và ghi nhớ."
- },
- {
-  "id": "CD1.B4.M3.104",
-  "chu_de": 1,
-  "bai": 4,
-  "hoc_ki": 1,
-  "muc_do": 3,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Máy tính đang dùng thì đứng im, bấm gì cũng không phản ứng. Em nên làm gì?",
-  "phuong_an": [
-   "Rút dây điện ra ngay lập tức",
-   "Báo thầy cô để được giúp đỡ",
-   "Đập nhẹ vào màn hình",
-   "Bấm liên tục thật nhiều phím"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Rút điện đột ngột có thể làm hỏng máy và mất bài, nên báo người lớn trước."
- },
- {
-  "id": "CD1.B5.M3.105",
-  "chu_de": 1,
-  "bai": 5,
-  "hoc_ki": 1,
-  "muc_do": 3,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Bạn Minh gõ bài rất chậm vì cứ phải cúi nhìn từng phím. Lời khuyên nào tốt nhất cho bạn?",
-  "phuong_an": [
-   "Gõ bằng một ngón cho chắc",
-   "Luyện đặt tay đúng hàng phím cơ sở rồi gõ không nhìn",
-   "Nhờ bạn khác gõ hộ",
-   "Viết ra giấy thay vì gõ"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Đặt tay đúng vị trí và luyện dần thì tốc độ gõ sẽ nhanh lên."
- },
- {
-  "id": "CD2.B6.M3.106",
-  "chu_de": 2,
-  "bai": 6,
-  "hoc_ki": 1,
-  "muc_do": 3,
-  "dang": "sap_xep",
-  "diem": 1,
-  "cau_hoi": "Hãy bấm lần lượt để sắp xếp đúng thứ tự các bước tìm thông tin cho bài học trên Internet.",
-  "cac_buoc": [
-   "Gõ từ khóa cần tìm",
-   "Mở trang tìm kiếm",
-   "Ghi lại thông tin có ích vào vở",
-   "Đọc và chọn kết quả phù hợp"
-  ],
-  "dap_an": [
-   1,
-   0,
-   3,
-   2
-  ],
-  "giai_thich": "Tìm được kết quả rồi vẫn phải đọc và chọn lọc trước khi ghi lại."
- },
- {
-  "id": "CD3.B9.M3.107",
-  "chu_de": 3,
-  "bai": 9,
-  "hoc_ki": 1,
-  "muc_do": 3,
-  "dang": "sap_xep",
-  "diem": 1,
-  "cau_hoi": "Em vừa vẽ xong bức tranh con mèo. Hãy sắp xếp các bước để cất bức tranh vào thư mục MITHUAT.",
-  "cac_buoc": [
-   "Gõ tên tệp là Tranh con meo",
-   "Chọn lệnh Lưu",
-   "Nhấn nút Lưu để hoàn tất",
-   "Mở thư mục MITHUAT là nơi cần cất"
-  ],
-  "dap_an": [
-   1,
-   3,
-   0,
-   2
-  ],
-  "giai_thich": "Chọn lệnh Lưu, tìm đúng thư mục, đặt tên rõ nghĩa rồi mới lưu lại."
- },
- {
-  "id": "CD4.B10.M3.108",
-  "chu_de": 4,
-  "bai": 10,
-  "hoc_ki": 1,
-  "muc_do": 3,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Bạn quay được đoạn phim em bị ngã và định đăng lên mạng cho vui. Em nên nói gì với bạn?",
-  "phuong_an": [
-   "Đồng ý vì đăng lên cũng vui",
-   "Đề nghị bạn không đăng vì em không muốn",
-   "Nhờ bạn đăng thêm ảnh của em",
-   "Quay lại một đoạn phim về bạn để trả đũa"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Hình ảnh của em là của riêng em, người khác cần hỏi ý em trước khi đăng."
- },
- {
-  "id": "CD5.B11.M3.109",
-  "chu_de": 5,
-  "bai": 11,
-  "hoc_ki": 2,
-  "muc_do": 3,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Bài trình chiếu của em có chữ rất nhỏ nên các bạn ngồi cuối lớp không đọc được. Em nên sửa thế nào?",
-  "phuong_an": [
-   "Phóng to cỡ chữ trên trang chiếu",
-   "Thêm thật nhiều chữ vào trang",
-   "Đổi màu chữ thành màu vàng nhạt",
-   "Bảo các bạn lên ngồi bàn đầu"
-  ],
-  "dap_an": 0,
-  "giai_thich": "Trang chiếu cần chữ to, rõ để cả lớp cùng đọc được."
- },
- {
-  "id": "CD6.B15.M3.110",
-  "chu_de": 6,
-  "bai": 15,
-  "hoc_ki": 2,
-  "muc_do": 3,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Mẹ dặn: “Nếu con làm xong bài tập thì con được xem phim.” Em mới làm được một nửa bài. Em nên làm gì?",
-  "phuong_an": [
-   "Xem phim trước rồi làm bài sau",
-   "Làm nốt bài tập cho xong rồi mới xem phim",
-   "Xem phim luôn vì đã làm được một nửa",
-   "Không làm bài và cũng không xem phim"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Điều kiện chưa xảy ra đầy đủ thì việc đi kèm chưa được thực hiện."
- },
- {
-  "id": "CD6.B16.M3.111",
-  "chu_de": 6,
-  "bai": 16,
-  "hoc_ki": 2,
-  "muc_do": 3,
-  "dang": "trac_nghiem_4",
-  "diem": 0.5,
-  "cau_hoi": "Em cần học thuộc một bài thơ. Máy tính giúp em được điều gì?",
-  "phuong_an": [
-   "Học thuộc thay em",
-   "Cho em nghe bài thơ đọc mẫu để đọc theo",
-   "Trả lời bài kiểm tra thay em",
-   "Làm em nhớ bài mà không cần đọc"
-  ],
-  "dap_an": 1,
-  "giai_thich": "Máy tính hỗ trợ em luyện tập, nhưng việc ghi nhớ vẫn là của em."
- }
-];
-
-/* ======================================================================
-   TRẠNG THÁI
-   ====================================================================== */
-const TU_CHAM = ["tu_luan_ngan","quan_sat_hinh"];
-const KHEN = ["Giỏi lắm!","Chính xác!","Tuyệt vời!","Đúng rồi!","Em làm tốt lắm!"];
-const DONG_VIEN = ["Chưa đúng rồi","Suýt nữa thì đúng","Cùng xem lại nhé"];
-
-let phien = null;
-const mh = document.getElementById('man-hinh');
-
-function tron(a){const b=a.slice();for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
-function esc(s){const d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML}
-function ngauNhien(a){return a[Math.floor(Math.random()*a.length)]}
-
-/* ======================================================================
-   TRANG CHỦ
-   ====================================================================== */
-function trangChu(){
-  phien=null;
-  const tuCham=NGAN_HANG.filter(c=>TU_CHAM.includes(c.dang)).length;
-  mh.innerHTML=`
-    <div class="chedo">
-      <button class="the-chedo" data-mo="chude">
-        <span class="bieutuong">📚</span>
-        <h3>Ôn theo chủ đề</h3>
-        <p>Chọn một chủ đề em muốn ôn. Làm thong thả, sai được làm lại.</p>
-      </button>
-      <button class="the-chedo" data-mo="nhanh">
-        <span class="bieutuong">⚡</span>
-        <h3>Luyện nhanh</h3>
-        <p>10 câu bất kì. Khoảng 5 phút là xong.</p>
-      </button>
-      <button class="the-chedo" data-mo="thi">
-        <span class="bieutuong">📝</span>
-        <h3>Thi thử</h3>
-        <p>Đề rút theo ma trận, có đồng hồ 35 phút như bài kiểm tra thật.</p>
-      </button>
-    </div>
-    <div class="the">
-      <h3 style="font-size:19px;color:var(--muc);margin-bottom:8px">Ngân hàng hiện có ${NGAN_HANG.length} câu hỏi</h3>
-      <p class="ghi-chu" style="margin-top:0">${tuCham} câu tự luận sẽ hiện đáp án gợi ý để em tự đối chiếu, không tính vào điểm thi thử.</p>
-    </div>`;
-  mh.querySelectorAll('[data-mo]').forEach(b=>b.onclick=()=>{
-    const m=b.dataset.mo;
-    if(m==='chude')chonChuDe();
-    else if(m==='nhanh')batDau(tron(NGAN_HANG).slice(0,10),{ten:'Luyện nhanh',phanHoiNgay:true});
-    else rutDeThi();
-  });
-}
-
-/* ======================================================================
-   CHỌN CHỦ ĐỀ
-   ====================================================================== */
-function chonChuDe(){
-  const o=Object.keys(TEN_CHU_DE).map(k=>{
-    const n=NGAN_HANG.filter(c=>c.chu_de==k).length;
-    return `<button class="o-chude" data-cd="${k}" ${n?'':'disabled style="opacity:.45"'}>
-      <span class="so">${k}</span>
-      <span><span class="ten">${esc(TEN_CHU_DE[k])}</span><br><span class="dem">${n} câu hỏi</span></span>
-    </button>`;
-  }).join('');
-  mh.innerHTML=`<div class="the">
-    <h2 style="font-size:24px;color:var(--muc);margin-bottom:16px">Em muốn ôn chủ đề nào?</h2>
-    <div class="luoi-chude">${o}</div>
-    <div class="dong-duoi"><button class="nut phu" id="ve">Quay về</button></div>
-  </div>`;
-  mh.querySelectorAll('[data-cd]').forEach(b=>b.onclick=()=>{
-    const cd=b.dataset.cd;
-    batDau(tron(NGAN_HANG.filter(c=>c.chu_de==cd)),{ten:'Chủ đề '+cd+' — '+TEN_CHU_DE[cd],phanHoiNgay:true});
-  });
-  document.getElementById('ve').onclick=trangChu;
-}
-
-/* ======================================================================
-   RÚT ĐỀ THI THỬ THEO MA TRẬN 40 / 40 / 20
-   ====================================================================== */
-function rutDeThi(){
-  const chamDuoc=NGAN_HANG.filter(c=>!TU_CHAM.includes(c.dang));
-  const theoMuc={1:tron(chamDuoc.filter(c=>c.muc_do===1)),
-                 2:tron(chamDuoc.filter(c=>c.muc_do===2)),
-                 3:tron(chamDuoc.filter(c=>c.muc_do===3))};
-  const canDiem={1:4,2:4,3:2};
-  const de=[]; const thieu=[];
-  [1,2,3].forEach(m=>{
-    let d=0, soCauLon=0;
-    // theoMuc[m] đã được trộn ngẫu nhiên; xếp câu nhiều điểm lên trước để đề ngắn lại
-    for(const c of theoMuc[m].slice().sort((a,b)=>b.diem-a.diem)){
-      if(d>=canDiem[m]) break;
-      if(d+c.diem>canDiem[m]) continue;      // bỏ qua câu làm vượt quá điểm của mức này
-      if(c.diem>=2){ if(soCauLon>=1) continue; soCauLon++; }  // mỗi mức nhiều nhất một câu nối cột
-      de.push(c); d+=c.diem;
-    }
-    if(d<canDiem[m]) thieu.push(`mức ${m} còn thiếu ${(canDiem[m]-d).toFixed(2).replace(/\.?0+$/,'')} điểm`);
-  });
-  if(!de.length){ mh.innerHTML=`<div class="the"><div class="canh-bao">Ngân hàng chưa có câu hỏi nào chấm tự động được.</div>
-    <div class="dong-duoi"><button class="nut phu" id="ve">Quay về</button></div></div>`;
-    document.getElementById('ve').onclick=trangChu; return; }
-  batDau(tron(de),{ten:'Thi thử',phanHoiNgay:false,giay:35*60,canhBao:thieu});
-}
-
-/* ======================================================================
-   VÒNG LÀM BÀI
-   ====================================================================== */
-function batDau(ds,tuyChon){
-  if(!ds.length){trangChu();return}
-  phien={ds,i:0,ketQua:[],...tuyChon,batDauLuc:Date.now()};
-  if(phien.giay){
-    phien.conLai=phien.giay;
-    phien.dongHo=setInterval(()=>{
-      phien.conLai--;
-      const e=document.getElementById('dong-ho');
-      if(e){e.textContent=dinhDangGio(phien.conLai);e.classList.toggle('gap',phien.conLai<=300)}
-      if(phien.conLai<=0){clearInterval(phien.dongHo);ketThuc(true)}
-    },1000);
-  }
-  veCauHoi();
-}
-function dinhDangGio(s){s=Math.max(0,s);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
-
-function veCauHoi(){
-  const c=phien.ds[phien.i];
-  const pt=(phien.i/phien.ds.length)*100;
-  let than='';
-  if(c.dang==='trac_nghiem_4') than=veTracNghiem(c);
-  else if(c.dang==='dung_sai') than=veDungSai(c);
-  else if(c.dang==='sap_xep') than=veSapXep(c);
-  else if(c.dang==='noi_cot') than=veNoiCot(c);
-  else than=veTuLuan(c);
-
-  mh.innerHTML=`
-    <div class="thuoc" role="progressbar" aria-valuenow="${phien.i+1}" aria-valuemin="1" aria-valuemax="${phien.ds.length}">
-      <span class="con-truot" style="left:${pt}%"></span>
-      <span class="nhan-thuoc">Câu ${phien.i+1} / ${phien.ds.length}</span>
-    </div>
-    <div class="the">
-      <div class="dong-tren">
-        <span class="the-mucdo">${esc(phien.ten)} · Mức ${c.muc_do}</span>
-        ${phien.giay?`<span class="dong-ho" id="dong-ho">${dinhDangGio(phien.conLai)}</span>`:''}
-      </div>
-      <p class="de-bai">${esc(c.cau_hoi)}</p>
-      ${c.mo_ta_hinh?`<div class="hinh-mo-ta">${esc(c.mo_ta_hinh)}</div>`:''}
-      <div id="vung-tra-loi">${than}</div>
-      <div id="vung-phan-hoi"></div>
-      <div class="dong-duoi" id="vung-nut"></div>
-    </div>`;
-  if(c.dang==='trac_nghiem_4') ganTracNghiem(c);
-  else if(c.dang==='dung_sai') ganDungSai(c);
-  else if(c.dang==='sap_xep') ganSapXep(c);
-  else if(c.dang==='noi_cot') ganNoiCot(c);
-  else ganTuLuan(c);
-  window.scrollTo({top:0,behavior:'instant'});
-}
-
-/* ---------- Trắc nghiệm ---------- */
-function veTracNghiem(c){
-  return '<div class="dap-an">'+c.phuong_an.map((p,i)=>
-    `<button class="pa" data-i="${i}"><span class="chu-cai">${'ABCD'[i]}</span><span>${esc(p)}</span></button>`).join('')+'</div>';
-}
-function ganTracNghiem(c){
-  mh.querySelectorAll('.pa').forEach(b=>b.onclick=()=>{
-    const i=+b.dataset.i, dung=i===c.dap_an;
-    mh.querySelectorAll('.pa').forEach((x,j)=>{
-      x.disabled=true;
-      if(phien.phanHoiNgay){
-        if(j===c.dap_an) x.classList.add('dung');
-        else if(j===i) x.classList.add('sai');
-      }else if(j===i) x.classList.add('chon');
-    });
-    ghiNhan(c,dung?1:0);
-  });
-}
-
-/* ---------- Đúng / Sai ---------- */
-function veDungSai(c){
-  return c.cac_y.map((y,i)=>
-    `<div class="dong-ds" data-y="${i}">
-       <span class="noi-dung">${esc(y)}</span>
-       <button class="nut-ds" data-y="${i}" data-v="1">Đúng</button>
-       <button class="nut-ds" data-y="${i}" data-v="0">Sai</button>
-     </div>`).join('');
-}
-function ganDungSai(c){
-  const chon=new Array(c.cac_y.length).fill(null);
-  mh.querySelectorAll('.nut-ds').forEach(b=>b.onclick=()=>{
-    const y=+b.dataset.y;
-    chon[y]=b.dataset.v==='1';
-    mh.querySelectorAll(`.nut-ds[data-y="${y}"]`).forEach(x=>x.classList.remove('chon'));
-    b.classList.add('chon');
-    if(chon.every(v=>v!==null)) nutXong.disabled=false;
-  });
-  const nutXong=themNut('Kiểm tra',()=>{
-    let dung=0;
-    c.cac_y.forEach((_,i)=>{
-      const d=chon[i]===c.dap_an[i]; if(d)dung++;
-      mh.querySelectorAll(`.nut-ds[data-y="${i}"]`).forEach(x=>{
-        x.disabled=true;
-        if(!phien.phanHoiNgay)return;
-        const v=x.dataset.v==='1';
-        if(v===c.dap_an[i]) x.classList.add('dung');
-        else if(v===chon[i]) x.classList.add('sai');
-      });
-    });
-    ghiNhan(c,dung/c.cac_y.length);
-  });
-  nutXong.disabled=true;
-}
-
-/* ---------- Sắp xếp ---------- */
-function veSapXep(c){
-  return c.cac_buoc.map((b,i)=>
-    `<button class="buoc" data-i="${i}"><span class="thu-tu">·</span><span>${esc(b)}</span></button>`).join('')
-    +'<p class="ghi-chu">Bấm lần lượt từ bước làm trước đến bước làm sau.</p>';
-}
-function ganSapXep(c){
-  let thuTu=[];
-  const ve=()=>mh.querySelectorAll('.buoc').forEach(b=>{
-    const v=thuTu.indexOf(+b.dataset.i);
-    b.classList.toggle('da-chon',v>=0);
-    b.querySelector('.thu-tu').textContent=v>=0?v+1:'·';
-  });
-  mh.querySelectorAll('.buoc').forEach(b=>b.onclick=()=>{
-    const i=+b.dataset.i;
-    if(thuTu.includes(i)) thuTu=thuTu.filter(x=>x!==i); else thuTu.push(i);
-    ve(); nutXong.disabled=thuTu.length!==c.cac_buoc.length;
-  });
-  const nutXong=themNut('Kiểm tra',()=>{
-    const dung=thuTu.every((v,i)=>v===c.dap_an[i]);
-    mh.querySelectorAll('.buoc').forEach(b=>{
-      b.disabled=true;
-      if(!phien.phanHoiNgay)return;
-      const i=+b.dataset.i, vt=c.dap_an.indexOf(i);
-      b.classList.add(thuTu[vt]===i?'dung':'sai');
-      b.querySelector('.thu-tu').textContent=vt+1;
-    });
-    ghiNhan(c,dung?1:0);
-  });
-  nutXong.disabled=true;
-}
-
-/* ---------- Nối cột ---------- */
-function veNoiCot(c){
-  const thuTuB=tron(c.cot_b.map((t,i)=>({t,i})));
-  return `<div class="noi">
-    <div class="cot"><h4>Bộ phận</h4>${c.cot_a.map((t,i)=>
-      `<button class="muc-noi" data-ben="a" data-i="${i}"><span class="cap">${i+1}</span><span>${esc(t)}</span></button>`).join('')}</div>
-    <div class="cot"><h4>Chức năng</h4>${thuTuB.map((o,j)=>
-      `<button class="muc-noi" data-ben="b" data-i="${o.i}"><span class="cap">?</span><span>${esc(o.t)}</span></button>`).join('')}</div>
-  </div><p class="ghi-chu">Bấm một ô bên trái, rồi bấm ô bên phải để nối hai ô lại với nhau.</p>`;
-}
-function ganNoiCot(c){
-  let dangChon=null; const cap={};
-  const oA=[...mh.querySelectorAll('.muc-noi[data-ben="a"]')];
-  const oB=[...mh.querySelectorAll('.muc-noi[data-ben="b"]')];
-  oA.forEach(b=>b.onclick=()=>{
-    oA.forEach(x=>x.classList.remove('dang-chon'));
-    dangChon=+b.dataset.i; b.classList.add('dang-chon');
-  });
-  oB.forEach(b=>b.onclick=()=>{
-    if(dangChon===null)return;
-    const bi=+b.dataset.i;
-    Object.keys(cap).forEach(k=>{if(cap[k]===bi)delete cap[k]});
-    cap[dangChon]=bi;
-    oA.forEach(x=>{
-      const co=cap[+x.dataset.i]!==undefined;
-      x.classList.toggle('da-noi',co); x.classList.remove('dang-chon');
-    });
-    oB.forEach(x=>{
-      const k=Object.keys(cap).find(k=>cap[k]===+x.dataset.i);
-      x.classList.toggle('da-noi',k!==undefined);
-      x.querySelector('.cap').textContent=k!==undefined?(+k+1):'?';
-    });
-    dangChon=null;
-    nutXong.disabled=Object.keys(cap).length!==c.cot_a.length;
-  });
-  const nutXong=themNut('Kiểm tra',()=>{
-    let dung=0;
-    c.cot_a.forEach((_,i)=>{ if(cap[i]===c.dap_an[i])dung++; });
-    if(phien.phanHoiNgay){
-      oA.forEach(x=>{const i=+x.dataset.i; x.classList.add(cap[i]===c.dap_an[i]?'dung':'sai')});
-      oB.forEach(x=>{
-        const i=+x.dataset.i, k=c.dap_an.indexOf(i);
-        x.classList.add(cap[k]===i?'dung':'sai');
-        x.querySelector('.cap').textContent=k+1;
-      });
-    }
-    [...oA,...oB].forEach(x=>x.disabled=true);
-    ghiNhan(c,dung/c.cot_a.length);
-  });
-  nutXong.disabled=true;
-}
-
-/* ---------- Tự luận ---------- */
-function veTuLuan(c){
-  return `<textarea id="bai-lam" placeholder="Em viết câu trả lời vào đây..." aria-label="Câu trả lời của em"></textarea>`;
-}
-function ganTuLuan(c){
-  themNut('Xem đáp án gợi ý',()=>{
-    document.getElementById('bai-lam').disabled=true;
-    document.getElementById('vung-phan-hoi').innerHTML=
-      `<div class="phan-hoi chua hien-len"><span class="dau-hieu">💡</span>
-        <span><span class="tieu">Đáp án gợi ý</span>
-        <span class="loi">${esc(c.dap_an_goi_y||'')}</span>
-        <span class="loi" style="display:block;margin-top:8px;color:var(--xam)">Câu này em tự đối chiếu với bài làm của mình, hoặc nhờ thầy cô chấm giúp.</span></span></div>`;
-    document.getElementById('vung-nut').innerHTML='';
-    themNut(phien.i+1<phien.ds.length?'Câu tiếp theo':'Xem kết quả',()=>tiepTuc());
-    phien.ketQua.push({c,ti:null});
-  });
-}
-
-/* ---------- Chung ---------- */
-function themNut(nhan,fn,phu){
-  const b=document.createElement('button');
-  b.className='nut'+(phu?' phu':''); b.textContent=nhan; b.onclick=fn;
-  document.getElementById('vung-nut').appendChild(b); return b;
-}
-
-function ghiNhan(c,ti){
-  phien.ketQua.push({c,ti});
-  document.getElementById('vung-nut').innerHTML='';
-  if(phien.phanHoiNgay){
-    const tot=ti===1;
-    document.getElementById('vung-phan-hoi').innerHTML=
-      `<div class="phan-hoi ${tot?'tot':'chua'} hien-len"><span class="dau-hieu">${tot?'⭐':'💡'}</span>
-        <span><span class="tieu">${tot?ngauNhien(KHEN):ngauNhien(DONG_VIEN)}</span>
-        <span class="loi">${esc(c.giai_thich||'')}</span></span></div>`;
-  }
-  themNut(phien.i+1<phien.ds.length?'Câu tiếp theo':'Xem kết quả',()=>tiepTuc());
-}
-
-function tiepTuc(){
-  phien.i++;
-  if(phien.i<phien.ds.length) veCauHoi(); else ketThuc(false);
-}
-
-/* ======================================================================
-   KẾT QUẢ
-   ====================================================================== */
-function ketThuc(hetGio){
-  if(phien.dongHo)clearInterval(phien.dongHo);
-  const cham=phien.ketQua.filter(k=>k.ti!==null);
-  const tongDiem=cham.reduce((s,k)=>s+k.c.diem,0);
-  const duocDiem=cham.reduce((s,k)=>s+k.c.diem*k.ti,0);
-  const thang10=tongDiem?duocDiem/tongDiem*10:0;
-  const lamTron=Math.round(thang10);
-  const soSao=Math.max(1,Math.round(lamTron/2));
-
-  const theoCD={};
-  cham.forEach(k=>{
-    const cd=k.c.chu_de;
-    theoCD[cd]=theoCD[cd]||{d:0,t:0,so:0};
-    theoCD[cd].d+=k.c.diem*k.ti; theoCD[cd].t+=k.c.diem; theoCD[cd].so++;
-  });
-  const yeu=Object.keys(theoCD).filter(cd=>theoCD[cd].d/theoCD[cd].t<0.6);
-
-  const bang=Object.keys(theoCD).sort().map(cd=>{
-    const o=theoCD[cd], pt=Math.round(o.d/o.t*100);
-    return `<tr><td>${cd}. ${esc(TEN_CHU_DE[cd])}</td>
-      <td class="giua">${o.so}</td>
-      <td class="giua">${pt}%</td>
-      <td><span class="thanh ${pt<60?'yeu':''}"><i style="width:${pt}%"></i></span></td></tr>`;
-  }).join('');
-
-  const tuChamSo=phien.ketQua.length-cham.length;
-
-  mh.innerHTML=`
-    <div class="the">
-      ${hetGio?'<div class="canh-bao">Đã hết 35 phút. Bài của em được chấm với những câu đã làm.</div>':''}
-      ${(phien.canhBao&&phien.canhBao.length)?`<div class="canh-bao">Ghi chú cho giáo viên: ngân hàng chưa đủ câu nên đề rút ra chưa trọn 10 điểm (${esc(phien.canhBao.join('; '))}).</div>`:''}
-      <div class="diem-lon">
-        <div class="tren">${esc(phien.ten)} — điểm của em</div>
-        <div class="con-so">${lamTron}</div>
-        <div class="tren">trên thang điểm 10${tongDiem?` (đúng ${duocDiem.toFixed(2).replace(/\.?0+$/,'')}/${tongDiem.toFixed(2).replace(/\.?0+$/,'')} điểm)`:''}</div>
-        <div class="hang-sticker">${'⭐'.repeat(soSao)}</div>
-      </div>
-      ${bang?`<table><thead><tr><th>Chủ đề</th><th class="giua">Số câu</th><th class="giua">Làm đúng</th><th></th></tr></thead><tbody>${bang}</tbody></table>`:''}
-      ${tuChamSo?`<p class="ghi-chu">${tuChamSo} câu tự luận không tính vào điểm. Em nhờ thầy cô chấm giúp nhé.</p>`:''}
-      ${yeu.length?`<div class="can-on"><h4>Em nên ôn lại</h4><ul>${yeu.map(cd=>`<li>Chủ đề ${cd}: ${esc(TEN_CHU_DE[cd])}</li>`).join('')}</ul></div>`
-        :`<div class="can-on" style="background:#EDF9F1;border-color:var(--dung)"><h4>Em nắm bài rất chắc</h4><p style="font-size:17px">Không có chủ đề nào dưới 60%. Em thử chế độ Thi thử để luyện làm bài đúng giờ nhé.</p></div>`}
-      <div class="dong-duoi">
-        <button class="nut" id="lam-lai">Làm lại</button>
-        <button class="nut phu" id="ve">Về trang chính</button>
-      </div>
-    </div>`;
-  document.getElementById('ve').onclick=trangChu;
-  document.getElementById('lam-lai').onclick=()=>{
-    const t={ten:phien.ten,phanHoiNgay:phien.phanHoiNgay,giay:phien.giay};
-    batDau(tron(phien.ds),t);
+  const SPEED_CONFIG = {
+    slow:   { fall: 55,  spawnMs: 1500 },  // px/giây, tần suất rơi
+    medium: { fall: 95,  spawnMs: 1100 },
+    fast:   { fall: 145, spawnMs: 800  },
   };
-}
+  const SPEED_LABELS = { slow:'Chậm 🐢', medium:'Trung bình 🐇', fast:'Nhanh 🚀' };
 
-/* ======================================================================
-   BẢNG CÔ GIÁO
-   ====================================================================== */
-function bangCoGiao(){
-  const o={};
-  NGAN_HANG.forEach(c=>{const k=c.chu_de+'-'+c.muc_do;o[k]=(o[k]||0)+1});
-  let hang='';
-  for(let cd=1;cd<=6;cd++){
-    hang+=`<tr><td>${cd}. ${esc(TEN_CHU_DE[cd])}</td>`;
-    for(let m=1;m<=3;m++){
-      const n=o[cd+'-'+m]||0;
-      hang+=`<td class="giua" style="${n<3?'color:var(--but-do);font-weight:600':''}">${n}</td>`;
-    }
-    hang+='</tr>';
+  const COLORS = ['#ff6f61','#ffc93c','#5ec269','#4fb0e0','#9b6bd9','#ff9740'];
+
+  // ---------- state ----------
+  let chosenFinger = null; // finger group object or {id:'all', name:'Tất cả các ngón', keys: ALL_KEYS}
+  let chosenSpeed = null;
+
+  // ---------- xây dựng lưới chọn ngón tay ----------
+  const fingerGrid = document.getElementById('fingerGrid');
+
+  FINGER_GROUPS.forEach(f=>{
+    const btn = document.createElement('div');
+    btn.className = 'finger-btn';
+    btn.dataset.id = f.id;
+    btn.innerHTML = `<span class="hand-dot"></span>${f.name}<span class="keys">${f.keys.join(' ')}</span>`;
+    btn.addEventListener('click', ()=> selectFinger(f, btn));
+    fingerGrid.appendChild(btn);
+  });
+  const allBtn = document.createElement('div');
+  allBtn.className = 'finger-btn all-fingers';
+  allBtn.dataset.id = 'all';
+  allBtn.innerHTML = `<span class="hand-dot"></span>Tất cả các ngón (10 ngón)<span class="keys">${ALL_KEYS.join(' ')}</span>`;
+  allBtn.addEventListener('click', ()=> selectFinger({id:'all', name:'Tất cả các ngón', keys: ALL_KEYS}, allBtn));
+  fingerGrid.appendChild(allBtn);
+
+  function selectFinger(f, el){
+    chosenFinger = f;
+    document.querySelectorAll('.finger-btn').forEach(b=>b.classList.remove('selected'));
+    el.classList.add('selected');
+    updateHint();
+    checkReady();
   }
-  mh.innerHTML=`
-    <div class="the">
-      <h2 style="font-size:23px;color:var(--muc);margin-bottom:6px">Bảng dành cho giáo viên</h2>
-      <p class="ghi-chu" style="margin-top:0">Số câu hiện có trong từng ô của ma trận. Ô đỏ là ô còn quá ít câu để rút đề đa dạng — mỗi ô nên có từ 8 câu trở lên.</p>
-      <table><thead><tr><th>Chủ đề</th><th class="giua">Mức 1</th><th class="giua">Mức 2</th><th class="giua">Mức 3</th></tr></thead><tbody>${hang}</tbody></table>
-    </div>
-    <div class="the">
-      <h3 style="font-size:19px;color:var(--muc);margin-bottom:8px">Nạp ngân hàng câu hỏi riêng</h3>
-      <p class="ghi-chu" style="margin-top:0;margin-bottom:12px">Dán nội dung file JSON của cô vào ô dưới rồi bấm Nạp. Ngân hàng cũ sẽ được thay thế.</p>
-      <textarea id="json-moi" placeholder='{ "cau_hoi": [ ... ] }' style="min-height:150px;font-family:ui-monospace,Consolas,monospace;font-size:15px"></textarea>
-      <div id="bao" ></div>
-      <div class="dong-duoi">
-        <button class="nut" id="nap">Nạp ngân hàng</button>
-        <button class="nut phu" id="ve">Quay về</button>
-      </div>
-    </div>`;
-  document.getElementById('ve').onclick=trangChu;
-  document.getElementById('nap').onclick=()=>{
-    const bao=document.getElementById('bao');
-    try{
-      const d=JSON.parse(document.getElementById('json-moi').value);
-      const ds=Array.isArray(d)?d:d.cau_hoi;
-      if(!Array.isArray(ds)||!ds.length) throw new Error('Không tìm thấy danh sách câu hỏi.');
-      const thieu=ds.findIndex(c=>!c.cau_hoi||!c.dang||c.chu_de==null||c.muc_do==null);
-      if(thieu>=0) throw new Error(`Câu thứ ${thieu+1} thiếu một trong các trường: cau_hoi, dang, chu_de, muc_do.`);
-      NGAN_HANG=ds;
-      bao.innerHTML=`<div class="thanh-cong">Đã nạp ${ds.length} câu hỏi. Bấm Quay về để bắt đầu dùng.</div>`;
-    }catch(e){
-      bao.innerHTML=`<div class="canh-bao">Không nạp được: ${esc(e.message)}</div>`;
-    }
-  };
-}
 
-document.getElementById('nut-co-giao').onclick=bangCoGiao;
-trangChu();
+  // ---------- chọn tốc độ ----------
+  document.querySelectorAll('.speed-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      chosenSpeed = btn.dataset.speed;
+      document.querySelectorAll('.speed-btn').forEach(b=>b.classList.remove('selected'));
+      btn.classList.add('selected');
+      updateHint();
+      checkReady();
+    });
+  });
+
+  const hintEl = document.getElementById('hint');
+  function updateHint(){
+    if(!chosenFinger && !chosenSpeed){ hintEl.textContent = 'Hãy chọn ngón tay và tốc độ nhé!'; return; }
+    if(!chosenFinger){ hintEl.textContent = 'Còn thiếu: chọn ngón tay muốn luyện.'; return; }
+    if(!chosenSpeed){ hintEl.textContent = 'Còn thiếu: chọn tốc độ rơi.'; return; }
+    hintEl.textContent = `Sẵn sàng luyện "${chosenFinger.name}" - tốc độ ${SPEED_LABELS[chosenSpeed]}!`;
+  }
+  function checkReady(){
+    document.getElementById('startBtn').disabled = !(chosenFinger && chosenSpeed);
+  }
+
+  // ---------- bắt đầu trò chơi ----------
+  document.getElementById('startBtn').addEventListener('click', startGame);
+  document.getElementById('stopBtn').addEventListener('click', ()=> endGame(true));
+
+  const setupEl = document.getElementById('game') && document.getElementById('setup');
+  const gameEl = document.getElementById('game');
+  const playfield = document.getElementById('playfield');
+  const scoreValEl = document.getElementById('scoreVal');
+  const timeLeftEl = document.getElementById('timeLeft');
+  const timeChip = document.getElementById('timeChip');
+  const fingerLabelEl = document.getElementById('fingerLabel');
+
+  const GAME_SECONDS = 10 * 60;
+  let score = 0;
+  let missedCount = 0;
+  let secondsRemaining = GAME_SECONDS;
+  let timerInterval = null;
+  let spawnInterval = null;
+  let rafId = null;
+  let activeLetters = []; // {el, top, speedPxPerSec}
+  let gameRunning = false;
+  let lastFrameTime = 0;
+
+  function startGame(){
+    document.getElementById('setup').style.display = 'none';
+    gameEl.style.display = 'flex';
+    fingerLabelEl.textContent = chosenFinger.name;
+    score = 0; missedCount = 0;
+    secondsRemaining = GAME_SECONDS;
+    scoreValEl.textContent = '0';
+    updateTimeDisplay();
+    timeChip.classList.remove('warning');
+    activeLetters.forEach(l=> l.el.remove());
+    activeLetters = [];
+    gameRunning = true;
+
+    const cfg = SPEED_CONFIG[chosenSpeed];
+
+    timerInterval = setInterval(()=>{
+      secondsRemaining--;
+      updateTimeDisplay();
+      if(secondsRemaining <= 30) timeChip.classList.add('warning');
+      if(secondsRemaining <= 0){
+        endGame(false);
+      }
+    }, 1000);
+
+    spawnInterval = setInterval(spawnLetter, cfg.spawnMs);
+    spawnLetter();
+    lastFrameTime = performance.now();
+    rafId = requestAnimationFrame(tick);
+
+    window.addEventListener('keydown', onKeyDown);
+  }
+
+  function updateTimeDisplay(){
+    const m = Math.floor(Math.max(secondsRemaining,0) / 60);
+    const s = Math.max(secondsRemaining,0) % 60;
+    timeLeftEl.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  }
+
+  function spawnLetter(){
+    if(!gameRunning) return;
+    const keys = chosenFinger.keys;
+    const letter = keys[Math.floor(Math.random()*keys.length)];
+    const color = COLORS[Math.floor(Math.random()*COLORS.length)];
+
+    const el = document.createElement('div');
+    el.className = 'falling-letter';
+    el.textContent = letter;
+    el.style.background = color;
+
+    const fieldWidth = playfield.clientWidth;
+    const maxLeft = Math.max(fieldWidth - 66, 20);
+    const left = 10 + Math.random() * maxLeft;
+    el.style.left = left + 'px';
+    el.style.top = '-60px';
+
+    playfield.appendChild(el);
+
+    const cfg = SPEED_CONFIG[chosenSpeed];
+    activeLetters.push({ el, top: -60, speed: cfg.fall, letter });
+  }
+
+  function tick(now){
+    if(!gameRunning) return;
+    const dt = (now - lastFrameTime) / 1000;
+    lastFrameTime = now;
+    const fieldHeight = playfield.clientHeight;
+
+    for(let i = activeLetters.length - 1; i >= 0; i--){
+      const item = activeLetters[i];
+      item.top += item.speed * dt;
+      item.el.style.top = item.top + 'px';
+      if(item.top > fieldHeight - 20){
+        item.el.classList.add('missed');
+        missedCount++;
+        setTimeout(()=> item.el.remove(), 350);
+        activeLetters.splice(i,1);
+      }
+    }
+    rafId = requestAnimationFrame(tick);
+  }
+
+  function onKeyDown(e){
+    if(!gameRunning) return;
+    const key = e.key.toUpperCase();
+    if(key.length !== 1) return;
+    // Tìm chữ cái phù hợp gần mặt đất nhất (rơi lâu nhất)
+    let bestIdx = -1, bestTop = -Infinity;
+    for(let i=0;i<activeLetters.length;i++){
+      if(activeLetters[i].letter === key && activeLetters[i].top > bestTop){
+        bestTop = activeLetters[i].top;
+        bestIdx = i;
+      }
+    }
+    if(bestIdx === -1) return;
+    const item = activeLetters[bestIdx];
+    item.el.classList.add('pop');
+    setTimeout(()=> item.el.remove(), 250);
+    activeLetters.splice(bestIdx,1);
+    score++;
+    scoreValEl.textContent = score;
+  }
+
+  function endGame(manualStop){
+    gameRunning = false;
+    clearInterval(timerInterval);
+    clearInterval(spawnInterval);
+    cancelAnimationFrame(rafId);
+    window.removeEventListener('keydown', onKeyDown);
+    activeLetters.forEach(l=> l.el.remove());
+    activeLetters = [];
+    showResult(manualStop);
+  }
+
+  function showResult(manualStop){
+    const flash = document.createElement('div');
+    flash.id = 'finish-flash';
+    const minutesPlayed = ((GAME_SECONDS - secondsRemaining) / 60).toFixed(1);
+    let praise = 'Cố lên nào, luyện thêm là giỏi ngay! 💪';
+    if(score >= 150) praise = 'Xuất sắc! Ngón tay bay như gió! 🌟';
+    else if(score >= 80) praise = 'Rất giỏi! Gõ nhanh và chính xác! 🎉';
+    else if(score >= 30) praise = 'Tốt lắm! Tiếp tục luyện tập nhé! 👍';
+
+    flash.innerHTML = `
+      <div class="result-card">
+        <h2>${manualStop ? '⏹ Đã dừng luyện tập' : '🎉 Hết giờ!'}</h2>
+        <div class="score-label">SỐ CHỮ GÕ ĐÚNG</div>
+        <div class="big-score">${score}</div>
+        <div class="stats">
+          <div class="stat-box"><div class="num">${minutesPlayed}</div><div class="lbl">PHÚT ĐÃ LUYỆN</div></div>
+          <div class="stat-box"><div class="num">${missedCount}</div><div class="lbl">CHỮ BỊ RƠI</div></div>
+        </div>
+        <p class="praise">${praise}</p>
+        <button class="again-btn" id="againBtn">🔁 Luyện lại</button>
+      </div>
+    `;
+    gameEl.appendChild(flash);
+    launchConfetti(flash);
+
+    document.getElementById('againBtn').addEventListener('click', ()=>{
+      flash.remove();
+      gameEl.style.display = 'none';
+      document.getElementById('setup').style.display = 'flex';
+    });
+  }
+
+  function launchConfetti(container){
+    const colors = COLORS;
+    for(let i=0;i<40;i++){
+      const c = document.createElement('div');
+      c.className = 'confetti';
+      c.style.left = Math.random()*100 + '%';
+      c.style.background = colors[Math.floor(Math.random()*colors.length)];
+      c.style.animationDuration = (2 + Math.random()*1.5) + 's';
+      c.style.animationDelay = (Math.random()*0.4) + 's';
+      container.appendChild(c);
+      setTimeout(()=> c.remove(), 4000);
+    }
+  }
+})();
 </script>
+
+</body>
+</html>
