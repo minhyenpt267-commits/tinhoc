@@ -3,611 +3,958 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mưa Chữ Cái — Luyện Gõ 10 Ngón | Trường Việt Nhật</title>
+<title>Luyện gõ 10 ngón - Việt Nhật</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
-  :root{
-    --maroon:#8a1d2b;
-    --maroon-dark:#5c1019;
-    --maroon-light:#f7e3e5;
-    --gold:#c9a227;
-    --cream:#fdfaf2;
-    --ink:#233047;
-    --card:#ffffff;
-    --shadow: 0 14px 34px rgba(31,45,42,0.16);
-  }
-  *{box-sizing:border-box;}
-  html,body{
-    margin:0; padding:0; height:100%;
-    font-family:'Quicksand', sans-serif;
-    color:var(--ink);
-    background:
-      radial-gradient(circle at 8% 12%, rgba(138,29,43,0.10), transparent 45%),
-      radial-gradient(circle at 92% 20%, rgba(156,43,47,0.09), transparent 42%),
-      radial-gradient(circle at 50% 100%, rgba(212,160,23,0.08), transparent 50%),
-      var(--cream);
-    overflow:hidden;
-  }
-  h1,h2,h3, .display{ font-family:'Baloo 2', cursive; }
-  .school-serif{ font-family:'Playfair Display', serif; }
+:root{
+  --red-900:#5c0a17;
+  --red-800:#7a0d1f;
+  --red-700:#9c1224;
+  --red-600:#c8142c;
+  --red-500:#df1c33;
+  --gold-500:#f0b429;
+  --gold-300:#f8d979;
+  --cream:#fff8ee;
+  --paper:#fffdf9;
+  --ink:#2a1810;
+  --ink-soft:#5a4438;
+  --navy:#1b3b6f;
+  --navy-soft:#7d93b8;
+  --green:#2f8f46;
+  --err:#d32f2f;
+}
+*{box-sizing:border-box;}
+html,body{height:100%;}
+body{
+  margin:0;
+  font-family:'Be Vietnam Pro',sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 8% 12%, rgba(240,180,41,0.18), transparent 40%),
+    radial-gradient(circle at 92% 85%, rgba(240,180,41,0.14), transparent 45%),
+    linear-gradient(160deg, var(--red-800) 0%, var(--red-600) 45%, var(--red-700) 100%);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+.leafpattern{
+  position:fixed; inset:0; pointer-events:none; z-index:0; opacity:0.10;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cpath d='M70 20 C95 35 105 60 90 90 C75 118 45 118 30 90 C15 60 25 35 50 20 C55 35 65 35 70 20 Z' fill='none' stroke='%23F8D979' stroke-width='2.5'/%3E%3C/svg%3E");
+  background-size:140px 140px;
+}
+h1,h2,h3,.display{font-family:'Baloo 2',sans-serif;}
+.hidden{display:none !important;}
+#app{position:relative; z-index:1; min-height:100vh; display:flex; flex-direction:column;}
 
-  /* --- decorative lotus-ring motifs echoing the school logo --- */
-  .motif{
-    position:fixed; border-radius:50%;
-    border: 2.5px solid rgba(138,29,43,0.14);
-    z-index:0; pointer-events:none;
-  }
-  .motif.maroon{ border-color: rgba(156,43,47,0.13); }
-  .motif-blob{
-    position:fixed; border-radius:50%; filter: blur(2px);
-    z-index:0; pointer-events:none; opacity:0.5;
-  }
+/* ---------- TOPBAR ---------- */
+#topbar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 26px;
+  background:linear-gradient(90deg, var(--red-900), var(--red-700));
+  box-shadow:0 3px 14px rgba(0,0,0,0.25);
+  position:relative; z-index:5;
+}
+#brand{display:flex; align-items:center; gap:14px;}
+#logo{
+  width:52px; height:52px; border-radius:14px 4px 14px 4px;
+  background:var(--cream); padding:4px; box-shadow:0 2px 10px rgba(0,0,0,0.3);
+  object-fit:contain;
+}
+#brand-text{color:var(--cream);}
+#brand-text .title{font-family:'Baloo 2',sans-serif; font-size:20px; font-weight:700; letter-spacing:0.3px;}
+#brand-text .sub{font-size:12px; color:var(--gold-300); font-weight:500;}
+#teacher-btn{
+  background:var(--gold-500); color:var(--red-900); border:none; border-radius:10px 3px 10px 3px;
+  padding:10px 18px; font-weight:700; font-family:'Baloo 2',sans-serif; font-size:14px; cursor:pointer;
+  box-shadow:0 3px 0 #b5850e; transition:transform .12s;
+}
+#teacher-btn:hover{transform:translateY(-2px);}
+#teacher-btn:active{transform:translateY(1px); box-shadow:0 1px 0 #b5850e;}
 
-  #app{ position:relative; width:100%; height:100vh; z-index:1; }
+/* ---------- HOME SCREEN ---------- */
+#home-screen{
+  flex:1; display:flex; gap:22px; padding:26px; max-width:1360px; margin:0 auto; width:100%;
+}
+#sidebar{
+  flex:0 0 32%; max-width:400px;
+  background:linear-gradient(165deg, var(--red-700), var(--red-900));
+  border-radius:20px 6px 20px 6px;
+  padding:20px 16px; box-shadow:0 10px 30px rgba(0,0,0,0.3);
+  display:flex; flex-direction:column; gap:12px;
+  border:2px solid rgba(248,217,121,0.35);
+}
+#sidebar h2{
+  color:var(--gold-300); font-size:18px; margin:2px 6px 6px; text-transform:uppercase; letter-spacing:1px;
+  border-bottom:2px dashed rgba(248,217,121,0.4); padding-bottom:10px;
+}
+.class-btn{
+  display:flex; flex-direction:column; align-items:flex-start; gap:2px;
+  background:rgba(255,255,255,0.06); border:1.5px solid rgba(255,255,255,0.15);
+  color:var(--cream); border-radius:14px 4px 14px 4px; padding:12px 16px; cursor:pointer;
+  transition:all .15s; text-align:left; font-family:'Be Vietnam Pro',sans-serif;
+}
+.class-btn:hover{background:rgba(255,255,255,0.14); transform:translateX(4px);}
+.class-btn.active{
+  background:var(--gold-500); color:var(--red-900); border-color:var(--gold-300);
+  box-shadow:0 4px 14px rgba(0,0,0,0.25);
+}
+.class-btn .name{font-family:'Baloo 2',sans-serif; font-weight:700; font-size:16.5px;}
+.class-btn .target{font-size:12px; opacity:0.85;}
+.class-btn.active .target{opacity:0.75;}
 
-  /* ---------- BRAND HEADER (persistent top-left identity) ---------- */
-  .brand{
-    position:fixed; top:16px; left:18px; z-index:20;
-    display:flex; align-items:center;
-    background: rgba(255,255,255,0.92);
-    border-radius:16px;
-    padding:8px 12px;
-    box-shadow: 0 8px 20px rgba(31,45,42,0.14);
-    border: 1.5px solid rgba(138,29,43,0.15);
-  }
-  .brand img{ height:44px; width:auto; display:block; }
+#right-panel{
+  flex:1;
+  background:var(--paper);
+  border-radius:22px;
+  padding:26px 30px;
+  box-shadow:0 14px 36px rgba(0,0,0,0.28);
+  display:flex; flex-direction:column; gap:18px;
+  position:relative;
+  border:2px solid var(--gold-300);
+}
+#right-panel::before{
+  content:""; position:absolute; top:0; left:0; right:0; height:6px;
+  background:repeating-linear-gradient(90deg, var(--red-600) 0 22px, var(--gold-500) 22px 44px);
+  border-radius:22px 22px 0 0;
+}
+#mode-config{flex:1; min-height:180px;}
+#mode-placeholder{
+  height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  color:var(--ink-soft); text-align:center; gap:10px; padding:20px;
+}
+#mode-placeholder .big{font-size:44px;}
+.section-title{font-family:'Baloo 2',sans-serif; color:var(--red-700); font-size:19px; margin:0 0 10px;}
 
-  /* ---------- SETUP SCREEN ---------- */
-  #setup{
-    position:absolute; inset:0;
-    display:flex; align-items:center; justify-content:center;
-    padding: 24px;
-  }
-  .panel{
-    position:relative;
-    background:var(--card);
-    border-radius:30px;
-    box-shadow: var(--shadow);
-    padding: 38px 40px 30px;
-    max-width: 800px;
-    width:100%;
-    max-height: 92vh;
-    overflow-y:auto;
-    border: 1px solid rgba(138,29,43,0.10);
-  }
-  .panel::before{
-    content:"";
-    position:absolute; top:0; left:0; right:0; height:8px;
-    border-radius:30px 30px 0 0;
-    background: linear-gradient(90deg, var(--maroon) 0%, var(--gold) 50%, var(--maroon) 100%);
-  }
-  .title-row{ text-align:center; margin-bottom: 4px; padding-top:6px;}
-  .title-row .eyebrow{
-    font-size:12px; letter-spacing:2px; font-weight:700; color:var(--maroon-dark);
-    text-transform:uppercase; margin-bottom:6px;
-  }
-  .title-row h1{
-    font-size: clamp(28px, 4vw, 42px);
-    margin: 0 0 4px;
-    background: linear-gradient(90deg, var(--maroon-dark), var(--maroon));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    letter-spacing: 0.5px;
-  }
-  .title-row .subtitle{
-    margin:0; color:#5b6b85; font-weight:600; font-size:15px;
-  }
-  .section-label{
-    font-family:'Baloo 2', cursive;
-    font-size: 18px; font-weight:700; margin: 24px 0 10px;
-    display:flex; align-items:center; gap:8px;
-    color: var(--maroon-dark);
-  }
-  .badge-num{
-    display:inline-flex; align-items:center; justify-content:center;
-    width:26px; height:26px; border-radius:50%;
-    background: linear-gradient(135deg, var(--gold), #e8b93f);
-    color:#5c3d00; font-size:14px; font-weight:800;
-  }
+.pill-toggle{display:flex; gap:10px; margin-bottom:16px;}
+.pill-toggle button{
+  flex:1; padding:11px; border-radius:12px 4px 12px 4px; border:2px solid var(--red-600);
+  background:var(--cream); color:var(--red-700); font-weight:700; font-family:'Baloo 2',sans-serif;
+  cursor:pointer; font-size:14.5px; transition:all .15s;
+}
+.pill-toggle button.active{background:var(--red-600); color:#fff; box-shadow:0 3px 0 var(--red-900);}
 
-  .finger-grid{
-    display:grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap:10px;
-  }
-  @media (max-width:600px){ .finger-grid{ grid-template-columns: repeat(2, 1fr);} }
+.finger-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:14px;}
+.finger-btn{
+  background:var(--cream); border:2px solid var(--navy-soft); border-radius:10px; padding:8px 6px;
+  font-size:12px; cursor:pointer; color:var(--navy); font-weight:600; text-align:center;
+}
+.finger-btn.active{background:var(--navy); color:#fff; border-color:var(--navy);}
+.letters-chip-row{display:flex; flex-wrap:wrap; gap:6px; margin:10px 0 16px;}
+.chip{
+  background:var(--gold-300); color:var(--red-900); font-family:'JetBrains Mono',monospace;
+  padding:4px 10px; border-radius:8px; font-weight:600; font-size:13px;
+}
+.speed-row{display:flex; gap:10px;}
+.speed-row button{
+  flex:1; padding:9px; border-radius:10px; border:2px solid var(--gold-500); background:#fff;
+  color:var(--red-700); font-weight:700; cursor:pointer; font-size:13px;
+}
+.speed-row button.active{background:var(--gold-500); color:var(--red-900);}
 
-  .finger-btn{
-    border: 2.5px solid #e6efe9;
-    background:#f8fbfa;
-    border-radius:16px;
-    padding:10px 8px;
-    cursor:pointer;
-    font-family:'Quicksand', sans-serif;
-    font-weight:700;
-    font-size:13px;
-    text-transform:uppercase;
-    letter-spacing:0.3px;
-    color:var(--ink);
-    text-align:center;
-    transition: all .15s ease;
-    line-height:1.3;
-  }
-  .finger-btn .hand-dot{
-    width:14px;height:14px;border-radius:50%;
-    background:#cfe0d9; margin:0 auto 6px;
-  }
-  .finger-btn:hover{ transform: translateY(-2px); box-shadow: 0 6px 14px rgba(138,29,43,0.14); border-color: rgba(138,29,43,0.3);}
-  .finger-btn.selected{
-    border-color: var(--maroon);
-    background: var(--maroon-light);
-    color: var(--maroon-dark);
-  }
-  .finger-btn.selected .hand-dot{ background: var(--maroon); }
-  .finger-btn .keys{
-    display:block; margin-top:3px; font-size:12px; color:#8a97ab; font-weight:600;
-  }
-  .finger-btn.selected .keys{ color: var(--maroon-dark); opacity:0.75;}
-  .finger-btn.all-fingers{ grid-column: span 3; }
-  @media (max-width:600px){ .finger-btn.all-fingers{ grid-column: span 2; } }
+#student-form{display:flex; gap:12px; align-items:flex-end; flex-wrap:wrap; border-top:2px dashed var(--gold-300); padding-top:16px;}
+.field{display:flex; flex-direction:column; gap:5px; flex:1; min-width:140px;}
+.field label{font-size:12.5px; color:var(--ink-soft); font-weight:600;}
+.field input{
+  padding:10px 12px; border-radius:10px; border:2px solid #e4d3c0; font-size:14.5px;
+  font-family:'Be Vietnam Pro',sans-serif; outline:none;
+}
+.field input:focus{border-color:var(--red-600);}
+#start-btn{
+  background:linear-gradient(180deg, var(--red-600), var(--red-700));
+  color:#fff; border:none; padding:12px 30px; border-radius:14px 4px 14px 4px;
+  font-family:'Baloo 2',sans-serif; font-weight:700; font-size:16px; cursor:pointer;
+  box-shadow:0 4px 0 var(--red-900); transition:transform .12s;
+}
+#start-btn:hover{transform:translateY(-2px);}
+#start-btn:disabled{opacity:0.5; cursor:not-allowed;}
+#setting-note{font-size:11.5px; color:var(--ink-soft); margin-top:-6px;}
 
-  .speed-row{ display:flex; gap:10px; flex-wrap:wrap; }
-  .speed-btn{
-    flex:1; min-width:110px;
-    border:2.5px solid #e6efe9;
-    background:#f8fbfa;
-    border-radius:16px;
-    padding:14px 10px;
-    cursor:pointer;
-    font-family:'Baloo 2', cursive;
-    font-weight:700;
-    font-size:16px;
-    text-transform:uppercase;
-    letter-spacing:0.3px;
-    color: var(--ink);
-    transition: all .15s ease;
-    text-align:center;
-  }
-  .speed-btn .emoji{ font-size:22px; display:block; margin-bottom:4px; }
-  .speed-btn:hover{ transform: translateY(-2px); box-shadow: 0 6px 14px rgba(138,29,43,0.14); }
-  .speed-btn.selected{ border-color: var(--maroon); background: var(--maroon-light); color:var(--maroon-dark);}
+/* ---------- EXERCISE SCREEN ---------- */
+#exercise-screen{flex:1; display:flex; flex-direction:column; padding:20px 26px; max-width:1200px; margin:0 auto; width:100%; gap:16px;}
+#ex-header{
+  background:var(--paper); border-radius:16px; padding:14px 22px; display:flex; align-items:center;
+  justify-content:space-between; flex-wrap:wrap; gap:12px; box-shadow:0 8px 22px rgba(0,0,0,0.25);
+}
+.ex-info .name{font-family:'Baloo 2',sans-serif; font-weight:700; color:var(--red-700); font-size:16px;}
+.ex-info .sub{font-size:12.5px; color:var(--ink-soft);}
+.ex-stats{display:flex; gap:22px; align-items:center;}
+.stat{text-align:center;}
+.stat .val{font-family:'JetBrains Mono',monospace; font-size:22px; font-weight:700; color:var(--red-700);}
+.stat .lbl{font-size:11px; color:var(--ink-soft); text-transform:uppercase;}
+.ex-controls{display:flex; gap:8px;}
+.ex-controls button{
+  border:none; border-radius:10px; padding:9px 16px; font-weight:700; cursor:pointer;
+  font-family:'Baloo 2',sans-serif; font-size:13.5px;
+}
+#pause-btn{background:var(--gold-500); color:var(--red-900);}
+#end-btn{background:var(--red-600); color:#fff;}
 
-  .start-btn{
-    display:block; width:100%; margin-top: 26px;
-    background: linear-gradient(180deg, #b8393e, var(--maroon));
-    color:white; border:none; border-radius:20px;
-    padding:16px; font-family:'Baloo 2', cursive; font-size:22px; font-weight:800;
-    letter-spacing:0.5px;
-    cursor:pointer; box-shadow: 0 8px 0 var(--maroon-dark), 0 12px 20px rgba(122,31,35,0.35);
-    transition: transform .08s ease, box-shadow .08s ease;
-  }
-  .start-btn:active{ transform: translateY(6px); box-shadow: 0 2px 0 var(--maroon-dark), 0 6px 10px rgba(122,31,35,0.3); }
-  .start-btn:disabled{
-    background:#d7ddd9; box-shadow:none; cursor:not-allowed; color:#8a97ab;
-  }
-  .hint{ text-align:center; font-size:13px; color:#8a97ab; margin-top:10px; font-weight:600; min-height:18px;}
+#ex-body{
+  flex:1; background:var(--paper); border-radius:18px; padding:24px 28px; box-shadow:0 10px 28px rgba(0,0,0,0.25);
+  position:relative; overflow:hidden; display:flex; flex-direction:column;
+}
+#text-panel{
+  font-family:'JetBrains Mono',monospace; font-size:19px; line-height:2; white-space:pre-wrap; word-wrap:break-word;
+  max-height:420px; overflow-y:auto; padding:6px 4px;
+}
+#text-panel .ch{color:var(--navy);}
+#text-panel .ch.done{color:#b9c2ce;}
+#text-panel .ch.current{background:var(--gold-300); border-radius:3px; outline:2px solid var(--gold-500);}
+#text-panel .ch.err{background:var(--err); color:#fff; border-radius:3px;}
+#game-panel{flex:1; position:relative; background:linear-gradient(180deg,#eaf1ff,#fff); border-radius:12px; overflow:hidden; min-height:380px;}
+.falling-letter{position:absolute; font-family:'JetBrains Mono',monospace; font-weight:700; font-size:26px; color:var(--navy);}
+#game-hint{position:absolute; bottom:8px; left:0; right:0; text-align:center; font-size:12px; color:var(--ink-soft);}
+#typeCapture{position:absolute; opacity:0; width:1px; height:1px; pointer-events:none;}
 
-  /* ---------- GAME SCREEN ---------- */
-  #game{
-    position:absolute; inset:0; display:none;
-    flex-direction:column;
-  }
-  #hud{
-    display:flex; align-items:center; justify-content:flex-end;
-    gap:10px;
-    padding: 14px 22px 14px 180px;
-    z-index:5;
-    flex-wrap:wrap;
-  }
-  .hud-chip{
-    background:rgba(255,255,255,0.9);
-    border-radius:16px; padding:8px 16px;
-    box-shadow: var(--shadow);
-    font-family:'Baloo 2', cursive; font-weight:700; font-size:16px;
-    display:flex; align-items:center; gap:8px;
-    border: 1px solid rgba(138,29,43,0.10);
-  }
-  .hud-chip .label{ font-size:12px; color:#8a97ab; font-family:'Quicksand'; font-weight:700; }
-  #timeChip.warning{ color:var(--maroon-dark); border-color: rgba(156,43,47,0.3); }
-  #stopBtn{
-    background:white; border:2px solid #e6efe9; border-radius:14px;
-    padding:8px 14px; font-family:'Quicksand'; font-weight:700; cursor:pointer;
-    color:#5b6b85;
-  }
-  #stopBtn:hover{ background:var(--maroon-light); }
-
-  #playfield{
-    position:relative; flex:1; overflow:hidden;
-    background: linear-gradient(180deg, #e3f4f0 0%, #fbf8f0 100%);
-    margin: 0 16px 16px;
-    border-radius: 26px;
-    box-shadow: inset 0 2px 10px rgba(138,29,43,0.10);
-    border: 1px solid rgba(138,29,43,0.10);
-  }
-  .ground-line{
-    position:absolute; left:0; right:0; bottom:56px;
-    border-top: 3px dashed rgba(156,43,47,0.35);
-    opacity:0.7;
-  }
-  .falling-letter{
-    position:absolute;
-    top:-60px;
-    width:56px; height:56px;
-    border-radius:16px;
-    display:flex; align-items:center; justify-content:center;
-    font-family:'Baloo 2', cursive; font-weight:800; font-size:26px;
-    color:white;
-    box-shadow: 0 6px 14px rgba(0,0,0,0.16);
-    user-select:none;
-    will-change: transform;
-  }
-  .falling-letter.pop{ animation: popOut .25s ease forwards; }
-  @keyframes popOut{
-    0%{ transform:scale(1); opacity:1;}
-    100%{ transform:scale(1.6); opacity:0;}
-  }
-  .falling-letter.missed{ animation: sink .35s ease forwards; }
-  @keyframes sink{
-    0%{ transform:scale(1); opacity:1;}
-    100%{ transform:scale(0.7) translateY(6px); opacity:0;}
-  }
-
-  #finish-flash{
-    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-    background: rgba(31,45,42,0.4);
-    z-index:10;
-  }
-  .result-card{
-    position:relative;
-    background:white; border-radius:28px; padding:36px 40px; text-align:center;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-    max-width: 440px; width:90%;
-    border-top: 6px solid var(--maroon);
-  }
-  .result-card h2{ margin:6px 0 2px; font-size:28px; color:var(--maroon-dark); }
-  .result-card .big-score{
-    font-family:'Baloo 2', cursive; font-size:64px; font-weight:800; color:var(--maroon);
-    margin: 10px 0 0;
-  }
-  .result-card .score-label{ color:#5b6b85; font-weight:700; font-size:14px; margin-bottom: 4px;}
-  .result-card .stats{ display:flex; justify-content:center; gap:22px; margin: 18px 0 6px; }
-  .stat-box{ background:var(--maroon-light); border-radius:14px; padding:10px 14px; min-width:80px;}
-  .stat-box .num{ font-family:'Baloo 2', cursive; font-size:22px; font-weight:700; color:var(--ink);}
-  .stat-box .lbl{ font-size:11px; color:#8a97ab; font-weight:700; }
-  .result-card .praise{ font-size:15px; font-weight:700; color:#5b6b85; margin: 8px 0 20px;}
-  .again-btn{
-    background: linear-gradient(180deg, #b8393e, var(--maroon));
-    color:white; border:none; border-radius:16px;
-    padding:12px 28px; font-family:'Baloo 2', cursive; font-size:18px; font-weight:800;
-    cursor:pointer; box-shadow: 0 6px 0 var(--maroon-dark);
-  }
-  .again-btn:active{ transform: translateY(4px); box-shadow:none; }
-
-  .confetti{
-    position:absolute; width:8px; height:14px; top:-20px; opacity:0.9;
-    animation-name: fall; animation-timing-function: linear; animation-fill-mode: forwards;
-  }
-  @keyframes fall{ to{ transform: translateY(110vh) rotate(360deg); opacity:0.3; } }
-
-  @media (prefers-reduced-motion: reduce){
-    .falling-letter, .confetti, .again-btn, .start-btn { animation: none !important; transition: none !important; }
-  }
-
-  @media (max-width:640px){
-    .brand{ padding:6px 10px; }
-    .brand img{ height:34px; }
-    #hud{ padding-left:16px; padding-top:64px; justify-content:center; }
-  }
+/* ---------- MODALS ---------- */
+.modal-overlay{
+  position:fixed; inset:0; background:rgba(20,8,8,0.55); display:flex; align-items:center; justify-content:center;
+  z-index:50; padding:20px;
+}
+.modal-box{
+  background:var(--paper); border-radius:20px; padding:26px 28px; max-width:900px; width:100%;
+  max-height:88vh; overflow-y:auto; box-shadow:0 20px 50px rgba(0,0,0,0.4); position:relative;
+}
+.modal-box h2{color:var(--red-700); margin-top:0;}
+.modal-close{position:absolute; top:16px; right:18px; background:none; border:none; font-size:22px; cursor:pointer; color:var(--ink-soft);}
+table.result-table{width:100%; border-collapse:collapse; font-size:13.5px; margin-top:12px;}
+table.result-table th{background:var(--red-600); color:#fff; padding:9px 8px; text-align:left; position:sticky; top:0;}
+table.result-table td{padding:8px; border-bottom:1px solid #eee;}
+table.result-table tr:nth-child(even) td{background:#fbf5ea;}
+.diff-up{color:var(--green); font-weight:700;}
+.diff-down{color:var(--err); font-weight:700;}
+.diff-same{color:var(--ink-soft);}
+.tabs{display:flex; gap:8px; margin-bottom:14px;}
+.tabs button{padding:8px 16px; border-radius:10px 10px 0 0; border:none; background:#eee; cursor:pointer; font-weight:700; font-family:'Baloo 2',sans-serif;}
+.tabs button.active{background:var(--red-600); color:#fff;}
+.teacher-controls{display:flex; gap:10px; align-items:center; margin-bottom:10px; flex-wrap:wrap;}
+.teacher-controls select{padding:8px 10px; border-radius:8px; border:1.5px solid #ddd;}
+.teacher-controls button{background:var(--gold-500); color:var(--red-900); border:none; padding:8px 16px; border-radius:8px; font-weight:700; cursor:pointer;}
+#celebrate-canvas{position:fixed; inset:0; pointer-events:none; z-index:80;}
+#result-modal .big-num{font-size:46px; font-family:'Baloo 2',sans-serif; color:var(--red-700); text-align:center;}
+#result-modal .center{text-align:center;}
 </style>
 </head>
 <body>
+<div class="leafpattern"></div>
+<canvas id="celebrate-canvas" class="hidden"></canvas>
+<div id="app">
+  <div id="topbar">
+    <div id="brand">
+      <img id="logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKoAAABlCAYAAADdyHjjAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADpwAAA6cAQeUU90AAB1HSURBVHhe7V0HWBTn1v6f5/+TG40mUZOoMWpMMd0SE00zphhLbCmW2JJYrok3uak3vdxYQVHARhErICCiYlcQREDBgopSLCBdpTcFBPX85z07uy6wFNldYHHex+9ZnPlmdmbnndO+853vf1SosAiQChUWAJWoKiwCKlFVWARUoqqwCKhEVWERUImqwiKgElWFRaDpEPXGDbpx/bo0/E38T0XTgWURlQl4vbSUSq9coeL8fCrKyaGizCzKS0mh9FNRdCEigi4cO07p0TGUfT6BCi+lS5+rBQVUWlQkxwqJVVgcGj1Rr5eV0dXCQirKyqacuHg67buFAv/6mzxHfECO3V+ghe07klXL+2hui3tpLj61fzdvSVb3tiEH7uMzdhztnzWbYnx8KD0mli5nZso5r0P6qrAINFqiXrt6VaRhQuA+2vnvr8mpRy+ad18bISE+59/flmwebE8L2j5EC9p1MNx4n80D7WhemwflGKuWrWh2sxa05Mmnafc331JyaChdzsgQaatK2saNxkVUJstVVuv5ySl00s2d1r7dn6Via7Judb8QziAR0UBY/r9th05k27Ezt0fIrlMXsuNP24c708KHOpIN70c/bf95fM45LHVXvPwahdosoMzoaCrJy+dLUAnbGNE4iAqCsirOOHmKgllFL3vmeZrNJILUrERMkA2kZBIufvQJWvr0c+T4fA9a8+Y75DNmHPlOnkpbv/iCdnz5NW37YjptnjSZvD74iFa88jo5dusp/Rc//qQQGeeZz9IWpoM1S9wtk6bSRbZxr16+rErYRoYGJ+r10jLKYccn8M+/hIhWrNorSk9IQXzaMzFBylVvvEW+U6ZQmN0iOh8QwA5VpnK26lGYdoESA4PoqPNy2vXN97Sy75u0lF8Ku0eYtPjue1rJNQTNnEW5CQl0raREOVJFQ6PhiCpS9DLF7/GnNW/1FzUMkugIyn9DekJtL+n6NEvMtylkrjWT+rxyAtMgcX8w7fnuB1r52hu0jKXtwvYP05y77yGH57tTpKsbXb50SZWujQANQtTr165RXnIyBc+xogVMDNigOoJys3nwIVHNDiztvD4a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">
+      <div id="brand-text">
+        <div class="title">Luyện gõ 10 ngón</div>
+        <div class="sub">Trường Tiểu học Việt Nhật</div>
+      </div>
+    </div>
+    <button id="teacher-btn">👩‍🏫 Giáo viên - Xem kết quả</button>
+  </div>
 
-<!-- decorative motifs echoing the logo's lotus ring -->
-<div class="motif" style="width:260px;height:260px; top:-90px; left:-90px;"></div>
-<div class="motif maroon" style="width:180px;height:180px; bottom:-60px; right:-50px;"></div>
-<div class="motif" style="width:90px;height:90px; top:20%; right:8%;"></div>
-<div class="motif-blob" style="width:220px;height:220px; background:radial-gradient(circle, rgba(138,29,43,0.10), transparent 70%); top:10%; left:70%;"></div>
-<div class="motif-blob" style="width:180px;height:180px; background:radial-gradient(circle, rgba(156,43,47,0.10), transparent 70%); bottom:6%; left:4%;"></div>
+  <!-- HOME SCREEN -->
+  <div id="home-screen" class="screen">
+    <aside id="sidebar">
+      <h2>Khối lớp</h2>
+      <div id="class-list"></div>
+      <div style="margin-top:auto; color:var(--gold-300); font-size:11.5px; padding:8px 6px; border-top:2px dashed rgba(248,217,121,0.4);">
+        Kiểu gõ: <b>Telex</b> &nbsp;|&nbsp; Bảng mã: <b>Unicode dựng sẵn</b>
+      </div>
+    </aside>
+    <main id="right-panel">
+      <div id="mode-config">
+        <div id="mode-placeholder">
+          <div class="big">⌨️</div>
+          <div>Hãy chọn một khối lớp ở bên trái để bắt đầu luyện tập</div>
+        </div>
+      </div>
+      <div id="student-form">
+        <div class="field">
+          <label>Họ và tên học sinh</label>
+          <input type="text" id="stu-name" placeholder="Nguyễn Văn A">
+        </div>
+        <div class="field">
+          <label>Lớp</label>
+          <input type="text" id="stu-class" placeholder="2A">
+        </div>
+        <button id="start-btn" disabled>Bắt đầu</button>
+      </div>
+      <div id="setting-note"></div>
+    </main>
+  </div>
 
-<!-- persistent brand mark, top-left, on every screen -->
-<div class="brand">
-  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKoAAABlCAYAAADdyHjjAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADpwAAA6cAQeUU90AAB1HSURBVHhe7V0HWBTn1v6f5/+TG40mUZOoMWpMMd0SE00zphhLbCmW2JJYrok3uak3vdxYQVHARhErICCiYlcQREDBgopSLCBdpTcFBPX85z07uy6wFNldYHHex+9ZnPlmdmbnndO+853vf1SosAiQChUWAJWoKiwCKlFVWARUoqqwCKhEVWERUImqwiKgElWFRaDpEPXGDbpx/bo0/E38T0XTgWURlQl4vbSUSq9coeL8fCrKyaGizCzKS0mh9FNRdCEigi4cO07p0TGUfT6BCi+lS5+rBQVUWlQkxwqJVVgcGj1Rr5eV0dXCQirKyqacuHg67buFAv/6mzxHfECO3V+ghe07klXL+2hui3tpLj61fzdvSVb3tiEH7uMzdhztnzWbYnx8KD0mli5nZso5r0P6qrAINFqiXrt6VaRhQuA+2vnvr8mpRy+ad18bISE+59/flmwebE8L2j5EC9p1MNx4n80D7WhemwflGKuWrWh2sxa05Mmnafc331JyaChdzsgQaatK2saNxkVUJstVVuv5ySl00s2d1r7dn6Via7Judb8QziAR0UBY/r9th05k27Ezt0fIrlMXsuNP24c708KHOpIN70c/bf95fM45LHVXvPwahdosoMzoaCrJy+dLUAnbGNE4iAqCsirOOHmKgllFL3vmeZrNJILUrERMkA2kZBIufvQJWvr0c+T4fA9a8+Y75DNmHPlOnkpbv/iCdnz5NW37YjptnjSZvD74iFa88jo5dusp/Rc//qQQGeeZz9IWpoM1S9wtk6bSRbZxr16+rErYRoYGJ+r10jLKYccn8M+/hIhWrNorSk9IQXzaMzFBylVvvEW+U6ZQmN0iOh8QwA5VpnK26lGYdoESA4PoqPNy2vXN97Sy75u0lF8Ku0eYtPjue1rJNQTNnEW5CQl0raREOVJFQ6PhiCpS9DLF7/GnNW/1FzUMkugIyn9DekJtL+n6NEvMtylkrjWT+rxyAtMgcX8w7fnuB1r52hu0jKXtwvYP05y77yGH57tTpKsbXb50SZWujQANQtTr165RXnIyBc+xogVMDNigOoJys3nwIVHNDiztvD4a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" alt="Logo trường">
+  <!-- EXERCISE SCREEN -->
+  <div id="exercise-screen" class="screen hidden">
+    <div id="ex-header">
+      <div class="ex-info">
+        <div class="name" id="ex-student"></div>
+        <div class="sub" id="ex-mode"></div>
+      </div>
+      <div class="ex-stats">
+        <div class="stat"><div class="val" id="ex-timer">15:00</div><div class="lbl">Thời gian còn lại</div></div>
+        <div class="stat"><div class="val" id="ex-count">0</div><div class="lbl">Số chữ đã gõ</div></div>
+      </div>
+      <div class="ex-controls">
+        <button id="pause-btn">⏸ Tạm dừng</button>
+        <button id="end-btn">⏹ Kết thúc</button>
+      </div>
+    </div>
+    <div id="ex-body">
+      <div id="text-panel" class="hidden"></div>
+      <div id="game-panel" class="hidden">
+        <div id="game-hint"></div>
+      </div>
+      <textarea id="typeCapture" autocomplete="off" autocorrect="off" spellcheck="false"></textarea>
+    </div>
+  </div>
 </div>
 
-<div id="app">
+<!-- RESULT MODAL -->
+<div id="result-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <button class="modal-close" data-close="result-modal">✕</button>
+    <h2 id="result-title">Kết quả luyện tập</h2>
+    <div class="center big-num" id="result-words">0 chữ</div>
+    <div class="center" id="result-sub" style="color:var(--ink-soft); margin-bottom:14px;"></div>
+    <div class="center" id="result-diff" style="font-size:16px; margin-bottom:10px;"></div>
+    <div class="center"><button id="result-ok-btn" style="background:var(--red-600); color:#fff; border:none; padding:10px 26px; border-radius:10px; font-weight:700; cursor:pointer; font-family:'Baloo 2',sans-serif;">Về trang chính</button></div>
+  </div>
+</div>
 
-  <!-- SETUP SCREEN -->
-  <div id="setup">
-    <div class="panel">
-      <div class="title-row">
-        <h1>🌧️ Mưa Chữ Cái</h1>
-        <p class="subtitle">Luyện gõ 10 ngón dành cho học sinh tiểu học</p>
+<!-- TEACHER MODAL -->
+<div id="teacher-modal" class="modal-overlay hidden">
+  <div class="modal-box" style="max-width:1100px;">
+    <button class="modal-close" data-close="teacher-modal">✕</button>
+    <h2>Bảng tổng hợp kết quả</h2>
+    <div class="tabs">
+      <button id="tab-name" class="active">Theo học sinh</button>
+      <button id="tab-class">Theo lớp</button>
+    </div>
+    <div id="panel-name">
+      <div class="teacher-controls">
+        <label>Chọn học sinh:</label>
+        <select id="select-student"></select>
+        <button id="export-student-btn">⬇ Xuất Excel</button>
       </div>
-
-      <div class="section-label"><span class="badge-num">1</span> Chọn ngón tay muốn luyện</div>
-      <div class="finger-grid" id="fingerGrid"></div>
-
-      <div class="section-label"><span class="badge-num">2</span> Chọn tốc độ rơi</div>
-      <div class="speed-row" id="speedRow">
-        <div class="speed-btn" data-speed="slow"><span class="emoji">🐢</span>Chậm</div>
-        <div class="speed-btn" data-speed="medium"><span class="emoji">🐇</span>Trung bình</div>
-        <div class="speed-btn" data-speed="fast"><span class="emoji">🚀</span>Nhanh</div>
+      <table class="result-table" id="table-student">
+        <thead><tr><th>Stt</th><th>Họ tên</th><th>Lớp</th><th>Ngày thực hiện</th><th>Thời gian</th><th>Mục tiêu</th><th>Số chữ gõ được</th><th>Tăng/giảm</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div id="panel-class" class="hidden">
+      <div class="teacher-controls">
+        <label>Chọn lớp:</label>
+        <select id="select-class"></select>
+        <button id="export-class-btn">⬇ Xuất Excel</button>
       </div>
-
-      <button class="start-btn" id="startBtn" disabled>▶ BẮT ĐẦU (10 phút)</button>
-      <p class="hint" id="hint">Hãy chọn ngón tay và tốc độ nhé!</p>
+      <table class="result-table" id="table-class">
+        <thead><tr><th>Stt</th><th>Họ tên</th><th>Ngày thực hiện</th><th>Thời gian</th><th>Mục tiêu</th><th>Số chữ gõ được</th><th>Tăng/giảm</th></tr></thead>
+        <tbody></tbody>
+      </table>
     </div>
   </div>
-
-  <!-- GAME SCREEN -->
-  <div id="game">
-    <div id="hud">
-      <div class="hud-chip">⌨️ <span id="fingerLabel">—</span></div>
-      <div class="hud-chip" id="timeChip">⏳ <span id="timeLeft">10:00</span></div>
-      <div class="hud-chip">⭐ <span class="label">Số chữ đúng:&nbsp;</span><span id="scoreVal">0</span></div>
-      <button id="stopBtn">⏹ Dừng lại</button>
-    </div>
-    <div id="playfield">
-      <div class="ground-line"></div>
-    </div>
-  </div>
-
 </div>
 
 <script>
-(function(){
-  // ---------- Cấu hình ngón tay & phím tương ứng ----------
-  const FINGER_GROUPS = [
-    { id:'lp',  name:'Út (trái)',     keys:['Q','A','Z'] },
-    { id:'lr',  name:'Áp út (trái)',  keys:['W','S','X'] },
-    { id:'lm',  name:'Giữa (trái)',   keys:['E','D','C'] },
-    { id:'li',  name:'Trỏ (trái)',    keys:['R','F','V','T','G','B'] },
-    { id:'ri',  name:'Trỏ (phải)',    keys:['Y','H','N','U','J','M'] },
-    { id:'rm',  name:'Giữa (phải)',   keys:['I','K'] },
-    { id:'rr',  name:'Áp út (phải)',  keys:['O','L'] },
-    { id:'rp',  name:'Út (phải)',     keys:['P'] },
-  ];
-  const ALL_KEYS = FINGER_GROUPS.flatMap(f=>f.keys);
+/* ============================ DATA ============================ */
+const GRADES = [
+  {id:'lop2', name:'Lớp 2', target:'50-100 chữ/15 phút', min:50, max:100, kind:'lop2'},
+  {id:'lop3', name:'Lớp 3', target:'100-150 chữ/15 phút', min:100, max:150, kind:'test'},
+  {id:'lop4', name:'Lớp 4', target:'150-200 chữ/15 phút', min:150, max:200, kind:'test'},
+  {id:'lop5', name:'Lớp 5', target:'200-250 chữ/15 phút', min:200, max:250, kind:'test'},
+  {id:'kiemtra', name:'Kiểm tra gõ 10 ngón', target:'Đánh giá tổng hợp', min:150, max:300, kind:'test'},
+];
 
-  const SPEED_CONFIG = {
-    slow:   { fall: 55,  spawnMs: 1500 },
-    medium: { fall: 95,  spawnMs: 1100 },
-    fast:   { fall: 145, spawnMs: 800  },
-  };
-  const SPEED_LABELS = { slow:'Chậm 🐢', medium:'Trung bình 🐇', fast:'Nhanh 🚀' };
+const FINGERS = [
+  {id:'l1', label:'Út trái', letters:['q','a','z']},
+  {id:'l2', label:'Áp út trái', letters:['w','s','x']},
+  {id:'l3', label:'Giữa trái', letters:['e','d','c']},
+  {id:'l4', label:'Trỏ trái', letters:['r','f','v','t','g','b']},
+  {id:'r4', label:'Trỏ phải', letters:['y','h','n','u','j','m']},
+  {id:'r3', label:'Giữa phải', letters:['i','k']},
+  {id:'r2', label:'Áp út phải', letters:['o','l']},
+  {id:'r1', label:'Út phải', letters:['p']},
+];
 
-  const COLORS = ['#0e7c6b','#9c2b2f','#d4a017','#1f9c85','#b8393e','#c98f1e'];
+const SPEEDS = [{id:'slow', label:'Chậm', ms:2600}, {id:'mid', label:'Trung bình', ms:1800}, {id:'fast', label:'Nhanh', ms:1100}];
 
-  // ---------- state ----------
-  let chosenFinger = null;
-  let chosenSpeed = null;
+const SENTENCES = [
+"Tự tin là khi em dám giơ tay phát biểu dù câu trả lời có thể chưa đúng.",
+"Mỗi buổi sáng, em tự chuẩn bị sách vở và quần áo trước khi đến trường.",
+"Biết tôn trọng thầy cô và bạn bè giúp lớp học luôn vui vẻ, hòa thuận.",
+"Kỷ luật không có nghĩa là gò bó, mà là biết sắp xếp thời gian hợp lý.",
+"Chăm chỉ luyện tập mỗi ngày sẽ giúp em gõ bàn phím nhanh và chính xác hơn.",
+"Một góc học tập gọn gàng, sạch sẽ sẽ giúp em tập trung học bài tốt hơn.",
+"Sáng tạo bắt đầu từ những câu hỏi nhỏ như tại sao và làm thế nào.",
+"Khi mắc lỗi, em bình tĩnh sửa lại thay vì buồn bã hay đổ lỗi cho người khác.",
+"Tự lập nghĩa là em có thể tự làm những việc vừa sức mà không cần ai nhắc nhở.",
+"Biết lắng nghe ý kiến của bạn cũng là một cách thể hiện sự tôn trọng.",
+"Rèn luyện thói quen dậy sớm giúp em có thêm thời gian ôn bài mỗi ngày.",
+"Giữ gìn vệ sinh lớp học là trách nhiệm của tất cả các bạn học sinh.",
+"Sự tự tin được xây dựng từ những lần cố gắng và không ngại thử sức.",
+"Em luôn cất gọn đồ dùng học tập sau khi sử dụng xong.",
+"Một ý tưởng sáng tạo có thể bắt nguồn từ những điều rất đơn giản trong cuộc sống.",
+"Tôn trọng nội quy trường lớp giúp em trở thành một học sinh gương mẫu.",
+"Kỷ luật giúp em hoàn thành bài tập đúng giờ mà không cần ai nhắc nhở.",
+"Chăm chỉ không phải là học nhiều mà là học đều đặn mỗi ngày.",
+"Rửa tay sạch sẽ trước khi ăn là thói quen tốt cần duy trì hằng ngày.",
+"Óc sáng tạo giúp em tìm ra nhiều cách giải một bài toán khó.",
+"Tự lập từ những việc nhỏ như gấp chăn màn sẽ giúp em trưởng thành hơn.",
+"Biết nói lời cảm ơn và xin lỗi đúng lúc là cách thể hiện sự tôn trọng.",
+"Một thời khóa biểu rõ ràng giúp em rèn luyện tính kỷ luật mỗi ngày.",
+"Sự chăm chỉ hôm nay sẽ là nền tảng cho thành công của em sau này.",
+"Giữ sách vở sạch đẹp cũng là cách em thể hiện sự cẩn thận của mình.",
+"Óc sáng tạo và trí tưởng tượng phong phú giúp bài văn của em thêm sinh động.",
+"Tự tin trình bày trước lớp giúp em rèn luyện kỹ năng giao tiếp tốt hơn.",
+"Biết chia sẻ đồ dùng học tập với bạn bè là một hành động đẹp.",
+"Sắp xếp góc học tập khoa học giúp em tiết kiệm thời gian tìm đồ dùng.",
+"Mỗi ngày cố gắng một chút, em sẽ thấy mình tiến bộ rõ rệt.",
+"Em biết xếp hàng trật tự khi ra vào lớp, không chen lấn xô đẩy bạn.",
+"Sự ngăn nắp trong cặp sách giúp em không bị quên đồ dùng học tập.",
+"Dám nhận lỗi khi làm sai là biểu hiện của một học sinh tự tin, trung thực.",
+"Em tự giác làm bài tập về nhà mà không cần bố mẹ nhắc nhở nhiều lần.",
+];
 
-  const fingerGrid = document.getElementById('fingerGrid');
-
-  FINGER_GROUPS.forEach(f=>{
-    const btn = document.createElement('div');
-    btn.className = 'finger-btn';
-    btn.dataset.id = f.id;
-    btn.innerHTML = `<span class="hand-dot"></span>${f.name}<span class="keys">${f.keys.join(' ')}</span>`;
-    btn.addEventListener('click', ()=> selectFinger(f, btn));
-    fingerGrid.appendChild(btn);
-  });
-  const allBtn = document.createElement('div');
-  allBtn.className = 'finger-btn all-fingers';
-  allBtn.dataset.id = 'all';
-  allBtn.innerHTML = `<span class="hand-dot"></span>Tất cả các ngón (10 ngón)<span class="keys">${ALL_KEYS.join(' ')}</span>`;
-  allBtn.addEventListener('click', ()=> selectFinger({id:'all', name:'Tất cả các ngón', keys: ALL_KEYS}, allBtn));
-  fingerGrid.appendChild(allBtn);
-
-  function selectFinger(f, el){
-    chosenFinger = f;
-    document.querySelectorAll('.finger-btn').forEach(b=>b.classList.remove('selected'));
-    el.classList.add('selected');
-    updateHint();
-    checkReady();
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+function buildPassage(min,max){
+  const target = Math.floor(min + Math.random()*(max-min));
+  let pool = shuffle(SENTENCES);
+  let idx = 0;
+  let words = 0;
+  let sentences = [];
+  while(words < target){
+    if(idx >= pool.length){ pool = shuffle(SENTENCES); idx = 0; }
+    const s = pool[idx++];
+    sentences.push(s);
+    words += s.split(/\s+/).filter(Boolean).length;
+    if(words >= max) break;
   }
-
-  document.querySelectorAll('.speed-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      chosenSpeed = btn.dataset.speed;
-      document.querySelectorAll('.speed-btn').forEach(b=>b.classList.remove('selected'));
-      btn.classList.add('selected');
-      updateHint();
-      checkReady();
-    });
-  });
-
-  const hintEl = document.getElementById('hint');
-  function updateHint(){
-    if(!chosenFinger && !chosenSpeed){ hintEl.textContent = 'Hãy chọn ngón tay và tốc độ nhé!'; return; }
-    if(!chosenFinger){ hintEl.textContent = 'Còn thiếu: chọn ngón tay muốn luyện.'; return; }
-    if(!chosenSpeed){ hintEl.textContent = 'Còn thiếu: chọn tốc độ rơi.'; return; }
-    hintEl.textContent = `Sẵn sàng luyện "${chosenFinger.name}" - tốc độ ${SPEED_LABELS[chosenSpeed]}!`;
+  let out = '';
+  for(let i=0;i<sentences.length;i++){
+    out += sentences[i] + (i < sentences.length-1 ? ' ' : '');
+    if((i+1)%4===0 && i < sentences.length-1) out += '\n';
   }
-  function checkReady(){
-    document.getElementById('startBtn').disabled = !(chosenFinger && chosenSpeed);
-  }
+  return out;
+}
 
-  document.getElementById('startBtn').addEventListener('click', startGame);
-  document.getElementById('stopBtn').addEventListener('click', ()=> endGame(true));
+/* ============================ STORAGE ============================ */
+async function loadResults(){
+  try{
+    const r = await window.storage.get('typing_results', true);
+    return r ? JSON.parse(r.value) : [];
+  }catch(e){ return []; }
+}
+async function saveResults(list){
+  try{ await window.storage.set('typing_results', JSON.stringify(list), true); }catch(e){}
+}
+async function addResult(record){
+  const list = await loadResults();
+  list.push(record);
+  await saveResults(list);
+}
 
-  const gameEl = document.getElementById('game');
-  const playfield = document.getElementById('playfield');
-  const scoreValEl = document.getElementById('scoreVal');
-  const timeLeftEl = document.getElementById('timeLeft');
-  const timeChip = document.getElementById('timeChip');
-  const fingerLabelEl = document.getElementById('fingerLabel');
+/* ============================ STATE ============================ */
+let state = {
+  gradeId:null,
+  lop2Mode:null, // 'game' | 'practice'
+  finger:null,
+  speed:'mid',
+  passage:'',
+  idx:0,
+  wordsCount:0,
+  timeLeft:900,
+  timerId:null,
+  paused:false,
+  running:false,
+  gameSpawnId:null,
+  gameActiveLetter:null,
+  gameCatches:0,
+};
 
-  const GAME_SECONDS = 10 * 60;
-  let score = 0;
-  let missedCount = 0;
-  let secondsRemaining = GAME_SECONDS;
-  let timerInterval = null;
-  let spawnInterval = null;
-  let rafId = null;
-  let activeLetters = [];
-  let gameRunning = false;
-  let lastFrameTime = 0;
+/* ============================ HOME SCREEN RENDER ============================ */
+const classListEl = document.getElementById('class-list');
+GRADES.forEach(g=>{
+  const btn = document.createElement('div');
+  btn.className = 'class-btn';
+  btn.dataset.id = g.id;
+  btn.innerHTML = `<span class="name">${g.name}</span><span class="target">${g.kind==='lop2' ? 'Trò chơi & Luyện gõ · Mục tiêu '+g.target : 'Kiểm tra · Mục tiêu '+g.target}</span>`;
+  btn.addEventListener('click', ()=>selectGrade(g.id));
+  classListEl.appendChild(btn);
+});
 
-  function startGame(){
-    document.getElementById('setup').style.display = 'none';
-    gameEl.style.display = 'flex';
-    fingerLabelEl.textContent = chosenFinger.name;
-    score = 0; missedCount = 0;
-    secondsRemaining = GAME_SECONDS;
-    scoreValEl.textContent = '0';
-    updateTimeDisplay();
-    timeChip.classList.remove('warning');
-    activeLetters.forEach(l=> l.el.remove());
-    activeLetters = [];
-    gameRunning = true;
+function selectGrade(id){
+  state.gradeId = id;
+  state.lop2Mode = null;
+  state.finger = null;
+  document.querySelectorAll('.class-btn').forEach(b=>b.classList.toggle('active', b.dataset.id===id));
+  renderModeConfig();
+  validateStart();
+}
 
-    const cfg = SPEED_CONFIG[chosenSpeed];
-
-    timerInterval = setInterval(()=>{
-      secondsRemaining--;
-      updateTimeDisplay();
-      if(secondsRemaining <= 30) timeChip.classList.add('warning');
-      if(secondsRemaining <= 0){ endGame(false); }
-    }, 1000);
-
-    spawnInterval = setInterval(spawnLetter, cfg.spawnMs);
-    spawnLetter();
-    lastFrameTime = performance.now();
-    rafId = requestAnimationFrame(tick);
-
-    window.addEventListener('keydown', onKeyDown);
-  }
-
-  function updateTimeDisplay(){
-    const m = Math.floor(Math.max(secondsRemaining,0) / 60);
-    const s = Math.max(secondsRemaining,0) % 60;
-    timeLeftEl.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-  }
-
-  function spawnLetter(){
-    if(!gameRunning) return;
-    const keys = chosenFinger.keys;
-    const letter = keys[Math.floor(Math.random()*keys.length)];
-    const color = COLORS[Math.floor(Math.random()*COLORS.length)];
-
-    const el = document.createElement('div');
-    el.className = 'falling-letter';
-    el.textContent = letter;
-    el.style.background = color;
-
-    const fieldWidth = playfield.clientWidth;
-    const maxLeft = Math.max(fieldWidth - 66, 20);
-    const left = 10 + Math.random() * maxLeft;
-    el.style.left = left + 'px';
-    el.style.top = '-60px';
-
-    playfield.appendChild(el);
-
-    const cfg = SPEED_CONFIG[chosenSpeed];
-    activeLetters.push({ el, top: -60, speed: cfg.fall, letter });
-  }
-
-  function tick(now){
-    if(!gameRunning) return;
-    const dt = (now - lastFrameTime) / 1000;
-    lastFrameTime = now;
-    const fieldHeight = playfield.clientHeight;
-
-    for(let i = activeLetters.length - 1; i >= 0; i--){
-      const item = activeLetters[i];
-      item.top += item.speed * dt;
-      item.el.style.top = item.top + 'px';
-      if(item.top > fieldHeight - 20){
-        item.el.classList.add('missed');
-        missedCount++;
-        setTimeout(()=> item.el.remove(), 350);
-        activeLetters.splice(i,1);
-      }
-    }
-    rafId = requestAnimationFrame(tick);
-  }
-
-  function onKeyDown(e){
-    if(!gameRunning) return;
-    const key = e.key.toUpperCase();
-    if(key.length !== 1) return;
-    let bestIdx = -1, bestTop = -Infinity;
-    for(let i=0;i<activeLetters.length;i++){
-      if(activeLetters[i].letter === key && activeLetters[i].top > bestTop){
-        bestTop = activeLetters[i].top;
-        bestIdx = i;
-      }
-    }
-    if(bestIdx === -1) return;
-    const item = activeLetters[bestIdx];
-    item.el.classList.add('pop');
-    setTimeout(()=> item.el.remove(), 250);
-    activeLetters.splice(bestIdx,1);
-    score++;
-    scoreValEl.textContent = score;
-  }
-
-  function endGame(manualStop){
-    gameRunning = false;
-    clearInterval(timerInterval);
-    clearInterval(spawnInterval);
-    cancelAnimationFrame(rafId);
-    window.removeEventListener('keydown', onKeyDown);
-    activeLetters.forEach(l=> l.el.remove());
-    activeLetters = [];
-    showResult(manualStop);
-  }
-
-  function showResult(manualStop){
-    const flash = document.createElement('div');
-    flash.id = 'finish-flash';
-    const minutesPlayed = ((GAME_SECONDS - secondsRemaining) / 60).toFixed(1);
-    let praise = 'Cố lên nào, luyện thêm là giỏi ngay! 💪';
-    if(score >= 150) praise = 'Xuất sắc! Ngón tay bay như gió! 🌟';
-    else if(score >= 80) praise = 'Rất giỏi! Gõ nhanh và chính xác! 🎉';
-    else if(score >= 30) praise = 'Tốt lắm! Tiếp tục luyện tập nhé! 👍';
-
-    flash.innerHTML = `
-      <div class="result-card">
-        <h2>${manualStop ? '⏹ Đã dừng luyện tập' : '🎉 Hết giờ!'}</h2>
-        <div class="score-label">SỐ CHỮ GÕ ĐÚNG</div>
-        <div class="big-score">${score}</div>
-        <div class="stats">
-          <div class="stat-box"><div class="num">${minutesPlayed}</div><div class="lbl">PHÚT ĐÃ LUYỆN</div></div>
-          <div class="stat-box"><div class="num">${missedCount}</div><div class="lbl">CHỮ BỊ RƠI</div></div>
-        </div>
-        <p class="praise">${praise}</p>
-        <button class="again-btn" id="againBtn">🔁 Luyện lại</button>
+function renderModeConfig(){
+  const grade = GRADES.find(g=>g.id===state.gradeId);
+  const el = document.getElementById('mode-config');
+  if(!grade){ el.innerHTML = ''; return; }
+  if(grade.kind === 'lop2'){
+    el.innerHTML = `
+      <div class="section-title">Lớp 2 — chọn cấp độ luyện tập</div>
+      <div class="pill-toggle">
+        <button id="pick-game">🎮 Trò chơi</button>
+        <button id="pick-practice">⌨️ Luyện gõ</button>
       </div>
+      <div id="lop2-detail"></div>
     `;
-    gameEl.appendChild(flash);
-    launchConfetti(flash);
-
-    document.getElementById('againBtn').addEventListener('click', ()=>{
-      flash.remove();
-      gameEl.style.display = 'none';
-      document.getElementById('setup').style.display = 'flex';
-    });
+    document.getElementById('pick-game').addEventListener('click', ()=>{ state.lop2Mode='game'; renderLop2Detail(); validateStart(); });
+    document.getElementById('pick-practice').addEventListener('click', ()=>{ state.lop2Mode='practice'; state.finger=null; renderLop2Detail(); validateStart(); });
+  } else {
+    el.innerHTML = `
+      <div class="section-title">${grade.name} — Kiểm tra gõ 10 ngón</div>
+      <p style="color:var(--ink-soft); line-height:1.7;">Học sinh sẽ gõ lại một đoạn văn khoảng 500–1000 từ trong thời gian 15 phút.
+      Mục tiêu tham khảo: <b style="color:var(--red-700);">${grade.target}</b>.</p>
+      <p style="color:var(--ink-soft); font-size:13px;">Nội dung bài được tạo ngẫu nhiên mỗi lần luyện tập, xoay quanh các chủ đề: tự tin, tự lập, tôn trọng, kỷ luật, chăm chỉ, sạch sẽ, sáng tạo.</p>
+    `;
   }
+}
 
-  function launchConfetti(container){
-    const colors = COLORS;
-    for(let i=0;i<40;i++){
-      const c = document.createElement('div');
-      c.className = 'confetti';
-      c.style.left = Math.random()*100 + '%';
-      c.style.background = colors[Math.floor(Math.random()*colors.length)];
-      c.style.animationDuration = (2 + Math.random()*1.5) + 's';
-      c.style.animationDelay = (Math.random()*0.4) + 's';
-      container.appendChild(c);
-      setTimeout(()=> c.remove(), 4000);
+function renderLop2Detail(){
+  const wrap = document.getElementById('lop2-detail');
+  document.getElementById('pick-game').classList.toggle('active', state.lop2Mode==='game');
+  document.getElementById('pick-practice').classList.toggle('active', state.lop2Mode==='practice');
+  if(state.lop2Mode==='game'){
+    wrap.innerHTML = `
+      <div class="section-title" style="font-size:15px;">Chọn ngón tay phụ trách</div>
+      <div class="finger-grid" id="finger-grid"></div>
+      <div class="letters-chip-row" id="letters-row"></div>
+      <div class="section-title" style="font-size:15px;">Tốc độ rơi chữ</div>
+      <div class="speed-row" id="speed-row"></div>
+    `;
+    const grid = document.getElementById('finger-grid');
+    FINGERS.forEach(f=>{
+      const b = document.createElement('button');
+      b.className='finger-btn'; b.textContent=f.label; b.dataset.id=f.id;
+      b.addEventListener('click', ()=>{ state.finger=f.id; renderLop2Detail(); validateStart(); });
+      grid.appendChild(b);
+    });
+    document.querySelectorAll('.finger-btn').forEach(b=>b.classList.toggle('active', b.dataset.id===state.finger));
+    const chipRow = document.getElementById('letters-row');
+    const f = FINGERS.find(x=>x.id===state.finger);
+    chipRow.innerHTML = f ? f.letters.map(l=>`<span class="chip">${l}</span>`).join('') : '<span style="color:var(--ink-soft); font-size:13px;">Chọn một ngón tay để xem các chữ phụ trách</span>';
+    const speedRow = document.getElementById('speed-row');
+    SPEEDS.forEach(s=>{
+      const b=document.createElement('button'); b.textContent=s.label; b.dataset.id=s.id;
+      if(s.id===state.speed) b.classList.add('active');
+      b.addEventListener('click', ()=>{ state.speed=s.id; renderLop2Detail(); });
+      speedRow.appendChild(b);
+    });
+  } else if(state.lop2Mode==='practice'){
+    wrap.innerHTML = `<p style="color:var(--ink-soft); line-height:1.7;">Học sinh sẽ gõ lại một đoạn văn khoảng 200 từ, phù hợp với học sinh lớp 2, trong thời gian tối đa 15 phút.</p>`;
+  } else {
+    wrap.innerHTML = '';
+  }
+}
+
+function validateStart(){
+  const name = document.getElementById('stu-name').value.trim();
+  const cls = document.getElementById('stu-class').value.trim();
+  let ok = state.gradeId && name && cls;
+  const grade = GRADES.find(g=>g.id===state.gradeId);
+  if(grade && grade.kind==='lop2'){
+    if(!state.lop2Mode) ok=false;
+    if(state.lop2Mode==='game' && !state.finger) ok=false;
+  }
+  document.getElementById('start-btn').disabled = !ok;
+}
+document.getElementById('stu-name').addEventListener('input', validateStart);
+document.getElementById('stu-class').addEventListener('input', validateStart);
+document.getElementById('start-btn').addEventListener('click', startExercise);
+
+/* ============================ EXERCISE FLOW ============================ */
+const homeScreen = document.getElementById('home-screen');
+const exerciseScreen = document.getElementById('exercise-screen');
+const textPanel = document.getElementById('text-panel');
+const gamePanel = document.getElementById('game-panel');
+const typeCapture = document.getElementById('typeCapture');
+
+function startExercise(){
+  const grade = GRADES.find(g=>g.id===state.gradeId);
+  state.timeLeft = 900;
+  state.idx = 0;
+  state.wordsCount = 0;
+  state.gameCatches = 0;
+  state.paused = false;
+  state.running = true;
+
+  document.getElementById('ex-student').textContent = `${document.getElementById('stu-name').value.trim()} — Lớp ${document.getElementById('stu-class').value.trim()}`;
+  let modeLabel = grade.name;
+  if(grade.kind==='lop2'){
+    modeLabel += state.lop2Mode==='game' ? ` · Trò chơi (${FINGERS.find(f=>f.id===state.finger).label})` : ' · Luyện gõ';
+  } else {
+    modeLabel += ' · Kiểm tra';
+  }
+  document.getElementById('ex-mode').textContent = modeLabel + ' · Mục tiêu: ' + grade.target;
+
+  homeScreen.classList.add('hidden');
+  exerciseScreen.classList.remove('hidden');
+  document.getElementById('pause-btn').textContent = '⏸ Tạm dừng';
+
+  if(grade.kind==='lop2' && state.lop2Mode==='game'){
+    textPanel.classList.add('hidden');
+    gamePanel.classList.remove('hidden');
+    startGameMode();
+  } else {
+    gamePanel.classList.add('hidden');
+    textPanel.classList.remove('hidden');
+    const wordRange = grade.kind==='lop2' ? [180,220] : [500,1000];
+    state.passage = buildPassage(wordRange[0], wordRange[1]);
+    renderPassage();
+    typeCapture.value='';
+    typeCapture.focus();
+  }
+  startTimer();
+}
+
+function renderPassage(){
+  let html = '';
+  for(let i=0;i<state.passage.length;i++){
+    const c = state.passage[i];
+    let cls = 'ch';
+    if(i < state.idx) cls += ' done';
+    else if(i === state.idx) cls += ' current';
+    html += `<span class="${cls}" data-i="${i}">${c===' '?'&nbsp;':c===''?'':escapeHtml(c)}</span>`;
+  }
+  textPanel.innerHTML = html;
+  updateWordCount();
+  const cur = textPanel.querySelector('.current');
+  if(cur) cur.scrollIntoView({block:'center'});
+}
+function escapeHtml(c){
+  if(c==='<') return '&lt;'; if(c==='>') return '&gt;'; if(c==='&') return '&amp;';
+  if(c==='\n') return '<br>'; return c;
+}
+function updateWordCount(){
+  const typed = state.passage.slice(0, state.idx);
+  state.wordsCount = typed.trim().split(/\s+/).filter(Boolean).length;
+  document.getElementById('ex-count').textContent = state.wordsCount;
+}
+
+typeCapture.addEventListener('input', ()=>{
+  if(!state.running || state.paused) { typeCapture.value=''; return; }
+  const chunk = typeCapture.value;
+  typeCapture.value='';
+  for(const ch of chunk){
+    if(state.idx >= state.passage.length) break;
+    const target = state.passage[state.idx];
+    if(ch === target){
+      const span = textPanel.querySelector(`[data-i="${state.idx}"]`);
+      if(span){ span.classList.remove('current'); span.classList.add('done'); }
+      state.idx++;
+      const nextSpan = textPanel.querySelector(`[data-i="${state.idx}"]`);
+      if(nextSpan) nextSpan.classList.add('current');
+      updateWordCount();
+      if(state.idx >= state.passage.length){
+        finishExercise(true);
+        return;
+      }
+    } else {
+      const span = textPanel.querySelector(`[data-i="${state.idx}"]`);
+      if(span){
+        span.classList.add('err');
+        setTimeout(()=>span.classList.remove('err'), 260);
+      }
+      break;
     }
   }
-})();
-</script>
+});
+typeCapture.addEventListener('paste', e=>e.preventDefault());
+document.addEventListener('click', (e)=>{
+  if(!exerciseScreen.classList.contains('hidden') && !state.paused && document.getElementById('text-panel').classList.contains('hidden')===false){
+    typeCapture.focus();
+  }
+});
 
+/* ---------- GAME MODE ---------- */
+function startGameMode(){
+  const f = FINGERS.find(x=>x.id===state.finger);
+  const speed = SPEEDS.find(s=>s.id===state.speed);
+  document.getElementById('game-hint').textContent = `Ngón phụ trách: ${f.label} — gõ đúng chữ trước khi rơi xuống đáy!`;
+  document.addEventListener('keydown', gameKeyHandler);
+  spawnFallingLetter(f, speed);
+}
+function spawnFallingLetter(f, speed){
+  if(!state.running || state.paused) return;
+  const letter = f.letters[Math.floor(Math.random()*f.letters.length)];
+  const el = document.createElement('div');
+  el.className='falling-letter';
+  el.textContent = letter;
+  el.style.left = (10 + Math.random()*80) + '%';
+  el.style.top = '0px';
+  gamePanel.appendChild(el);
+  state.gameActiveLetter = {el, letter, resolved:false};
+  const panelHeight = gamePanel.clientHeight - 40;
+  const startTime = Date.now();
+  function step(){
+    if(!state.running || state.paused){ requestAnimationFrame(step); return; }
+    if(state.gameActiveLetter && state.gameActiveLetter.el === el && !state.gameActiveLetter.resolved){
+      const elapsed = Date.now()-startTime;
+      const progress = Math.min(1, elapsed/speed.ms);
+      el.style.top = (progress*panelHeight)+'px';
+      if(progress>=1){
+        state.gameActiveLetter.resolved = true;
+        el.remove();
+        state.gameSpawnId = setTimeout(()=>spawnFallingLetter(f,speed), 300);
+      } else {
+        requestAnimationFrame(step);
+      }
+    }
+  }
+  requestAnimationFrame(step);
+}
+function gameKeyHandler(e){
+  if(!state.running || state.paused) return;
+  if(document.getElementById('game-panel').classList.contains('hidden')) return;
+  const key = e.key.toLowerCase();
+  if(state.gameActiveLetter && !state.gameActiveLetter.resolved && key === state.gameActiveLetter.letter){
+    state.gameActiveLetter.resolved = true;
+    state.gameActiveLetter.el.style.background='var(--green)';
+    state.gameActiveLetter.el.style.color='#fff';
+    state.gameActiveLetter.el.style.borderRadius='6px';
+    setTimeout(()=>state.gameActiveLetter && state.gameActiveLetter.el.remove(), 120);
+    state.gameCatches++;
+    state.wordsCount = state.gameCatches;
+    document.getElementById('ex-count').textContent = state.wordsCount;
+    const f = FINGERS.find(x=>x.id===state.finger);
+    const speed = SPEEDS.find(s=>s.id===state.speed);
+    clearTimeout(state.gameSpawnId);
+    spawnFallingLetter(f, speed);
+  }
+}
+
+/* ---------- TIMER / PAUSE / END ---------- */
+function startTimer(){
+  updateTimerDisplay();
+  state.timerId = setInterval(()=>{
+    if(state.paused) return;
+    state.timeLeft--;
+    updateTimerDisplay();
+    if(state.timeLeft<=0){
+      finishExercise(false);
+    }
+  },1000);
+}
+function updateTimerDisplay(){
+  const m = Math.floor(state.timeLeft/60), s = state.timeLeft%60;
+  document.getElementById('ex-timer').textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+document.getElementById('pause-btn').addEventListener('click', ()=>{
+  state.paused = !state.paused;
+  document.getElementById('pause-btn').textContent = state.paused ? '▶ Tiếp tục' : '⏸ Tạm dừng';
+  if(!state.paused) typeCapture.focus();
+});
+document.getElementById('end-btn').addEventListener('click', ()=>finishExercise(false));
+
+async function finishExercise(completedFullText){
+  if(!state.running) return;
+  state.running = false;
+  clearInterval(state.timerId);
+  clearTimeout(state.gameSpawnId);
+  document.removeEventListener('keydown', gameKeyHandler);
+
+  const grade = GRADES.find(g=>g.id===state.gradeId);
+  const name = document.getElementById('stu-name').value.trim();
+  const cls = document.getElementById('stu-class').value.trim();
+  const elapsedSec = 900 - state.timeLeft;
+  const durationStr = `${String(Math.floor(elapsedSec/60)).padStart(2,'0')}:${String(elapsedSec%60).padStart(2,'0')}`;
+  const words = state.wordsCount;
+
+  const prevList = await loadResults();
+  const prevForStudent = prevList.filter(r=>r.name===name).sort((a,b)=>new Date(a.dateISO)-new Date(b.dateISO));
+  const lastPrev = prevForStudent.length ? prevForStudent[prevForStudent.length-1] : null;
+  const diff = lastPrev ? words - lastPrev.words : null;
+
+  let modeLabel = grade.name;
+  if(grade.kind==='lop2') modeLabel += state.lop2Mode==='game' ? ' (Trò chơi)' : ' (Luyện gõ)';
+
+  const now = new Date();
+  const record = {
+    name, class: cls,
+    dateISO: now.toISOString(),
+    dateStr: now.toLocaleDateString('vi-VN'),
+    duration: durationStr,
+    mode: modeLabel,
+    target: grade.target,
+    words: words,
+  };
+  await addResult(record);
+
+  if(completedFullText && state.timeLeft>0){
+    celebrate();
+  }
+
+  document.getElementById('result-title').textContent = completedFullText ? '🎉 Hoàn thành xuất sắc!' : 'Kết quả luyện tập';
+  document.getElementById('result-words').textContent = words + ' chữ';
+  document.getElementById('result-sub').textContent = `${modeLabel} · Thời gian thực hiện: ${durationStr} · Mục tiêu: ${grade.target}`;
+  const diffEl = document.getElementById('result-diff');
+  if(diff===null){ diffEl.innerHTML = '<span class="diff-same">Đây là lần luyện tập đầu tiên của em!</span>'; }
+  else if(diff>0){ diffEl.innerHTML = `<span class="diff-up">▲ Tăng ${diff} chữ so với lần gần nhất</span>`; }
+  else if(diff<0){ diffEl.innerHTML = `<span class="diff-down">▼ Giảm ${Math.abs(diff)} chữ so với lần gần nhất</span>`; }
+  else { diffEl.innerHTML = '<span class="diff-same">Bằng với lần gần nhất</span>'; }
+
+  document.getElementById('result-modal').classList.remove('hidden');
+}
+
+document.getElementById('result-ok-btn').addEventListener('click', ()=>{
+  document.getElementById('result-modal').classList.add('hidden');
+  exerciseScreen.classList.add('hidden');
+  homeScreen.classList.remove('hidden');
+  gamePanel.innerHTML = '<div id="game-hint"></div>';
+});
+
+/* ============================ CELEBRATION (fireworks + sound) ============================ */
+function celebrate(){
+  playFanfare();
+  const canvas = document.getElementById('celebrate-canvas');
+  canvas.classList.remove('hidden');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+  let particles = [];
+  const colors = ['#df1c33','#f0b429','#f8d979','#2f8f46','#1b3b6f','#ffffff'];
+  function burst(x,y){
+    for(let i=0;i<45;i++){
+      const angle = Math.random()*Math.PI*2;
+      const speed = 2+Math.random()*5;
+      particles.push({x,y,vx:Math.cos(angle)*speed, vy:Math.sin(angle)*speed, life:60+Math.random()*30, color:colors[Math.floor(Math.random()*colors.length)]});
+    }
+  }
+  let bursts = 0;
+  const burstInterval = setInterval(()=>{
+    burst(Math.random()*canvas.width, canvas.height*0.2+Math.random()*canvas.height*0.4);
+    bursts++;
+    if(bursts>=6) clearInterval(burstInterval);
+  }, 500);
+  burst(canvas.width/2, canvas.height*0.35);
+  let frames = 0;
+  function anim(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy; p.vy+=0.06; p.life--;
+      ctx.globalAlpha = Math.max(p.life/90,0);
+      ctx.fillStyle = p.color;
+      ctx.beginPath(); ctx.arc(p.x,p.y,3,0,Math.PI*2); ctx.fill();
+    });
+    ctx.globalAlpha=1;
+    particles = particles.filter(p=>p.life>0);
+    frames++;
+    if(frames<400) requestAnimationFrame(anim);
+    else { canvas.classList.add('hidden'); ctx.clearRect(0,0,canvas.width,canvas.height); }
+  }
+  anim();
+}
+function playFanfare(){
+  try{
+    const AC = window.AudioContext || window.webkitAudioContext;
+    const ctx = new AC();
+    const notes = [523.25,659.25,783.99,1046.50];
+    notes.forEach((freq,i)=>{
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type='triangle'; osc.frequency.value=freq;
+      osc.connect(gain); gain.connect(ctx.destination);
+      const t0 = ctx.currentTime + i*0.15;
+      gain.gain.setValueAtTime(0.0001, t0);
+      gain.gain.exponentialRampToValueAtTime(0.25, t0+0.05);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t0+0.4);
+      osc.start(t0); osc.stop(t0+0.45);
+    });
+  }catch(e){}
+}
+
+/* ============================ TEACHER VIEW ============================ */
+document.getElementById('teacher-btn').addEventListener('click', openTeacherModal);
+document.querySelectorAll('[data-close]').forEach(b=>{
+  b.addEventListener('click', ()=>document.getElementById(b.dataset.close).classList.add('hidden'));
+});
+document.getElementById('tab-name').addEventListener('click', ()=>{
+  document.getElementById('tab-name').classList.add('active');
+  document.getElementById('tab-class').classList.remove('active');
+  document.getElementById('panel-name').classList.remove('hidden');
+  document.getElementById('panel-class').classList.add('hidden');
+});
+document.getElementById('tab-class').addEventListener('click', ()=>{
+  document.getElementById('tab-class').classList.add('active');
+  document.getElementById('tab-name').classList.remove('active');
+  document.getElementById('panel-class').classList.remove('hidden');
+  document.getElementById('panel-name').classList.add('hidden');
+});
+
+async function openTeacherModal(){
+  const results = await loadResults();
+  const names = [...new Set(results.map(r=>r.name))].sort();
+  const classes = [...new Set(results.map(r=>r.class))].sort();
+  const selStu = document.getElementById('select-student');
+  const selCls = document.getElementById('select-class');
+  selStu.innerHTML = names.map(n=>`<option value="${n}">${n}</option>`).join('') || '<option value="">(Chưa có dữ liệu)</option>';
+  selCls.innerHTML = classes.map(c=>`<option value="${c}">${c}</option>`).join('') || '<option value="">(Chưa có dữ liệu)</option>';
+  renderStudentTable(results, selStu.value);
+  renderClassTable(results, selCls.value);
+  selStu.onchange = ()=>renderStudentTable(results, selStu.value);
+  selCls.onchange = ()=>renderClassTable(results, selCls.value);
+  document.getElementById('export-student-btn').onclick = ()=>exportExcel(getStudentRows(results, selStu.value), `KetQua_${selStu.value||'HocSinh'}.xlsx`, true);
+  document.getElementById('export-class-btn').onclick = ()=>exportExcel(getClassRows(results, selCls.value), `KetQua_Lop_${selCls.value||''}.xlsx`, false);
+  document.getElementById('teacher-modal').classList.remove('hidden');
+}
+
+function computeDiffs(rows){
+  const sorted = rows.slice().sort((a,b)=>new Date(a.dateISO)-new Date(b.dateISO));
+  return sorted.map((r,i)=>{
+    const prev = i>0 ? sorted[i-1].words : null;
+    return {...r, diff: prev===null ? null : r.words-prev};
+  });
+}
+function diffHtml(diff){
+  if(diff===null) return '<span class="diff-same">—</span>';
+  if(diff>0) return `<span class="diff-up">▲ +${diff}</span>`;
+  if(diff<0) return `<span class="diff-down">▼ ${diff}</span>`;
+  return '<span class="diff-same">0</span>';
+}
+function getStudentRows(results, name){
+  return computeDiffs(results.filter(r=>r.name===name));
+}
+function getClassRows(results, cls){
+  const rows = results.filter(r=>r.class===cls);
+  const byName = {};
+  rows.forEach(r=>{ (byName[r.name] = byName[r.name]||[]).push(r); });
+  let out = [];
+  Object.values(byName).forEach(list=>out = out.concat(computeDiffs(list)));
+  out.sort((a,b)=>new Date(a.dateISO)-new Date(b.dateISO));
+  return out;
+}
+function renderStudentTable(results, name){
+  const rows = getStudentRows(results, name);
+  const tbody = document.querySelector('#table-student tbody');
+  tbody.innerHTML = rows.map((r,i)=>`<tr><td>${i+1}</td><td>${r.name}</td><td>${r.class}</td><td>${r.dateStr}</td><td>${r.duration}</td><td>${r.mode} · ${r.target}</td><td>${r.words}</td><td>${diffHtml(r.diff)}</td></tr>`).join('') || '<tr><td colspan="8" style="text-align:center; color:var(--ink-soft);">Chưa có dữ liệu</td></tr>';
+}
+function renderClassTable(results, cls){
+  const rows = getClassRows(results, cls);
+  const tbody = document.querySelector('#table-class tbody');
+  tbody.innerHTML = rows.map((r,i)=>`<tr><td>${i+1}</td><td>${r.name}</td><td>${r.dateStr}</td><td>${r.duration}</td><td>${r.mode} · ${r.target}</td><td>${r.words}</td><td>${diffHtml(r.diff)}</td></tr>`).join('') || '<tr><td colspan="7" style="text-align:center; color:var(--ink-soft);">Chưa có dữ liệu</td></tr>';
+}
+function exportExcel(rows, filename, includeClass){
+  if(typeof XLSX==='undefined'){ alert('Không thể tải thư viện xuất Excel. Vui lòng kiểm tra kết nối mạng.'); return; }
+  const data = rows.map((r,i)=>{
+    const base = {Stt:i+1, 'Họ tên':r.name};
+    if(includeClass) base['Lớp']=r.class;
+    base['Ngày thực hiện']=r.dateStr; base['Thời gian']=r.duration; base['Mục tiêu']=r.mode+' - '+r.target;
+    base['Số chữ gõ được']=r.words; base['Tăng/giảm']= r.diff===null? '—' : (r.diff>0?'+':'')+r.diff;
+    return base;
+  });
+  const ws = XLSX.utils.json_to_sheet(data);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'KetQua');
+  XLSX.writeFile(wb, filename);
+}
+</script>
 </body>
 </html>
