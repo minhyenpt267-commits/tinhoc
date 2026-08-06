@@ -908,7 +908,45 @@ function playFanfare(){
 
 /* ============================ TEACHER VIEW ============================ */
 let teacherActiveTab = 'name';
-document.getElementById('teacher-btn').addEventListener('click', openTeacherModal);
+const TEACHER_PASSWORD = 'vietnhat2026'; // Giáo viên có thể đổi mật khẩu tại đây
+let teacherUnlocked = false;
+
+function showTeacherLogin(){
+  return new Promise(resolve=>{
+    const overlay = document.createElement('div');
+    overlay.className = 'modal-overlay';
+    overlay.style.zIndex = 200;
+    overlay.innerHTML = `<div class="modal-box" style="max-width:380px;">
+      <h2 style="margin-top:0; color:var(--red-700);">🔒 Đăng nhập Giáo viên</h2>
+      <p style="color:var(--ink-soft); font-size:13.5px; margin-top:-4px;">Nhập mật khẩu để xem bảng tổng hợp kết quả học sinh.</p>
+      <input type="password" id="teacher-pass-input" placeholder="Mật khẩu" style="width:100%; padding:10px 12px; border-radius:10px; border:2px solid #e4d3c0; font-size:14.5px; margin:8px 0; font-family:'Be Vietnam Pro',sans-serif;">
+      <div id="teacher-pass-err" style="color:var(--err); font-size:12.5px; min-height:16px;"></div>
+      <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:8px;">
+        <button id="pass-cancel" style="padding:9px 18px; border-radius:8px; border:2px solid #ccc; background:#fff; cursor:pointer; font-weight:700; font-family:'Baloo 2',sans-serif;">Hủy</button>
+        <button id="pass-submit" style="padding:9px 18px; border-radius:8px; border:none; background:var(--red-600); color:#fff; cursor:pointer; font-weight:700; font-family:'Baloo 2',sans-serif;">Đăng nhập</button>
+      </div>
+    </div>`;
+    document.body.appendChild(overlay);
+    const input = overlay.querySelector('#teacher-pass-input');
+    const err = overlay.querySelector('#teacher-pass-err');
+    setTimeout(()=>input.focus(), 50);
+    const cleanup = (val)=>{ overlay.remove(); resolve(val); };
+    overlay.querySelector('#pass-cancel').onclick = ()=>cleanup(false);
+    function trySubmit(){
+      if(input.value === TEACHER_PASSWORD){ cleanup(true); }
+      else{ err.textContent = 'Sai mật khẩu, vui lòng thử lại.'; input.value=''; input.focus(); }
+    }
+    overlay.querySelector('#pass-submit').onclick = trySubmit;
+    input.addEventListener('keydown', e=>{ if(e.key==='Enter') trySubmit(); });
+    overlay.addEventListener('click', e=>{ if(e.target===overlay) cleanup(false); });
+  });
+}
+
+document.getElementById('teacher-btn').addEventListener('click', async ()=>{
+  if(teacherUnlocked){ openTeacherModal(); return; }
+  const ok = await showTeacherLogin();
+  if(ok){ teacherUnlocked = true; openTeacherModal(); }
+});
 document.querySelectorAll('[data-close]').forEach(b=>{
   b.addEventListener('click', ()=>document.getElementById(b.dataset.close).classList.add('hidden'));
 });
