@@ -121,9 +121,20 @@ h1,h2,h3,.display{font-family:'Baloo 2',sans-serif;}
 #mode-config{flex:1; min-height:180px;}
 #mode-placeholder{
   height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center;
-  color:var(--ink-soft); text-align:center; gap:10px; padding:20px;
+  color:var(--ink-soft); text-align:center; gap:6px; padding:20px;
 }
-#mode-placeholder .big{font-size:44px;}
+#mode-placeholder .slogan{
+  font-family:'Baloo 2',sans-serif; font-size:32px; font-weight:800; color:var(--red-700);
+  line-height:1.3; margin-bottom:8px; text-shadow:1px 1px 0 var(--gold-300);
+}
+#mode-placeholder .keyboard-illustration{width:100%; max-width:440px; height:auto; margin:6px auto 10px;}
+#mode-placeholder .finger-legend{
+  display:flex; flex-wrap:wrap; gap:6px 14px; justify-content:center; font-size:12px; color:var(--ink-soft); max-width:480px;
+}
+#mode-placeholder .finger-legend i{display:inline-block; width:10px; height:10px; border-radius:3px; margin-right:4px; vertical-align:middle;}
+.comp-divider{border-top:2px dashed rgba(248,217,121,0.4); margin:8px 4px 2px;}
+.class-btn.competition{border-color:var(--gold-500); background:rgba(240,180,41,0.12);}
+.class-btn.competition.active{background:var(--gold-500); color:var(--red-900);}
 .section-title{font-family:'Baloo 2',sans-serif; color:var(--red-700); font-size:19px; margin:0 0 10px;}
 
 .pill-toggle{display:flex; gap:10px; margin-bottom:16px;}
@@ -266,8 +277,74 @@ table.result-table tr:nth-child(even) td{background:#fbf5ea;}
     <main id="right-panel">
       <div id="mode-config">
         <div id="mode-placeholder">
-          <div class="big">⌨️</div>
-          <div>Hãy chọn một khối lớp ở bên trái để bắt đầu luyện tập</div>
+          <div class="slogan">Chăm chỉ hôm nay,<br>thành công ngày mai!</div>
+          <svg class="keyboard-illustration" viewBox="0 0 580 225" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="10" width="50" height="44" rx="8" fill="#E63946" stroke="#ffffff" stroke-width="2"/>
+      <text x="35.0" y="39.0" font-family="JetBrains Mono, monospace" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">Q</text>
+      <rect x="66" y="10" width="50" height="44" rx="8" fill="#F3722C" stroke="#ffffff" stroke-width="2"/>
+      <text x="91.0" y="39.0" font-family="JetBrains Mono, monospace" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">W</text>
+      <rect x="122" y="10" width="50" height="44" rx="8" fill="#F9C74F" stroke="#ffffff" stroke-width="2"/>
+      <text x="147.0" y="39.0" font-family="JetBrains Mono, monospace" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">E</text>
+      <rect x="178" y="10" width="50" height="44" rx="8" fill="#90BE6D" stroke="#ffffff" stroke-width="2"/>
+      <text x="203.0" y="39.0" font-family="JetBrains Mono, monospace" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">R</text>
+      <rect x="234" y="10" width="50" height="44" rx="8" fill="#90BE6D" stroke="#ffffff" stroke-width="2"/>
+      <text x="259.0" y="39.0" font-family="JetBrains Mono, monospace" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">T</text>
+      <rect x="290" y="10" width="50" height="44" rx="8" fill="#43AA8B" stroke="#ffffff" stroke-width="2"/>
+      <text x="315.0" y="39.0" font-family="JetBrains Mono, monospace" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">Y</text>
+      <rect x="346" y="10" width="50" height="44" rx="8" fill="#43AA8B" stroke="#ffffff" stroke-width="2"/>
+      <text x="371.0" y="39.0" font-family="JetBrains Mono, monospace" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">U</text>
+      <rect x="402" y="10" width="50" height="44" rx="8" fill="#4D908E" stroke="#ffffff" stroke-width="2"/>
+      <text x="427.0" y="39.0" font-family="JetBrains Mono, monospace" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">I</text>
+      <rect x="458" y="10" width="50" height="44" rx="8" fill="#577590" stroke="#ffffff" stroke-width="2"/>
+      <text x="483.0" y="39.0" font-family="JetBrains Mono, monospace" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">O</text>
+      <rect x="514" y="10" width="50" height="44" rx="8" fill="#277DA1" stroke="#ffffff" stroke-width="2"/>
+      <text x="539.0" y="39.0" font-family="JetBrains Mono, monospace" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">P</text>
+      <rect x="38" y="64" width="50" height="44" rx="8" fill="#E63946" stroke="#ffffff" stroke-width="2"/>
+      <text x="63.0" y="93.0" font-family="JetBrains Mono, monospace" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">A</text>
+      <rect x="94" y="64" width="50" height="44" rx="8" fill="#F3722C" stroke="#ffffff" stroke-width="2"/>
+      <text x="119.0" y="93.0" font-family="JetBrains Mono, monospace" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">S</text>
+      <rect x="150" y="64" width="50" height="44" rx="8" fill="#F9C74F" stroke="#ffffff" stroke-width="2"/>
+      <text x="175.0" y="93.0" font-family="JetBrains Mono, monospace" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">D</text>
+      <rect x="206" y="64" width="50" height="44" rx="8" fill="#90BE6D" stroke="#ffffff" stroke-width="2"/>
+      <text x="231.0" y="93.0" font-family="JetBrains Mono, monospace" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">F</text>
+      <rect x="262" y="64" width="50" height="44" rx="8" fill="#90BE6D" stroke="#ffffff" stroke-width="2"/>
+      <text x="287.0" y="93.0" font-family="JetBrains Mono, monospace" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">G</text>
+      <rect x="318" y="64" width="50" height="44" rx="8" fill="#43AA8B" stroke="#ffffff" stroke-width="2"/>
+      <text x="343.0" y="93.0" font-family="JetBrains Mono, monospace" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">H</text>
+      <rect x="374" y="64" width="50" height="44" rx="8" fill="#43AA8B" stroke="#ffffff" stroke-width="2"/>
+      <text x="399.0" y="93.0" font-family="JetBrains Mono, monospace" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">J</text>
+      <rect x="430" y="64" width="50" height="44" rx="8" fill="#4D908E" stroke="#ffffff" stroke-width="2"/>
+      <text x="455.0" y="93.0" font-family="JetBrains Mono, monospace" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">K</text>
+      <rect x="486" y="64" width="50" height="44" rx="8" fill="#577590" stroke="#ffffff" stroke-width="2"/>
+      <text x="511.0" y="93.0" font-family="JetBrains Mono, monospace" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">L</text>
+      <rect x="66" y="118" width="50" height="44" rx="8" fill="#E63946" stroke="#ffffff" stroke-width="2"/>
+      <text x="91.0" y="147.0" font-family="JetBrains Mono, monospace" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">Z</text>
+      <rect x="122" y="118" width="50" height="44" rx="8" fill="#F3722C" stroke="#ffffff" stroke-width="2"/>
+      <text x="147.0" y="147.0" font-family="JetBrains Mono, monospace" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">X</text>
+      <rect x="178" y="118" width="50" height="44" rx="8" fill="#F9C74F" stroke="#ffffff" stroke-width="2"/>
+      <text x="203.0" y="147.0" font-family="JetBrains Mono, monospace" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">C</text>
+      <rect x="234" y="118" width="50" height="44" rx="8" fill="#90BE6D" stroke="#ffffff" stroke-width="2"/>
+      <text x="259.0" y="147.0" font-family="JetBrains Mono, monospace" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">V</text>
+      <rect x="290" y="118" width="50" height="44" rx="8" fill="#90BE6D" stroke="#ffffff" stroke-width="2"/>
+      <text x="315.0" y="147.0" font-family="JetBrains Mono, monospace" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">B</text>
+      <rect x="346" y="118" width="50" height="44" rx="8" fill="#43AA8B" stroke="#ffffff" stroke-width="2"/>
+      <text x="371.0" y="147.0" font-family="JetBrains Mono, monospace" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">N</text>
+      <rect x="402" y="118" width="50" height="44" rx="8" fill="#43AA8B" stroke="#ffffff" stroke-width="2"/>
+      <text x="427.0" y="147.0" font-family="JetBrains Mono, monospace" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">M</text>
+      <rect x="66" y="172" width="386" height="40" rx="8" fill="#9AA3AD" stroke="#ffffff" stroke-width="2"/>
+      <text x="259.0" y="198.0" font-family="Be Vietnam Pro, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">HAI NGÓN CÁI</text>
+          </svg>
+          <div class="finger-legend">
+          <span><i style="background:#E63946"></i>Út trái</span>
+          <span><i style="background:#F3722C"></i>Áp út trái</span>
+          <span><i style="background:#F9C74F"></i>Giữa trái</span>
+          <span><i style="background:#90BE6D"></i>Trỏ trái</span>
+          <span><i style="background:#43AA8B"></i>Trỏ phải</span>
+          <span><i style="background:#4D908E"></i>Giữa phải</span>
+          <span><i style="background:#577590"></i>Áp út phải</span>
+          <span><i style="background:#277DA1"></i>Út phải</span>
+          <span><i style="background:#9AA3AD"></i>Hai ngón cái (phím cách)</span>
+          </div>
         </div>
       </div>
       <div id="student-form">
@@ -335,6 +412,7 @@ table.result-table tr:nth-child(even) td{background:#fbf5ea;}
       <button id="tab-name" class="active">Theo học sinh</button>
       <button id="tab-class">Theo lớp</button>
       <button id="tab-test">Kiểm tra</button>
+      <button id="tab-comp">Cuộc thi gõ 10 ngón</button>
     </div>
     <div id="panel-name">
       <div class="teacher-controls">
@@ -373,6 +451,21 @@ table.result-table tr:nth-child(even) td{background:#fbf5ea;}
         <tbody></tbody>
       </table>
     </div>
+    <div id="panel-comp" class="hidden">
+      <div class="teacher-controls">
+        <label>Lọc theo tên:</label>
+        <select id="select-comp-name"></select>
+        <label>Lọc theo lớp:</label>
+        <select id="select-comp-class"></select>
+        <label>Lọc theo vòng thi:</label>
+        <select id="select-comp-round"></select>
+        <button id="export-comp-btn">⬇ Xuất Excel</button>
+      </div>
+      <table class="result-table" id="table-comp">
+        <thead><tr><th>Stt</th><th>Họ tên</th><th>Lớp</th><th>Vòng thi</th><th>Ngày thực hiện</th><th>Thời gian</th><th>Mục tiêu</th><th>Số chữ gõ được</th><th>Tăng/giảm</th><th></th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
   </div>
 </div>
 
@@ -398,6 +491,22 @@ const FINGERS = [
 ];
 
 const SPEEDS = [{id:'slow', label:'Chậm', ms:2600}, {id:'mid', label:'Trung bình', ms:1800}, {id:'fast', label:'Nhanh', ms:1100}];
+
+const COMPETITION_KHOI = [
+  {id:'k3', label:'Khối 3', target:'100-150 chữ/15 phút'},
+  {id:'k4', label:'Khối 4', target:'150-200 chữ/15 phút'},
+  {id:'k5', label:'Khối 5', target:'200-250 chữ/15 phút'},
+];
+const COMPETITION_ROUNDS = [
+  {id:'loai', label:'Vòng loại'},
+  {id:'cket', label:'Vòng chung kết'},
+];
+// Mã đề thi cho từng khối/vòng - giáo viên có thể đổi tại đây
+const COMPETITION_CODES = {
+  'k3-loai':'VL3-2026', 'k3-cket':'CK3-2026',
+  'k4-loai':'VL4-2026', 'k4-cket':'CK4-2026',
+  'k5-loai':'VL5-2026', 'k5-cket':'CK5-2026',
+};
 
 const SENTENCES = [
 "Tự tin là khi em dám giơ tay phát biểu dù câu trả lời có thể chưa đúng.",
@@ -505,6 +614,9 @@ let state = {
   gameSpawnId:null,
   gameActiveLetter:null,
   gameCatches:0,
+  compKhoi:null,
+  compRound:null,
+  compUnlocked:false,
 };
 
 /* ============================ HOME SCREEN RENDER ============================ */
@@ -518,6 +630,27 @@ GRADES.forEach(g=>{
   btn.addEventListener('click', ()=>selectGrade(g.id));
   classListEl.appendChild(btn);
 });
+const compDivider = document.createElement('div');
+compDivider.className = 'comp-divider';
+classListEl.appendChild(compDivider);
+const compBtn = document.createElement('div');
+compBtn.className = 'class-btn competition';
+compBtn.dataset.id = 'cuocthi';
+compBtn.innerHTML = `<span class="name">🏆 Cuộc thi gõ 10 ngón</span><span class="target">Khối 3, 4, 5 · Vòng loại & Chung kết</span>`;
+compBtn.addEventListener('click', selectCompetition);
+classListEl.appendChild(compBtn);
+
+function selectCompetition(){
+  state.gradeId = 'cuocthi';
+  state.lop2Mode = null;
+  state.finger = null;
+  state.compKhoi = null;
+  state.compRound = null;
+  state.compUnlocked = false;
+  document.querySelectorAll('.class-btn').forEach(b=>b.classList.toggle('active', b.dataset.id==='cuocthi'));
+  renderModeConfig();
+  validateStart();
+}
 
 function selectGrade(id){
   state.gradeId = id;
@@ -528,9 +661,25 @@ function selectGrade(id){
   validateStart();
 }
 
+function getActiveGrade(){
+  if(state.gradeId === 'cuocthi'){
+    const khoi = COMPETITION_KHOI.find(k=>k.id===state.compKhoi);
+    const round = COMPETITION_ROUNDS.find(r=>r.id===state.compRound);
+    if(!khoi || !round) return null;
+    return {
+      id: 'cuocthi-'+khoi.id+'-'+round.id,
+      name: `Cuộc thi gõ 10 ngón · ${khoi.label} · ${round.label}`,
+      target: khoi.target, kind:'test',
+      isCompetition:true, khoiLabel:khoi.label, roundLabel:round.label,
+    };
+  }
+  return GRADES.find(g=>g.id===state.gradeId);
+}
+
 function renderModeConfig(){
-  const grade = GRADES.find(g=>g.id===state.gradeId);
   const el = document.getElementById('mode-config');
+  if(state.gradeId === 'cuocthi'){ renderCompetitionConfig(el); return; }
+  const grade = GRADES.find(g=>g.id===state.gradeId);
   if(!grade){ el.innerHTML = ''; return; }
   if(grade.kind === 'lop2'){
     el.innerHTML = `
@@ -550,6 +699,74 @@ function renderModeConfig(){
       Mục tiêu tham khảo: <b style="color:var(--red-700);">${grade.target}</b>.</p>
       <p style="color:var(--ink-soft); font-size:13px;">Nội dung bài được tạo ngẫu nhiên mỗi lần luyện tập, xoay quanh các chủ đề: tự tin, tự lập, tôn trọng, kỷ luật, chăm chỉ, sạch sẽ, sáng tạo.</p>
     `;
+  }
+}
+
+function renderCompetitionConfig(el){
+  el.innerHTML = `
+    <div class="section-title">🏆 Cuộc thi gõ 10 ngón — chọn khối</div>
+    <div class="pill-toggle" id="khoi-toggle"></div>
+    <div id="comp-round-area"></div>
+  `;
+  const khoiToggle = document.getElementById('khoi-toggle');
+  COMPETITION_KHOI.forEach(k=>{
+    const b = document.createElement('button');
+    b.textContent = k.label; b.dataset.id = k.id;
+    b.addEventListener('click', ()=>{
+      state.compKhoi = k.id; state.compRound = null; state.compUnlocked = false;
+      renderCompRounds(); validateStart();
+    });
+    khoiToggle.appendChild(b);
+  });
+  renderCompRounds();
+}
+function renderCompRounds(){
+  document.querySelectorAll('#khoi-toggle button').forEach(b=>b.classList.toggle('active', b.dataset.id===state.compKhoi));
+  const area = document.getElementById('comp-round-area');
+  if(!state.compKhoi){ area.innerHTML=''; return; }
+  const khoi = COMPETITION_KHOI.find(k=>k.id===state.compKhoi);
+  area.innerHTML = `
+    <div class="section-title" style="font-size:15px; margin-top:14px;">Chọn vòng thi — ${khoi.label} (Mục tiêu ${khoi.target})</div>
+    <div class="speed-row" id="round-toggle"></div>
+    <div id="code-area" style="margin-top:14px;"></div>
+  `;
+  const roundToggle = document.getElementById('round-toggle');
+  COMPETITION_ROUNDS.forEach(r=>{
+    const b = document.createElement('button');
+    b.textContent = r.label; b.dataset.id = r.id;
+    b.addEventListener('click', ()=>{ state.compRound = r.id; state.compUnlocked = false; renderCompCode(); validateStart(); });
+    roundToggle.appendChild(b);
+  });
+  renderCompCode();
+}
+function renderCompCode(){
+  document.querySelectorAll('#round-toggle button').forEach(b=>b.classList.toggle('active', b.dataset.id===state.compRound));
+  const area = document.getElementById('code-area');
+  if(!state.compRound){ area.innerHTML=''; return; }
+  if(state.compUnlocked){
+    area.innerHTML = `<div style="color:var(--green); font-weight:700;">✔ Đã mở khóa vòng thi — sẵn sàng bắt đầu!</div>`;
+    return;
+  }
+  area.innerHTML = `
+    <div class="field" style="max-width:260px;">
+      <label>Nhập mã đề thi</label>
+      <input type="text" id="comp-code-input" placeholder="Mã đề...">
+    </div>
+    <div id="comp-code-err" style="color:var(--err); font-size:12.5px; min-height:16px; margin-top:4px;"></div>
+    <button id="comp-code-submit" style="margin-top:6px; background:var(--red-600); color:#fff; border:none; padding:9px 20px; border-radius:10px; font-weight:700; cursor:pointer; font-family:'Baloo 2',sans-serif;">Mở khóa</button>
+  `;
+  document.getElementById('comp-code-submit').addEventListener('click', tryUnlockComp);
+  document.getElementById('comp-code-input').addEventListener('keydown', e=>{ if(e.key==='Enter') tryUnlockComp(); });
+}
+function tryUnlockComp(){
+  const input = document.getElementById('comp-code-input');
+  const key = state.compKhoi+'-'+state.compRound;
+  if(input.value.trim() === COMPETITION_CODES[key]){
+    state.compUnlocked = true;
+    renderCompCode();
+    validateStart();
+  } else {
+    document.getElementById('comp-code-err').textContent = 'Mã đề không đúng, vui lòng thử lại.';
   }
 }
 
@@ -594,10 +811,14 @@ function validateStart(){
   const name = document.getElementById('stu-name').value.trim();
   const cls = document.getElementById('stu-class').value.trim();
   let ok = state.gradeId && name && cls;
-  const grade = GRADES.find(g=>g.id===state.gradeId);
-  if(grade && grade.kind==='lop2'){
-    if(!state.lop2Mode) ok=false;
-    if(state.lop2Mode==='game' && !state.finger) ok=false;
+  if(state.gradeId === 'cuocthi'){
+    ok = ok && !!state.compKhoi && !!state.compRound && state.compUnlocked;
+  } else {
+    const grade = GRADES.find(g=>g.id===state.gradeId);
+    if(grade && grade.kind==='lop2'){
+      if(!state.lop2Mode) ok=false;
+      if(state.lop2Mode==='game' && !state.finger) ok=false;
+    }
   }
   document.getElementById('start-btn').disabled = !ok;
 }
@@ -613,7 +834,7 @@ const gamePanel = document.getElementById('game-panel');
 const typeCapture = document.getElementById('typeCapture');
 
 function startExercise(){
-  const grade = GRADES.find(g=>g.id===state.gradeId);
+  const grade = getActiveGrade();
   state.timeLeft = 900;
   state.idx = 0;
   state.wordsCount = 0;
@@ -623,7 +844,9 @@ function startExercise(){
 
   document.getElementById('ex-student').textContent = `${document.getElementById('stu-name').value.trim()} — Lớp ${document.getElementById('stu-class').value.trim()}`;
   let modeLabel = grade.name;
-  if(grade.kind==='lop2'){
+  if(grade.isCompetition){
+    // grade.name already fully describes "Cuộc thi · Khối · Vòng"
+  } else if(grade.kind==='lop2'){
     modeLabel += state.lop2Mode==='game' ? ` · Trò chơi (${FINGERS.find(f=>f.id===state.finger).label})` : ' · Luyện gõ';
   } else {
     modeLabel += ' · Kiểm tra';
@@ -795,7 +1018,7 @@ async function finishExercise(completedFullText){
   clearTimeout(state.gameSpawnId);
   document.removeEventListener('keydown', gameKeyHandler);
 
-  const grade = GRADES.find(g=>g.id===state.gradeId);
+  const grade = getActiveGrade();
   const name = document.getElementById('stu-name').value.trim();
   const cls = document.getElementById('stu-class').value.trim();
   const elapsedSec = 900 - state.timeLeft;
@@ -808,7 +1031,7 @@ async function finishExercise(completedFullText){
   const diff = lastPrev ? words - lastPrev.words : null;
 
   let modeLabel = grade.name;
-  if(grade.kind==='lop2') modeLabel += state.lop2Mode==='game' ? ' (Trò chơi)' : ' (Luyện gõ)';
+  if(!grade.isCompetition && grade.kind==='lop2') modeLabel += state.lop2Mode==='game' ? ' (Trò chơi)' : ' (Luyện gõ)';
 
   const now = new Date();
   const record = {
@@ -821,6 +1044,9 @@ async function finishExercise(completedFullText){
     mode: modeLabel,
     target: grade.target,
     words: words,
+    isCompetition: !!grade.isCompetition,
+    khoiLabel: grade.khoiLabel || '',
+    roundLabel: grade.roundLabel || '',
   };
   await addResult(record);
 
@@ -952,7 +1178,7 @@ document.querySelectorAll('[data-close]').forEach(b=>{
 });
 function switchTeacherTab(tab){
   teacherActiveTab = tab;
-  ['name','class','test'].forEach(t=>{
+  ['name','class','test','comp'].forEach(t=>{
     document.getElementById('tab-'+t).classList.toggle('active', t===tab);
     document.getElementById('panel-'+t).classList.toggle('hidden', t!==tab);
   });
@@ -960,6 +1186,7 @@ function switchTeacherTab(tab){
 document.getElementById('tab-name').addEventListener('click', ()=>switchTeacherTab('name'));
 document.getElementById('tab-class').addEventListener('click', ()=>switchTeacherTab('class'));
 document.getElementById('tab-test').addEventListener('click', ()=>switchTeacherTab('test'));
+document.getElementById('tab-comp').addEventListener('click', ()=>switchTeacherTab('comp'));
 
 async function migrateResults(results){
   let changed = false;
@@ -985,32 +1212,53 @@ async function openTeacherModal(){
   const selCls = document.getElementById('select-class');
   const selTestName = document.getElementById('select-test-name');
   const selTestClass = document.getElementById('select-test-class');
+  const selCompName = document.getElementById('select-comp-name');
+  const selCompClass = document.getElementById('select-comp-class');
+  const selCompRound = document.getElementById('select-comp-round');
 
   const prevStu = selStu.value, prevCls = selCls.value, prevTN = selTestName.value, prevTC = selTestClass.value;
+  const prevCN = selCompName.value, prevCC = selCompClass.value, prevCR = selCompRound.value;
 
   selStu.innerHTML = names.map(n=>`<option value="${n}">${n}</option>`).join('') || '<option value="">(Chưa có dữ liệu)</option>';
   selCls.innerHTML = classes.map(c=>`<option value="${c}">${c}</option>`).join('') || '<option value="">(Chưa có dữ liệu)</option>';
   selTestName.innerHTML = '<option value="__ALL__">Tất cả học sinh</option>' + names.map(n=>`<option value="${n}">${n}</option>`).join('');
   selTestClass.innerHTML = '<option value="__ALL__">Tất cả các lớp</option>' + classes.map(c=>`<option value="${c}">${c}</option>`).join('');
+  selCompName.innerHTML = '<option value="__ALL__">Tất cả học sinh</option>' + names.map(n=>`<option value="${n}">${n}</option>`).join('');
+  selCompClass.innerHTML = '<option value="__ALL__">Tất cả các lớp</option>' + classes.map(c=>`<option value="${c}">${c}</option>`).join('');
+  let roundOptions = '<option value="__ALL__">Tất cả các vòng</option>';
+  COMPETITION_KHOI.forEach(k=>{
+    COMPETITION_ROUNDS.forEach(r=>{
+      roundOptions += `<option value="${k.id}-${r.id}">${k.label} · ${r.label}</option>`;
+    });
+  });
+  selCompRound.innerHTML = roundOptions;
 
   if(names.includes(prevStu)) selStu.value = prevStu;
   if(classes.includes(prevCls)) selCls.value = prevCls;
   if(prevTN && (prevTN==='__ALL__' || names.includes(prevTN))) selTestName.value = prevTN;
   if(prevTC && (prevTC==='__ALL__' || classes.includes(prevTC))) selTestClass.value = prevTC;
+  if(prevCN && (prevCN==='__ALL__' || names.includes(prevCN))) selCompName.value = prevCN;
+  if(prevCC && (prevCC==='__ALL__' || classes.includes(prevCC))) selCompClass.value = prevCC;
+  if(prevCR) selCompRound.value = prevCR;
 
   const rerenderName = ()=>renderStudentTable(results, selStu.value);
   const rerenderClass = ()=>renderClassTable(results, selCls.value);
   const rerenderTest = ()=>renderTestTable(results, selTestName.value, selTestClass.value);
+  const rerenderComp = ()=>renderCompTable(results, selCompName.value, selCompClass.value, selCompRound.value);
 
-  rerenderName(); rerenderClass(); rerenderTest();
+  rerenderName(); rerenderClass(); rerenderTest(); rerenderComp();
   selStu.onchange = rerenderName;
   selCls.onchange = rerenderClass;
   selTestName.onchange = rerenderTest;
   selTestClass.onchange = rerenderTest;
+  selCompName.onchange = rerenderComp;
+  selCompClass.onchange = rerenderComp;
+  selCompRound.onchange = rerenderComp;
 
   document.getElementById('export-student-btn').onclick = ()=>exportExcel(getStudentRows(results, selStu.value), `KetQua_${selStu.value||'HocSinh'}.xlsx`, true);
   document.getElementById('export-class-btn').onclick = ()=>exportExcel(getClassRows(results, selCls.value), `KetQua_Lop_${selCls.value||''}.xlsx`, false);
   document.getElementById('export-test-btn').onclick = ()=>exportExcel(getTestRows(results, selTestName.value, selTestClass.value), `KetQua_KiemTra.xlsx`, true);
+  document.getElementById('export-comp-btn').onclick = ()=>exportExcel(getCompetitionRows(results, selCompName.value, selCompClass.value, selCompRound.value), `KetQua_CuocThi.xlsx`, true);
 
   document.getElementById('delete-student-btn').onclick = async ()=>{
     if(!selStu.value) return;
@@ -1126,12 +1374,30 @@ function renderTestTable(results, name, cls){
   const tbody = document.querySelector('#table-test tbody');
   tbody.innerHTML = rows.map((r,i)=>`<tr><td>${i+1}</td><td>${r.name}</td><td>${r.class}</td><td>${r.dateStr}</td><td>${r.duration}</td><td>${r.mode} · ${r.target}</td><td>${r.words}</td><td>${diffHtml(r.diff)}</td><td>${delBtn(r.id)}</td></tr>`).join('') || '<tr><td colspan="9" style="text-align:center; color:var(--ink-soft);">Chưa có dữ liệu bài Kiểm tra gõ 10 ngón</td></tr>';
 }
+function getCompetitionRows(results, name, cls, roundKey){
+  let rows = results.filter(r=>r.isCompetition===true);
+  if(name && name!=='__ALL__') rows = rows.filter(r=>r.name===name);
+  if(cls && cls!=='__ALL__') rows = rows.filter(r=>r.class===cls);
+  if(roundKey && roundKey!=='__ALL__') rows = rows.filter(r=>r.gradeId==='cuocthi-'+roundKey);
+  const byName = {};
+  rows.forEach(r=>{ (byName[r.name] = byName[r.name]||[]).push(r); });
+  let out = [];
+  Object.values(byName).forEach(list=>out = out.concat(computeDiffs(list)));
+  out.sort((a,b)=>new Date(a.dateISO)-new Date(b.dateISO));
+  return out;
+}
+function renderCompTable(results, name, cls, roundKey){
+  const rows = getCompetitionRows(results, name, cls, roundKey);
+  const tbody = document.querySelector('#table-comp tbody');
+  tbody.innerHTML = rows.map((r,i)=>`<tr><td>${i+1}</td><td>${r.name}</td><td>${r.class}</td><td>${r.khoiLabel} · ${r.roundLabel}</td><td>${r.dateStr}</td><td>${r.duration}</td><td>${r.target}</td><td>${r.words}</td><td>${diffHtml(r.diff)}</td><td>${delBtn(r.id)}</td></tr>`).join('') || '<tr><td colspan="10" style="text-align:center; color:var(--ink-soft);">Chưa có dữ liệu Cuộc thi gõ 10 ngón</td></tr>';
+}
 function exportExcel(rows, filename, includeClass){
   if(typeof XLSX==='undefined'){ alert('Không thể tải thư viện xuất Excel. Vui lòng kiểm tra kết nối mạng.'); return; }
   const data = rows.map((r,i)=>{
     const base = {Stt:i+1, 'Họ tên':r.name};
     if(includeClass) base['Lớp']=r.class;
-    base['Ngày thực hiện']=r.dateStr; base['Thời gian']=r.duration; base['Mục tiêu']=r.mode+' - '+r.target;
+    if(r.isCompetition) base['Vòng thi'] = `${r.khoiLabel} · ${r.roundLabel}`;
+    base['Ngày thực hiện']=r.dateStr; base['Thời gian']=r.duration; base['Mục tiêu']=r.mode ? (r.mode+' - '+r.target) : r.target;
     base['Số chữ gõ được']=r.words; base['Tăng/giảm']= r.diff===null? '—' : (r.diff>0?'+':'')+r.diff;
     return base;
   });
