@@ -9,11 +9,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
 :root{
-  --red-900:#5c0a17;
-  --red-800:#7a0d1f;
-  --red-700:#9c1224;
-  --red-600:#c8142c;
-  --red-500:#df1c33;
+  --red-900:#0c2d4d;
+  --red-800:#123f66;
+  --red-700:#17517f;
+  --red-600:#1b6699;
+  --red-500:#2079b3;
   --gold-500:#f0b429;
   --gold-300:#f8d979;
   --cream:#fff8ee;
@@ -258,8 +258,8 @@ table.result-table tr:nth-child(even) td{background:#fbf5ea;}
     <div id="brand">
       <img id="logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKoAAABlCAYAAADdyHjjAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADpwAAA6cAQeUU90AAB1HSURBVHhe7V0HWBTn1v6f5/+TG40mUZOoMWpMMd0SE00zphhLbCmW2JJYrok3uak3vdxYQVHARhErICCiYlcQREDBgopSLCBdpTcFBPX85z07uy6wFNldYHHex+9ZnPlmdmbnndO+853vf1SosAiQChUWAJWoKiwCKlFVWARUoqqwCKhEVWERUImqwiKgElWFRaDpEPXGDbpx/bo0/E38T0XTgWURlQl4vbSUSq9coeL8fCrKyaGizCzKS0mh9FNRdCEigi4cO07p0TGUfT6BCi+lS5+rBQVUWlQkxwqJVVgcGj1Rr5eV0dXCQirKyqacuHg67buFAv/6mzxHfECO3V+ghe07klXL+2hui3tpLj61fzdvSVb3tiEH7uMzdhztnzWbYnx8KD0mli5nZso5r0P6qrAINFqiXrt6VaRhQuA+2vnvr8mpRy+ad18bISE+59/flmwebE8L2j5EC9p1MNx4n80D7WhemwflGKuWrWh2sxa05Mmnafc331JyaChdzsgQaatK2saNxkVUJstVVuv5ySl00s2d1r7dn6Via7Judb8QziAR0UBY/r9th05k27Ezt0fIrlMXsuNP24c708KHOpIN70c/bf95fM45LHVXvPwahdosoMzoaCrJy+dLUAnbGNE4iAqCsirOOHmKgllFL3vmeZrNJILUrERMkA2kZBIufvQJWvr0c+T4fA9a8+Y75DNmHPlOnkpbv/iCdnz5NW37YjptnjSZvD74iFa88jo5dusp/Rc//qQQGeeZz9IWpoM1S9wtk6bSRbZxr16+rErYRoYGJ+r10jLKYccn8M+/hIhWrNorSk9IQXzaMzFBylVvvEW+U6ZQmN0iOh8QwA5VpnK26lGYdoESA4PoqPNy2vXN97Sy75u0lF8Ku0eYtPjue1rJNQTNnEW5CQl0raREOVJFQ6PhiCpS9DLF7/GnNW/1FzUMkugIyn9DekJtL+n6NEvMtylkrjWT+rxyAtMgcX8w7fnuB1r52hu0jKXtwvYP05y77yGH57tTpKsbXb50SZWujQANQtTr165RXnIyBc+xogVMDNigOoJys3nwIVHNDiztvD4a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">
       <div id="brand-text">
-        <div class="title">Luyện gõ 10 ngón</div>
-        <div class="sub">Trường TH, THCS & THPT Việt Nhật</div>
+        <div class="title">Trường TH, THCS & THPT Việt Nhật</div>
+        <div class="sub">Luyện gõ 10 ngón</div>
       </div>
     </div>
     <button id="teacher-btn">👩‍🏫 Giáo viên - Xem kết quả</button>
@@ -271,7 +271,9 @@ table.result-table tr:nth-child(even) td{background:#fbf5ea;}
       <h2>Khối lớp</h2>
       <div id="class-list"></div>
       <div style="margin-top:auto; color:var(--gold-300); font-size:11.5px; padding:8px 6px; border-top:2px dashed rgba(248,217,121,0.4);">
-        Kiểu gõ: <b>Telex</b> &nbsp;|&nbsp; Bảng mã: <b>Unicode dựng sẵn</b>
+        Kiểu gõ: <b>Telex</b> &nbsp;|&nbsp; Bảng mã: <b>Unicode dựng sẵn</b><br>
+        <span id="server-status-label">Máy chủ: <b>chưa kết nối</b></span> &nbsp;
+        <a href="#" id="server-config-link" style="color:var(--gold-300); text-decoration:underline;">Cài đặt máy chủ LAN</a>
       </div>
     </aside>
     <main id="right-panel">
@@ -406,8 +408,17 @@ table.result-table tr:nth-child(even) td{background:#fbf5ea;}
     <button class="modal-close" data-close="teacher-modal">✕</button>
     <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
       <h2 style="margin:0;">Bảng tổng hợp kết quả</h2>
-      <button id="delete-all-btn" style="background:var(--err); color:#fff; border:none; padding:8px 16px; border-radius:8px; font-weight:700; cursor:pointer;">🗑 Xóa tất cả dữ liệu</button>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button id="export-backup-btn" style="background:var(--gold-500); color:var(--red-900); border:none; padding:8px 16px; border-radius:8px; font-weight:700; cursor:pointer;">⬇ Sao lưu dữ liệu máy này</button>
+        <button id="import-backup-btn" style="background:var(--gold-500); color:var(--red-900); border:none; padding:8px 16px; border-radius:8px; font-weight:700; cursor:pointer;">⬆ Gộp dữ liệu từ máy khác</button>
+        <input type="file" id="import-backup-input" accept=".json" multiple class="hidden">
+        <button id="delete-all-btn" style="background:var(--err); color:#fff; border:none; padding:8px 16px; border-radius:8px; font-weight:700; cursor:pointer;">🗑 Xóa tất cả dữ liệu</button>
+      </div>
     </div>
+    <div id="import-status" style="font-size:12.5px; color:var(--ink-soft); min-height:16px; margin-top:4px;"></div>
+    <p style="font-size:12px; color:var(--ink-soft); margin:4px 0 0; line-height:1.6;">
+      💡 Mỗi máy học sinh lưu kết quả riêng trên máy đó. Để tổng hợp cả lớp: ở từng máy học sinh bấm <b>"Sao lưu dữ liệu máy này"</b> để tải tệp .json, sau đó mang các tệp đó (qua USB, Zalo, email...) sang máy giáo viên và bấm <b>"Gộp dữ liệu từ máy khác"</b> để chọn cùng lúc nhiều tệp — dữ liệu sẽ được gộp lại, không bị trùng lặp.
+    </p>
     <div class="tabs">
       <button id="tab-name" class="active">Theo học sinh</button>
       <button id="tab-class">Theo lớp</button>
@@ -462,7 +473,7 @@ table.result-table tr:nth-child(even) td{background:#fbf5ea;}
         <button id="export-comp-btn">⬇ Xuất Excel</button>
       </div>
       <table class="result-table" id="table-comp">
-        <thead><tr><th>Stt</th><th>Họ tên</th><th>Lớp</th><th>Vòng thi</th><th>Ngày thực hiện</th><th>Thời gian</th><th>Mục tiêu</th><th>Số chữ gõ được</th><th>Tăng/giảm</th><th></th></tr></thead>
+        <thead><tr><th>Stt</th><th>Họ tên</th><th>Lớp</th><th>Vòng thi</th><th>Ngày thực hiện</th><th>Thời gian</th><th>Mục tiêu</th><th>Số chữ gõ được</th><th>Số chữ cái gõ được</th><th>Tăng/giảm</th><th></th></tr></thead>
         <tbody></tbody>
       </table>
     </div>
@@ -543,6 +554,46 @@ const SENTENCES = [
 "Sự ngăn nắp trong cặp sách giúp em không bị quên đồ dùng học tập.",
 "Dám nhận lỗi khi làm sai là biểu hiện của một học sinh tự tin, trung thực.",
 "Em tự giác làm bài tập về nhà mà không cần bố mẹ nhắc nhở nhiều lần.",
+"Em biết sắp xếp bàn học ngăn nắp trước khi bắt đầu làm bài tập.",
+"Tự tin không có nghĩa là không bao giờ sai, mà là dám thử lại sau khi vấp ngã.",
+"Mỗi lần hoàn thành một việc khó, em cảm thấy tự tin hơn vào bản thân.",
+"Tự lập giúp em biết cách giải quyết vấn đề mà không phải lúc nào cũng chờ người khác giúp.",
+"Em tự dọn giường ngủ của mình mỗi sáng trước khi đi học.",
+"Tôn trọng sự khác biệt của bạn bè giúp lớp học trở nên gần gũi hơn.",
+"Khi bạn đang nói, em chăm chú lắng nghe thay vì ngắt lời.",
+"Kỷ luật là chìa khóa giúp em biến những mục tiêu nhỏ thành thói quen tốt.",
+"Em luôn hoàn thành bài tập trước khi đi chơi để giữ đúng kỷ luật học tập.",
+"Chăm chỉ ôn bài mỗi tối giúp em tự tin hơn khi làm bài kiểm tra.",
+"Dù bài tập khó, em vẫn kiên trì làm đến khi hiểu rõ vấn đề.",
+"Sạch sẽ không chỉ là vệ sinh cá nhân mà còn là giữ gìn không gian chung.",
+"Em vứt rác đúng nơi quy định để giữ sân trường luôn sạch đẹp.",
+"Một bộ óc sáng tạo luôn tìm được nhiều lời giải cho cùng một vấn đề.",
+"Em thích vẽ tranh theo cách riêng của mình thay vì sao chép người khác.",
+"Tự lập còn thể hiện qua việc em biết tự quản lý thời gian chơi và học.",
+"Khi làm việc nhóm, em luôn tôn trọng ý kiến đóng góp của các bạn.",
+"Giữ lời hứa với bạn bè và thầy cô là cách rèn luyện tính kỷ luật.",
+"Sự chăm chỉ được thể hiện qua từng bài tập nhỏ em hoàn thành mỗi ngày.",
+"Em luôn rửa tay sạch sẽ sau khi chơi thể thao ở sân trường.",
+"Óc sáng tạo giúp em biến những vật liệu bỏ đi thành đồ chơi thú vị.",
+"Tự tin đứng trước đám đông là kỹ năng em rèn luyện dần qua từng buổi học.",
+"Không ai hoàn hảo, nhưng tự lập giúp em học cách tự chịu trách nhiệm với bản thân.",
+"Em xếp gọn giày dép ở cửa lớp để giữ không gian chung sạch sẽ.",
+"Tôn trọng thời gian của người khác cũng là một phần của kỷ luật.",
+"Em thử nhiều cách khác nhau để giải một bài toán, đó chính là sáng tạo.",
+"Chăm chỉ tưới cây mỗi ngày giúp góc học tập của em thêm xanh mát.",
+"Kỷ luật giúp em không trì hoãn công việc đến phút cuối cùng.",
+"Em tự tin giơ tay hỏi khi chưa hiểu bài, vì biết hỏi không có gì xấu.",
+"Giữ gìn sách giáo khoa sạch sẽ giúp các em lớp sau có thể sử dụng lại.",
+"Sáng tạo trong cách trình bày bài làm giúp bài văn của em nổi bật hơn.",
+"Em tự chuẩn bị cặp sách cho ngày mai trước khi đi ngủ.",
+"Tôn trọng nội quy an toàn khi tham gia các hoạt động ngoài trời là điều cần thiết.",
+"Sự kỷ luật trong luyện tập thể thao giúp em có sức khỏe tốt hơn.",
+"Em chăm chỉ luyện viết chữ đẹp mỗi tuần để cải thiện nét chữ của mình.",
+"Một lớp học sạch sẽ bắt đầu từ ý thức của từng học sinh.",
+"Óc sáng tạo giúp em kể lại một câu chuyện quen thuộc theo cách mới lạ.",
+"Tự tin vào khả năng của mình giúp em không ngại đối mặt với thử thách mới.",
+"Tự lập từ nhỏ sẽ giúp em trở thành người có trách nhiệm khi lớn lên.",
+"Em luôn cảm ơn khi được thầy cô hoặc bạn bè giúp đỡ.",
 ];
 
 function shuffle(arr){
@@ -572,7 +623,38 @@ function buildPassage(min,max){
 }
 
 /* ============================ STORAGE ============================ */
+/* Máy chủ LAN (tùy chọn): nếu đã cài đặt địa chỉ máy chủ, phần mềm sẽ ưu tiên
+   đọc/ghi kết quả qua mạng LAN để mọi máy trong phòng máy cùng thấy chung một
+   dữ liệu. Nếu không kết nối được (mất mạng, chưa cài đặt...), phần mềm tự
+   động dùng bộ nhớ cục bộ của máy đó để không bị gián đoạn khi luyện tập. */
+function getServerEndpoint(){
+  try{ return (localStorage.getItem('server_endpoint') || '').trim(); }catch(e){ return ''; }
+}
+function setServerEndpoint(url){
+  try{ localStorage.setItem('server_endpoint', url); }catch(e){}
+}
+async function pingServer(base){
+  try{
+    const res = await fetch(base.replace(/\/$/,'') + '/api/results', {method:'GET'});
+    return res.ok;
+  }catch(e){ return false; }
+}
 async function loadResults(){
+  const endpoint = getServerEndpoint();
+  if(endpoint){
+    try{
+      const res = await fetch(endpoint.replace(/\/$/,'') + '/api/results', {method:'GET'});
+      if(res.ok){
+        const data = await res.json();
+        if(Array.isArray(data)){
+          try{ localStorage.setItem('typing_results_cache', JSON.stringify(data)); }catch(e){}
+          updateServerStatusLabel(true);
+          return data;
+        }
+      }
+    }catch(e){ /* máy chủ không phản hồi, dùng dữ liệu cục bộ tạm thời */ }
+    updateServerStatusLabel(false);
+  }
   try{
     if(window.storage){
       const r = await window.storage.get('typing_results', true);
@@ -580,22 +662,42 @@ async function loadResults(){
     }
   }catch(e){ /* fall through to local storage */ }
   try{
-    const raw = localStorage.getItem('typing_results');
+    const raw = localStorage.getItem('typing_results_cache') || localStorage.getItem('typing_results');
     return raw ? JSON.parse(raw) : [];
   }catch(e){ return []; }
 }
 async function saveResults(list){
+  const endpoint = getServerEndpoint();
   let savedRemote = false;
+  if(endpoint){
+    try{
+      const res = await fetch(endpoint.replace(/\/$/,'') + '/api/results', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(list),
+      });
+      savedRemote = res.ok;
+    }catch(e){ savedRemote = false; }
+    updateServerStatusLabel(savedRemote);
+  }
   try{
-    if(window.storage){ await window.storage.set('typing_results', JSON.stringify(list), true); savedRemote = true; }
-  }catch(e){ savedRemote = false; }
-  try{ localStorage.setItem('typing_results', JSON.stringify(list)); }catch(e){}
-  if(!savedRemote){ /* localStorage already used as backup above */ }
+    if(window.storage){ await window.storage.set('typing_results', JSON.stringify(list), true); }
+  }catch(e){}
+  try{ localStorage.setItem('typing_results_cache', JSON.stringify(list)); }catch(e){}
 }
 async function addResult(record){
   const list = await loadResults();
   list.push(record);
   await saveResults(list);
+}
+function updateServerStatusLabel(connected){
+  const el = document.getElementById('server-status-label');
+  if(!el) return;
+  const endpoint = getServerEndpoint();
+  if(!endpoint){ el.innerHTML = 'Máy chủ: <b>chưa kết nối</b>'; return; }
+  el.innerHTML = connected
+    ? `Máy chủ: <b style="color:#8fe3a0;">đã kết nối</b>`
+    : `Máy chủ: <b style="color:#f3a1a1;">mất kết nối</b>`;
 }
 
 /* ============================ STATE ============================ */
@@ -606,6 +708,8 @@ let state = {
   speed:'mid',
   passage:'',
   idx:0,
+  tokens:[],
+  tokenIdx:0,
   wordsCount:0,
   timeLeft:900,
   timerId:null,
@@ -837,6 +941,8 @@ function startExercise(){
   const grade = getActiveGrade();
   state.timeLeft = 900;
   state.idx = 0;
+  state.tokens = [];
+  state.tokenIdx = 0;
   state.wordsCount = 0;
   state.gameCatches = 0;
   state.paused = false;
@@ -866,6 +972,7 @@ function startExercise(){
     textPanel.classList.remove('hidden');
     const wordRange = grade.kind==='lop2' ? [180,220] : [500,1000];
     state.passage = buildPassage(wordRange[0], wordRange[1]);
+    state.tokens = parseTokens(state.passage);
     renderPassage();
     typeCapture.value='';
     typeCapture.focus();
@@ -873,19 +980,31 @@ function startExercise(){
   startTimer();
 }
 
+/* Tách đoạn văn thành các "từ" (không chứa khoảng trắng) kèm theo khoảng trắng
+   theo sau, để việc gõ được xác nhận theo TỪNG TỪ - cho phép học sinh gõ hết
+   các chữ cái rồi mới gõ dấu thanh (đúng theo cách gõ Telex thực tế), thay vì
+   bắt buộc dấu thanh phải xuất hiện ngay khi gõ nguyên âm. */
+function parseTokens(text){
+  const tokens = [];
+  const re = /(\S+)(\s*)/g;
+  let m;
+  while((m = re.exec(text))){
+    const word = m[1];
+    const delim = m[2];
+    tokens.push({ word, start:m.index, wordEnd:m.index+word.length, delim, delimLen:delim.length });
+  }
+  return tokens;
+}
+
 function renderPassage(){
   let html = '';
   for(let i=0;i<state.passage.length;i++){
     const c = state.passage[i];
-    let cls = 'ch';
-    if(i < state.idx) cls += ' done';
-    else if(i === state.idx) cls += ' current';
-    html += `<span class="${cls}" data-i="${i}">${c===' '?'&nbsp;':c===''?'':escapeHtml(c)}</span>`;
+    html += `<span class="ch" data-i="${i}">${c===' '?'&nbsp;':c===''?'':escapeHtml(c)}</span>`;
   }
   textPanel.innerHTML = html;
   updateWordCount();
-  const cur = textPanel.querySelector('.current');
-  if(cur) cur.scrollIntoView({block:'center'});
+  highlightCurrentWord();
 }
 function escapeHtml(c){
   if(c==='<') return '&lt;'; if(c==='>') return '&gt;'; if(c==='&') return '&amp;';
@@ -896,33 +1015,107 @@ function updateWordCount(){
   state.wordsCount = typed.trim().split(/\s+/).filter(Boolean).length;
   document.getElementById('ex-count').textContent = state.wordsCount;
 }
+function charSpan(i){ return textPanel.querySelector(`[data-i="${i}"]`); }
+
+function highlightCurrentWord(){
+  const token = state.tokens[state.tokenIdx];
+  if(!token) return;
+  for(let i=token.start;i<token.wordEnd;i++){
+    const span = charSpan(i);
+    if(span) span.classList.add('current');
+  }
+  const first = charSpan(token.start);
+  if(first) first.scrollIntoView({block:'center'});
+}
+
+/* Cập nhật tô màu "xem trước" theo từng ký tự trong khi học sinh đang gõ dở
+   một từ (chưa xác nhận) - chỉ mang tính hiển thị, KHÔNG chặn việc gõ, để
+   trình gõ tiếng Việt (Telex/Unikey...) có thể tự sửa dấu thanh trong từ. */
+function updateLivePreview(){
+  const token = state.tokens[state.tokenIdx];
+  if(!token) return;
+  const typed = typeCapture.value;
+  for(let i=0;i<token.word.length;i++){
+    const span = charSpan(token.start+i);
+    if(!span) continue;
+    span.classList.remove('done','err');
+    if(i < typed.length){
+      if(typed[i] === token.word[i]) span.classList.add('done');
+      else span.classList.add('err');
+    } else {
+      span.classList.add('current');
+    }
+  }
+}
+
+function commitWord(){
+  const token = state.tokens[state.tokenIdx];
+  if(!token) return;
+  for(let i=token.start;i<token.wordEnd;i++){
+    const span = charSpan(i);
+    if(span){ span.classList.remove('current','err'); span.classList.add('done'); }
+  }
+  for(let i=token.wordEnd;i<token.wordEnd+token.delimLen;i++){
+    const span = charSpan(i);
+    if(span){ span.classList.remove('current'); span.classList.add('done'); }
+  }
+  state.idx = token.wordEnd + token.delimLen;
+  state.tokenIdx++;
+  typeCapture.value = '';
+  updateWordCount();
+  if(state.tokenIdx >= state.tokens.length){
+    finishExercise(true);
+    return;
+  }
+  highlightCurrentWord();
+}
+
+function flashWordError(){
+  const token = state.tokens[state.tokenIdx];
+  if(!token) return;
+  for(let i=token.start;i<token.wordEnd;i++){
+    const span = charSpan(i);
+    if(span) span.classList.add('err');
+  }
+  setTimeout(()=>{
+    const t = state.tokens[state.tokenIdx];
+    if(!t || t!==token) return;
+    for(let i=token.start;i<token.wordEnd;i++){
+      const span = charSpan(i);
+      if(span) span.classList.remove('err');
+    }
+    updateLivePreview();
+  }, 320);
+}
+
+function tryConfirmWord(){
+  const token = state.tokens[state.tokenIdx];
+  if(!token) return;
+  if(typeCapture.value === token.word){
+    commitWord();
+  } else {
+    flashWordError();
+  }
+}
 
 typeCapture.addEventListener('input', ()=>{
-  if(!state.running || state.paused) { typeCapture.value=''; return; }
-  const chunk = typeCapture.value;
-  typeCapture.value='';
-  for(const ch of chunk){
-    if(state.idx >= state.passage.length) break;
-    const target = state.passage[state.idx];
-    if(ch === target){
-      const span = textPanel.querySelector(`[data-i="${state.idx}"]`);
-      if(span){ span.classList.remove('current'); span.classList.add('done'); }
-      state.idx++;
-      const nextSpan = textPanel.querySelector(`[data-i="${state.idx}"]`);
-      if(nextSpan) nextSpan.classList.add('current');
-      updateWordCount();
-      if(state.idx >= state.passage.length){
-        finishExercise(true);
-        return;
-      }
-    } else {
-      const span = textPanel.querySelector(`[data-i="${state.idx}"]`);
-      if(span){
-        span.classList.add('err');
-        setTimeout(()=>span.classList.remove('err'), 260);
-      }
-      break;
-    }
+  if(!state.running || state.paused) return;
+  if(!textPanel || textPanel.classList.contains('hidden')) return;
+  const token = state.tokens[state.tokenIdx];
+  if(!token) return;
+  updateLivePreview();
+  // Từ cuối cùng của đoạn văn không có khoảng trắng theo sau để xác nhận,
+  // nên tự động xác nhận khi học sinh đã gõ đúng và đủ độ dài của từ đó.
+  if(state.tokenIdx === state.tokens.length-1 && typeCapture.value === token.word){
+    commitWord();
+  }
+});
+typeCapture.addEventListener('keydown', (e)=>{
+  if(!state.running || state.paused) return;
+  if(!textPanel || textPanel.classList.contains('hidden')) return;
+  if(e.key === ' ' || e.key === 'Enter'){
+    e.preventDefault();
+    tryConfirmWord();
   }
 });
 typeCapture.addEventListener('paste', e=>e.preventDefault());
@@ -1024,6 +1217,8 @@ async function finishExercise(completedFullText){
   const elapsedSec = 900 - state.timeLeft;
   const durationStr = `${String(Math.floor(elapsedSec/60)).padStart(2,'0')}:${String(elapsedSec%60).padStart(2,'0')}`;
   const words = state.wordsCount;
+  const isGameMode = grade.kind==='lop2' && state.lop2Mode==='game' && !grade.isCompetition;
+  const letters = isGameMode ? state.gameCatches : state.idx;
 
   const prevList = await loadResults();
   const prevForStudent = prevList.filter(r=>r.name===name).sort((a,b)=>new Date(a.dateISO)-new Date(b.dateISO));
@@ -1044,6 +1239,7 @@ async function finishExercise(completedFullText){
     mode: modeLabel,
     target: grade.target,
     words: words,
+    letters: letters,
     isCompetition: !!grade.isCompetition,
     khoiLabel: grade.khoiLabel || '',
     roundLabel: grade.roundLabel || '',
@@ -1173,6 +1369,66 @@ document.getElementById('teacher-btn').addEventListener('click', async ()=>{
   const ok = await showTeacherLogin();
   if(ok){ teacherUnlocked = true; openTeacherModal(); }
 });
+
+/* ---------- Cài đặt máy chủ LAN ---------- */
+function showServerConfig(){
+  return new Promise(resolve=>{
+    const overlay = document.createElement('div');
+    overlay.className = 'modal-overlay';
+    overlay.style.zIndex = 200;
+    const current = getServerEndpoint();
+    overlay.innerHTML = `<div class="modal-box" style="max-width:440px;">
+      <h2 style="margin-top:0; color:var(--red-700);">🌐 Cài đặt máy chủ LAN</h2>
+      <p style="color:var(--ink-soft); font-size:13.5px; line-height:1.6; margin-top:-4px;">
+        Nhập địa chỉ máy chủ dữ liệu đang chạy trong phòng máy (do giáo viên/quản trị khởi động trên máy chủ),
+        ví dụ: <code>http://192.168.1.10:8899</code>. Mọi máy trong phòng cài cùng một địa chỉ này sẽ dùng chung một bảng kết quả.
+      </p>
+      <input type="text" id="server-url-input" placeholder="http://192.168.1.10:8899" value="${current.replace(/"/g,'&quot;')}"
+        style="width:100%; padding:10px 12px; border-radius:10px; border:2px solid #e4d3c0; font-size:14px; margin:8px 0; font-family:'JetBrains Mono',monospace;">
+      <div id="server-test-msg" style="font-size:12.5px; min-height:18px; color:var(--ink-soft);"></div>
+      <div style="display:flex; gap:10px; justify-content:space-between; margin-top:10px; flex-wrap:wrap;">
+        <button id="server-clear" style="padding:9px 14px; border-radius:8px; border:2px solid #ccc; background:#fff; cursor:pointer; font-weight:700; font-family:'Baloo 2',sans-serif;">Bỏ kết nối</button>
+        <div style="display:flex; gap:8px;">
+          <button id="server-cancel" style="padding:9px 18px; border-radius:8px; border:2px solid #ccc; background:#fff; cursor:pointer; font-weight:700; font-family:'Baloo 2',sans-serif;">Hủy</button>
+          <button id="server-test" style="padding:9px 18px; border-radius:8px; border:none; background:var(--gold-500); color:var(--red-900); cursor:pointer; font-weight:700; font-family:'Baloo 2',sans-serif;">Kiểm tra</button>
+          <button id="server-save" style="padding:9px 18px; border-radius:8px; border:none; background:var(--red-600); color:#fff; cursor:pointer; font-weight:700; font-family:'Baloo 2',sans-serif;">Lưu</button>
+        </div>
+      </div>
+    </div>`;
+    document.body.appendChild(overlay);
+    const input = overlay.querySelector('#server-url-input');
+    const msg = overlay.querySelector('#server-test-msg');
+    setTimeout(()=>input.focus(), 50);
+    const cleanup = (val)=>{ overlay.remove(); resolve(val); };
+    overlay.querySelector('#server-cancel').onclick = ()=>cleanup(false);
+    overlay.querySelector('#server-clear').onclick = ()=>{ setServerEndpoint(''); updateServerStatusLabel(false); document.getElementById('server-status-label').innerHTML='Máy chủ: <b>chưa kết nối</b>'; cleanup(true); };
+    overlay.querySelector('#server-test').onclick = async ()=>{
+      const url = input.value.trim();
+      if(!url){ msg.textContent='Vui lòng nhập địa chỉ máy chủ.'; msg.style.color='var(--err)'; return; }
+      msg.textContent = 'Đang kiểm tra kết nối...'; msg.style.color='var(--ink-soft)';
+      const ok = await pingServer(url);
+      msg.textContent = ok ? '✔ Kết nối thành công!' : '✕ Không kết nối được. Kiểm tra lại địa chỉ và mạng LAN.';
+      msg.style.color = ok ? 'var(--green)' : 'var(--err)';
+    };
+    overlay.querySelector('#server-save').onclick = async ()=>{
+      const url = input.value.trim();
+      if(!url){ msg.textContent='Vui lòng nhập địa chỉ máy chủ.'; msg.style.color='var(--err)'; return; }
+      setServerEndpoint(url);
+      await loadResults();
+      cleanup(true);
+    };
+    overlay.addEventListener('click', e=>{ if(e.target===overlay) cleanup(false); });
+  });
+}
+document.getElementById('server-config-link').addEventListener('click', async (e)=>{
+  e.preventDefault();
+  await showServerConfig();
+});
+(async function initServerStatus(){
+  const endpoint = getServerEndpoint();
+  if(endpoint){ const ok = await pingServer(endpoint); updateServerStatusLabel(ok); }
+})();
+
 document.querySelectorAll('[data-close]').forEach(b=>{
   b.addEventListener('click', ()=>document.getElementById(b.dataset.close).classList.add('hidden'));
 });
@@ -1274,9 +1530,66 @@ async function openTeacherModal(){
     const ok = await showConfirm('Xóa TẤT CẢ dữ liệu kết quả của mọi học sinh? Hành động này không thể hoàn tác.');
     if(ok){ await deleteAllResults(); await openTeacherModal(); }
   };
+  document.getElementById('export-backup-btn').onclick = ()=>exportBackupJSON(results);
+  document.getElementById('import-backup-btn').onclick = ()=>document.getElementById('import-backup-input').click();
+  document.getElementById('import-backup-input').onchange = async (e)=>{
+    const files = e.target.files;
+    if(!files || files.length===0) return;
+    const statusEl = document.getElementById('import-status');
+    statusEl.textContent = 'Đang nhập dữ liệu...';
+    const res = await importBackupFiles(files);
+    e.target.value = '';
+    let msg;
+    if(res.filesOk===0){
+      msg = 'Không đọc được tệp nào — vui lòng chọn đúng tệp .json đã sao lưu từ phần mềm này.';
+    } else {
+      msg = `Đã gộp ${res.added} kết quả mới từ ${res.filesOk} tệp (bỏ qua ${res.skipped} kết quả đã có sẵn).`;
+    }
+    await openTeacherModal();
+    document.getElementById('import-status').textContent = msg;
+  };
 
   switchTeacherTab(teacherActiveTab);
   document.getElementById('teacher-modal').classList.remove('hidden');
+}
+
+function exportBackupJSON(results){
+  const blob = new Blob([JSON.stringify(results, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const now = new Date();
+  const pad = n=>String(n).padStart(2,'0');
+  const stamp = `${now.getFullYear()}${pad(now.getMonth()+1)}${pad(now.getDate())}_${pad(now.getHours())}${pad(now.getMinutes())}`;
+  a.href = url;
+  a.download = `SaoLuu_KetQua_${stamp}.json`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+async function importBackupFiles(fileList){
+  const existing = await loadResults();
+  const existingIds = new Set(existing.map(r=>r.id).filter(Boolean));
+  let added = 0, skipped = 0, filesOk = 0;
+  for(const file of fileList){
+    try{
+      const text = await file.text();
+      const arr = JSON.parse(text);
+      if(!Array.isArray(arr)) continue;
+      filesOk++;
+      arr.forEach(r=>{
+        if(!r || !r.name || typeof r.words!=='number') return;
+        if(!r.id) r.id = 'r'+Date.now()+Math.random().toString(36).slice(2,7);
+        if(existingIds.has(r.id)){ skipped++; return; }
+        existingIds.add(r.id);
+        existing.push(r);
+        added++;
+      });
+    }catch(e){ /* bỏ qua tệp không hợp lệ */ }
+  }
+  await saveResults(existing);
+  return {added, skipped, filesOk};
 }
 
 function showConfirm(message){
@@ -1389,7 +1702,7 @@ function getCompetitionRows(results, name, cls, roundKey){
 function renderCompTable(results, name, cls, roundKey){
   const rows = getCompetitionRows(results, name, cls, roundKey);
   const tbody = document.querySelector('#table-comp tbody');
-  tbody.innerHTML = rows.map((r,i)=>`<tr><td>${i+1}</td><td>${r.name}</td><td>${r.class}</td><td>${r.khoiLabel} · ${r.roundLabel}</td><td>${r.dateStr}</td><td>${r.duration}</td><td>${r.target}</td><td>${r.words}</td><td>${diffHtml(r.diff)}</td><td>${delBtn(r.id)}</td></tr>`).join('') || '<tr><td colspan="10" style="text-align:center; color:var(--ink-soft);">Chưa có dữ liệu Cuộc thi gõ 10 ngón</td></tr>';
+  tbody.innerHTML = rows.map((r,i)=>`<tr><td>${i+1}</td><td>${r.name}</td><td>${r.class}</td><td>${r.khoiLabel} · ${r.roundLabel}</td><td>${r.dateStr}</td><td>${r.duration}</td><td>${r.target}</td><td>${r.words}</td><td>${typeof r.letters==='number' ? r.letters : '—'}</td><td>${diffHtml(r.diff)}</td><td>${delBtn(r.id)}</td></tr>`).join('') || '<tr><td colspan="11" style="text-align:center; color:var(--ink-soft);">Chưa có dữ liệu Cuộc thi gõ 10 ngón</td></tr>';
 }
 function exportExcel(rows, filename, includeClass){
   if(typeof XLSX==='undefined'){ alert('Không thể tải thư viện xuất Excel. Vui lòng kiểm tra kết nối mạng.'); return; }
@@ -1398,7 +1711,9 @@ function exportExcel(rows, filename, includeClass){
     if(includeClass) base['Lớp']=r.class;
     if(r.isCompetition) base['Vòng thi'] = `${r.khoiLabel} · ${r.roundLabel}`;
     base['Ngày thực hiện']=r.dateStr; base['Thời gian']=r.duration; base['Mục tiêu']=r.mode ? (r.mode+' - '+r.target) : r.target;
-    base['Số chữ gõ được']=r.words; base['Tăng/giảm']= r.diff===null? '—' : (r.diff>0?'+':'')+r.diff;
+    base['Số chữ gõ được']=r.words;
+    if(r.isCompetition) base['Số chữ cái gõ được'] = typeof r.letters==='number' ? r.letters : '—';
+    base['Tăng/giảm']= r.diff===null? '—' : (r.diff>0?'+':'')+r.diff;
     return base;
   });
   const ws = XLSX.utils.json_to_sheet(data);
