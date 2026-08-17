@@ -417,7 +417,7 @@ table.result-table tr:nth-child(even) td{background:#fbf5ea;}
     <h2 id="student-modal-title" style="margin-top:0; color:var(--red-700);">📄 Kết quả của tôi</h2>
     <p style="color:var(--ink-soft); font-size:13px; margin-top:-6px;">Danh sách các lượt luyện gõ đã thực hiện, mới nhất ở dưới cùng.</p>
     <table class="result-table" id="table-my-results">
-      <thead><tr><th>Stt</th><th>Ngày thực hiện</th><th>Thời gian</th><th>Mục tiêu</th><th>Số chữ gõ được</th><th>Số từ gõ sai</th><th>Tăng/giảm</th></tr></thead>
+      <thead><tr><th>Stt</th><th>Ngày thực hiện</th><th>Thời gian</th><th>Mục tiêu</th><th>Số chữ gõ được</th><th>Số từ gõ sai</th><th>Số chữ gõ đúng</th><th>Tăng/giảm</th></tr></thead>
       <tbody></tbody>
     </table>
   </div>
@@ -453,7 +453,7 @@ table.result-table tr:nth-child(even) td{background:#fbf5ea;}
         <button id="export-student-btn">⬇ Xuất Excel</button>
       </div>
       <table class="result-table" id="table-student">
-        <thead><tr><th>Stt</th><th>Họ tên</th><th>Lớp</th><th>Ngày thực hiện</th><th>Thời gian</th><th>Mục tiêu</th><th>Số chữ gõ được</th><th>Số từ gõ sai</th><th>Tăng/giảm</th><th></th></tr></thead>
+        <thead><tr><th>Stt</th><th>Họ tên</th><th>Lớp</th><th>Ngày thực hiện</th><th>Thời gian</th><th>Mục tiêu</th><th>Số chữ gõ được</th><th>Số từ gõ sai</th><th>Số chữ gõ đúng</th><th>Tăng/giảm</th><th></th></tr></thead>
         <tbody></tbody>
       </table>
     </div>
@@ -465,7 +465,7 @@ table.result-table tr:nth-child(even) td{background:#fbf5ea;}
         <button id="export-class-btn">⬇ Xuất Excel</button>
       </div>
       <table class="result-table" id="table-class">
-        <thead><tr><th>Stt</th><th>Họ tên</th><th>Ngày thực hiện</th><th>Thời gian</th><th>Mục tiêu</th><th>Số chữ gõ được</th><th>Số từ gõ sai</th><th>Tăng/giảm</th><th></th></tr></thead>
+        <thead><tr><th>Stt</th><th>Họ tên</th><th>Ngày thực hiện</th><th>Thời gian</th><th>Mục tiêu</th><th>Số chữ gõ được</th><th>Số từ gõ sai</th><th>Số chữ gõ đúng</th><th>Tăng/giảm</th><th></th></tr></thead>
         <tbody></tbody>
       </table>
     </div>
@@ -478,7 +478,7 @@ table.result-table tr:nth-child(even) td{background:#fbf5ea;}
         <button id="export-test-btn">⬇ Xuất Excel</button>
       </div>
       <table class="result-table" id="table-test">
-        <thead><tr><th>Stt</th><th>Họ tên</th><th>Lớp</th><th>Ngày thực hiện</th><th>Thời gian</th><th>Mục tiêu</th><th>Số chữ gõ được</th><th>Số từ gõ sai</th><th>Tăng/giảm</th><th></th></tr></thead>
+        <thead><tr><th>Stt</th><th>Họ tên</th><th>Lớp</th><th>Ngày thực hiện</th><th>Thời gian</th><th>Mục tiêu</th><th>Số chữ gõ được</th><th>Số từ gõ sai</th><th>Số chữ gõ đúng</th><th>Tăng/giảm</th><th></th></tr></thead>
         <tbody></tbody>
       </table>
     </div>
@@ -493,7 +493,7 @@ table.result-table tr:nth-child(even) td{background:#fbf5ea;}
         <button id="export-comp-btn">⬇ Xuất Excel</button>
       </div>
       <table class="result-table" id="table-comp">
-        <thead><tr><th>Stt</th><th>Họ tên</th><th>Lớp</th><th>Vòng thi</th><th>Ngày thực hiện</th><th>Thời gian</th><th>Mục tiêu</th><th>Số chữ gõ được</th><th>Số chữ cái gõ được</th><th>Số từ gõ sai</th><th>Tăng/giảm</th><th></th></tr></thead>
+        <thead><tr><th>Stt</th><th>Họ tên</th><th>Lớp</th><th>Vòng thi</th><th>Ngày thực hiện</th><th>Thời gian</th><th>Mục tiêu</th><th>Số chữ gõ được</th><th>Số chữ cái gõ được</th><th>Số từ gõ sai</th><th>Số chữ gõ đúng</th><th>Tăng/giảm</th><th></th></tr></thead>
         <tbody></tbody>
       </table>
     </div>
@@ -963,7 +963,7 @@ async function openMyResults(){
   const rows = getStudentRows(results, name);
   document.getElementById('student-modal-title').textContent = `📄 Kết quả của: ${name}`;
   const tbody = document.querySelector('#table-my-results tbody');
-  tbody.innerHTML = rows.map((r,i)=>`<tr><td>${i+1}</td><td>${r.dateStr}</td><td>${r.duration}</td><td>${r.mode} · ${r.target}</td><td>${r.words}</td><td>${wrongCell(r)}</td><td>${diffHtml(r.diff)}</td></tr>`).join('') || '<tr><td colspan="7" style="text-align:center; color:var(--ink-soft);">Chưa có kết quả nào được lưu với tên này.</td></tr>';
+  tbody.innerHTML = rows.map((r,i)=>`<tr><td>${i+1}</td><td>${r.dateStr}</td><td>${r.duration}</td><td>${r.mode} · ${r.target}</td><td>${r.words}</td><td>${wrongCell(r)}</td><td>${correctCell(r)}</td><td>${diffHtml(r.diff)}</td></tr>`).join('') || '<tr><td colspan="8" style="text-align:center; color:var(--ink-soft);">Chưa có kết quả nào được lưu với tên này.</td></tr>';
   document.getElementById('student-modal').classList.remove('hidden');
 }
 
@@ -1070,6 +1070,9 @@ function computeProgress(typedLen){
   return {words, wrong};
 }
 
+/* Gõ tự do, không khóa/chặn gì cả: học sinh gõ sai chữ nào sẽ được báo ngay
+   (gạch chân đỏ) tại chữ đó, có thể dùng Backspace xóa để gõ lại; những chữ
+   gõ sau đó nếu đúng vẫn được tính đúng bình thường. */
 function updateTypingDisplay(){
   const typed = typeCapture.value;
   const newLen = Math.min(typed.length, state.passage.length);
@@ -1199,18 +1202,20 @@ async function finishExercise(completedFullText){
   document.removeEventListener('keydown', gameKeyHandler);
 
   const grade = getActiveGrade();
+  const isGameMode = grade.kind==='lop2' && state.lop2Mode==='game' && !grade.isCompetition;
+
   const name = document.getElementById('stu-name').value.trim();
   const cls = document.getElementById('stu-class').value.trim();
   const elapsedSec = 900 - state.timeLeft;
   const durationStr = `${String(Math.floor(elapsedSec/60)).padStart(2,'0')}:${String(elapsedSec%60).padStart(2,'0')}`;
   const words = state.wordsCount;
-  const isGameMode = grade.kind==='lop2' && state.lop2Mode==='game' && !grade.isCompetition;
   const letters = isGameMode ? state.gameCatches : state.idx;
 
   const prevList = await loadResults();
   const prevForStudent = prevList.filter(r=>r.name===name).sort((a,b)=>new Date(a.dateISO)-new Date(b.dateISO));
   const lastPrev = prevForStudent.length ? prevForStudent[prevForStudent.length-1] : null;
-  const diff = lastPrev ? words - lastPrev.words : null;
+  const correctWords = Math.max(0, words - state.wrongWords);
+  const diff = lastPrev ? correctWords - correctWordsOf(lastPrev) : null;
 
   let modeLabel = grade.name;
   if(!grade.isCompetition && grade.kind==='lop2') modeLabel += state.lop2Mode==='game' ? ' (Trò chơi)' : ' (Luyện gõ)';
@@ -1642,11 +1647,16 @@ async function handleRowDelete(id){
 }
 window.handleRowDelete = handleRowDelete;
 
+function correctWordsOf(r){
+  const w = typeof r.words==='number' ? r.words : 0;
+  const wrong = typeof r.wrongWords==='number' ? r.wrongWords : 0;
+  return Math.max(0, w - wrong);
+}
 function computeDiffs(rows){
   const sorted = rows.slice().sort((a,b)=>new Date(a.dateISO)-new Date(b.dateISO));
   return sorted.map((r,i)=>{
-    const prev = i>0 ? sorted[i-1].words : null;
-    return {...r, diff: prev===null ? null : r.words-prev};
+    const prev = i>0 ? correctWordsOf(sorted[i-1]) : null;
+    return {...r, diff: prev===null ? null : correctWordsOf(r)-prev};
   });
 }
 function diffHtml(diff){
@@ -1680,20 +1690,21 @@ function getTestRows(results, name, cls){
   return out;
 }
 function wrongCell(r){ return typeof r.wrongWords==='number' ? r.wrongWords : 0; }
+function correctCell(r){ return correctWordsOf(r); }
 function renderStudentTable(results, name){
   const rows = getStudentRows(results, name);
   const tbody = document.querySelector('#table-student tbody');
-  tbody.innerHTML = rows.map((r,i)=>`<tr><td>${i+1}</td><td>${r.name}</td><td>${r.class}</td><td>${r.dateStr}</td><td>${r.duration}</td><td>${r.mode} · ${r.target}</td><td>${r.words}</td><td>${wrongCell(r)}</td><td>${diffHtml(r.diff)}</td><td>${delBtn(r.id)}</td></tr>`).join('') || '<tr><td colspan="10" style="text-align:center; color:var(--ink-soft);">Chưa có dữ liệu</td></tr>';
+  tbody.innerHTML = rows.map((r,i)=>`<tr><td>${i+1}</td><td>${r.name}</td><td>${r.class}</td><td>${r.dateStr}</td><td>${r.duration}</td><td>${r.mode} · ${r.target}</td><td>${r.words}</td><td>${wrongCell(r)}</td><td>${correctCell(r)}</td><td>${diffHtml(r.diff)}</td><td>${delBtn(r.id)}</td></tr>`).join('') || '<tr><td colspan="11" style="text-align:center; color:var(--ink-soft);">Chưa có dữ liệu</td></tr>';
 }
 function renderClassTable(results, cls){
   const rows = getClassRows(results, cls);
   const tbody = document.querySelector('#table-class tbody');
-  tbody.innerHTML = rows.map((r,i)=>`<tr><td>${i+1}</td><td>${r.name}</td><td>${r.dateStr}</td><td>${r.duration}</td><td>${r.mode} · ${r.target}</td><td>${r.words}</td><td>${wrongCell(r)}</td><td>${diffHtml(r.diff)}</td><td>${delBtn(r.id)}</td></tr>`).join('') || '<tr><td colspan="9" style="text-align:center; color:var(--ink-soft);">Chưa có dữ liệu</td></tr>';
+  tbody.innerHTML = rows.map((r,i)=>`<tr><td>${i+1}</td><td>${r.name}</td><td>${r.dateStr}</td><td>${r.duration}</td><td>${r.mode} · ${r.target}</td><td>${r.words}</td><td>${wrongCell(r)}</td><td>${correctCell(r)}</td><td>${diffHtml(r.diff)}</td><td>${delBtn(r.id)}</td></tr>`).join('') || '<tr><td colspan="10" style="text-align:center; color:var(--ink-soft);">Chưa có dữ liệu</td></tr>';
 }
 function renderTestTable(results, name, cls){
   const rows = getTestRows(results, name, cls);
   const tbody = document.querySelector('#table-test tbody');
-  tbody.innerHTML = rows.map((r,i)=>`<tr><td>${i+1}</td><td>${r.name}</td><td>${r.class}</td><td>${r.dateStr}</td><td>${r.duration}</td><td>${r.mode} · ${r.target}</td><td>${r.words}</td><td>${wrongCell(r)}</td><td>${diffHtml(r.diff)}</td><td>${delBtn(r.id)}</td></tr>`).join('') || '<tr><td colspan="10" style="text-align:center; color:var(--ink-soft);">Chưa có dữ liệu bài Kiểm tra gõ 10 ngón</td></tr>';
+  tbody.innerHTML = rows.map((r,i)=>`<tr><td>${i+1}</td><td>${r.name}</td><td>${r.class}</td><td>${r.dateStr}</td><td>${r.duration}</td><td>${r.mode} · ${r.target}</td><td>${r.words}</td><td>${wrongCell(r)}</td><td>${correctCell(r)}</td><td>${diffHtml(r.diff)}</td><td>${delBtn(r.id)}</td></tr>`).join('') || '<tr><td colspan="11" style="text-align:center; color:var(--ink-soft);">Chưa có dữ liệu bài Kiểm tra gõ 10 ngón</td></tr>';
 }
 function getCompetitionRows(results, name, cls, roundKey){
   let rows = results.filter(r=>r.isCompetition===true);
@@ -1710,7 +1721,7 @@ function getCompetitionRows(results, name, cls, roundKey){
 function renderCompTable(results, name, cls, roundKey){
   const rows = getCompetitionRows(results, name, cls, roundKey);
   const tbody = document.querySelector('#table-comp tbody');
-  tbody.innerHTML = rows.map((r,i)=>`<tr><td>${i+1}</td><td>${r.name}</td><td>${r.class}</td><td>${r.khoiLabel} · ${r.roundLabel}</td><td>${r.dateStr}</td><td>${r.duration}</td><td>${r.target}</td><td>${r.words}</td><td>${typeof r.letters==='number' ? r.letters : '—'}</td><td>${wrongCell(r)}</td><td>${diffHtml(r.diff)}</td><td>${delBtn(r.id)}</td></tr>`).join('') || '<tr><td colspan="12" style="text-align:center; color:var(--ink-soft);">Chưa có dữ liệu Cuộc thi gõ 10 ngón</td></tr>';
+  tbody.innerHTML = rows.map((r,i)=>`<tr><td>${i+1}</td><td>${r.name}</td><td>${r.class}</td><td>${r.khoiLabel} · ${r.roundLabel}</td><td>${r.dateStr}</td><td>${r.duration}</td><td>${r.target}</td><td>${r.words}</td><td>${typeof r.letters==='number' ? r.letters : '—'}</td><td>${wrongCell(r)}</td><td>${correctCell(r)}</td><td>${diffHtml(r.diff)}</td><td>${delBtn(r.id)}</td></tr>`).join('') || '<tr><td colspan="13" style="text-align:center; color:var(--ink-soft);">Chưa có dữ liệu Cuộc thi gõ 10 ngón</td></tr>';
 }
 function exportExcel(rows, filename, includeClass){
   if(typeof XLSX==='undefined'){ alert('Không thể tải thư viện xuất Excel. Vui lòng kiểm tra kết nối mạng.'); return; }
@@ -1722,6 +1733,7 @@ function exportExcel(rows, filename, includeClass){
     base['Số chữ gõ được']=r.words;
     if(r.isCompetition) base['Số chữ cái gõ được'] = typeof r.letters==='number' ? r.letters : '—';
     base['Số từ gõ sai'] = wrongCell(r);
+    base['Số chữ gõ đúng'] = correctCell(r);
     base['Tăng/giảm']= r.diff===null? '—' : (r.diff>0?'+':'')+r.diff;
     return base;
   });
