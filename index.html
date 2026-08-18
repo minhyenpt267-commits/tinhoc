@@ -381,7 +381,7 @@ table.result-table tr:nth-child(even) td{background:#fbf5ea;}
       <div class="ex-stats">
         <div class="stat"><div class="val" id="ex-timer">15:00</div><div class="lbl">Thời gian còn lại</div></div>
         <div class="stat"><div class="val" id="ex-count">0</div><div class="lbl">Số chữ đã gõ</div></div>
-        <div class="stat"><div class="val" id="ex-wrong" style="color:var(--err);">0</div><div class="lbl">Từ gõ sai</div></div>
+        <div class="stat"><div class="val" id="ex-wrong" style="color:var(--err);">0</div><div class="lbl">Chữ gõ sai</div></div>
       </div>
       <div class="ex-controls">
         <button id="pause-btn">⏸ Tạm dừng</button>
@@ -417,7 +417,7 @@ table.result-table tr:nth-child(even) td{background:#fbf5ea;}
     <h2 id="student-modal-title" style="margin-top:0; color:var(--red-700);">📄 Kết quả của tôi</h2>
     <p style="color:var(--ink-soft); font-size:13px; margin-top:-6px;">Danh sách các lượt luyện gõ đã thực hiện, mới nhất ở dưới cùng.</p>
     <table class="result-table" id="table-my-results">
-      <thead><tr><th>Stt</th><th>Ngày thực hiện</th><th>Thời gian</th><th>Mục tiêu</th><th>Số chữ gõ được</th><th>Số từ gõ sai</th><th>Số chữ gõ đúng</th><th>Tăng/giảm</th></tr></thead>
+      <thead><tr><th>Stt</th><th>Ngày thực hiện</th><th>Thời gian</th><th>Mục tiêu</th><th>Số chữ gõ được</th><th>Số chữ gõ sai</th><th>Số chữ gõ đúng</th><th>Tăng/giảm</th></tr></thead>
       <tbody></tbody>
     </table>
   </div>
@@ -429,16 +429,9 @@ table.result-table tr:nth-child(even) td{background:#fbf5ea;}
     <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
       <h2 style="margin:0;">Bảng tổng hợp kết quả</h2>
       <div style="display:flex; gap:8px; flex-wrap:wrap;">
-        <button id="export-backup-btn" style="background:var(--gold-500); color:var(--red-900); border:none; padding:8px 16px; border-radius:8px; font-weight:700; cursor:pointer;">⬇ Sao lưu dữ liệu máy này</button>
-        <button id="import-backup-btn" style="background:var(--gold-500); color:var(--red-900); border:none; padding:8px 16px; border-radius:8px; font-weight:700; cursor:pointer;">⬆ Gộp dữ liệu từ máy khác</button>
-        <input type="file" id="import-backup-input" accept=".json" multiple class="hidden">
         <button id="delete-all-btn" style="background:var(--err); color:#fff; border:none; padding:8px 16px; border-radius:8px; font-weight:700; cursor:pointer;">🗑 Xóa tất cả dữ liệu</button>
       </div>
     </div>
-    <div id="import-status" style="font-size:12.5px; color:var(--ink-soft); min-height:16px; margin-top:4px;"></div>
-    <p style="font-size:12px; color:var(--ink-soft); margin:4px 0 0; line-height:1.6;">
-      💡 Mỗi máy học sinh lưu kết quả riêng trên máy đó. Để tổng hợp cả lớp: ở từng máy học sinh bấm <b>"Sao lưu dữ liệu máy này"</b> để tải tệp .json, sau đó mang các tệp đó (qua USB, Zalo, email...) sang máy giáo viên và bấm <b>"Gộp dữ liệu từ máy khác"</b> để chọn cùng lúc nhiều tệp — dữ liệu sẽ được gộp lại, không bị trùng lặp.
-    </p>
     <div class="tabs">
       <button id="tab-name" class="active">Theo học sinh</button>
       <button id="tab-class">Theo lớp</button>
@@ -453,7 +446,7 @@ table.result-table tr:nth-child(even) td{background:#fbf5ea;}
         <button id="export-student-btn">⬇ Xuất Excel</button>
       </div>
       <table class="result-table" id="table-student">
-        <thead><tr><th>Stt</th><th>Họ tên</th><th>Lớp</th><th>Ngày thực hiện</th><th>Thời gian</th><th>Mục tiêu</th><th>Số chữ gõ được</th><th>Số từ gõ sai</th><th>Số chữ gõ đúng</th><th>Tăng/giảm</th><th></th></tr></thead>
+        <thead><tr><th>Stt</th><th>Họ tên</th><th>Lớp</th><th>Ngày thực hiện</th><th>Thời gian</th><th>Mục tiêu</th><th>Số chữ gõ được</th><th>Số chữ gõ sai</th><th>Số chữ gõ đúng</th><th>Tăng/giảm</th><th></th></tr></thead>
         <tbody></tbody>
       </table>
     </div>
@@ -465,7 +458,7 @@ table.result-table tr:nth-child(even) td{background:#fbf5ea;}
         <button id="export-class-btn">⬇ Xuất Excel</button>
       </div>
       <table class="result-table" id="table-class">
-        <thead><tr><th>Stt</th><th>Họ tên</th><th>Ngày thực hiện</th><th>Thời gian</th><th>Mục tiêu</th><th>Số chữ gõ được</th><th>Số từ gõ sai</th><th>Số chữ gõ đúng</th><th>Tăng/giảm</th><th></th></tr></thead>
+        <thead><tr><th>Stt</th><th>Họ tên</th><th>Ngày thực hiện</th><th>Thời gian</th><th>Mục tiêu</th><th>Số chữ gõ được</th><th>Số chữ gõ sai</th><th>Số chữ gõ đúng</th><th>Tăng/giảm</th><th></th></tr></thead>
         <tbody></tbody>
       </table>
     </div>
@@ -478,7 +471,7 @@ table.result-table tr:nth-child(even) td{background:#fbf5ea;}
         <button id="export-test-btn">⬇ Xuất Excel</button>
       </div>
       <table class="result-table" id="table-test">
-        <thead><tr><th>Stt</th><th>Họ tên</th><th>Lớp</th><th>Ngày thực hiện</th><th>Thời gian</th><th>Mục tiêu</th><th>Số chữ gõ được</th><th>Số từ gõ sai</th><th>Số chữ gõ đúng</th><th>Tăng/giảm</th><th></th></tr></thead>
+        <thead><tr><th>Stt</th><th>Họ tên</th><th>Lớp</th><th>Ngày thực hiện</th><th>Thời gian</th><th>Mục tiêu</th><th>Số chữ gõ được</th><th>Số chữ gõ sai</th><th>Số chữ gõ đúng</th><th>Tăng/giảm</th><th></th></tr></thead>
         <tbody></tbody>
       </table>
     </div>
@@ -493,7 +486,7 @@ table.result-table tr:nth-child(even) td{background:#fbf5ea;}
         <button id="export-comp-btn">⬇ Xuất Excel</button>
       </div>
       <table class="result-table" id="table-comp">
-        <thead><tr><th>Stt</th><th>Họ tên</th><th>Lớp</th><th>Vòng thi</th><th>Ngày thực hiện</th><th>Thời gian</th><th>Mục tiêu</th><th>Số chữ gõ được</th><th>Số chữ cái gõ được</th><th>Số từ gõ sai</th><th>Số chữ gõ đúng</th><th>Tăng/giảm</th><th></th></tr></thead>
+        <thead><tr><th>Stt</th><th>Họ tên</th><th>Lớp</th><th>Vòng thi</th><th>Ngày thực hiện</th><th>Thời gian</th><th>Mục tiêu</th><th>Số chữ gõ được</th><th>Số chữ cái gõ được</th><th>Số chữ gõ sai</th><th>Số chữ gõ đúng</th><th>Tăng/giảm</th><th></th></tr></thead>
         <tbody></tbody>
       </table>
     </div>
@@ -1245,7 +1238,7 @@ async function finishExercise(completedFullText){
 
   document.getElementById('result-title').textContent = completedFullText ? '🎉 Hoàn thành xuất sắc!' : 'Kết quả luyện tập';
   document.getElementById('result-words').textContent = words + ' chữ';
-  document.getElementById('result-sub').textContent = `${modeLabel} · Thời gian thực hiện: ${durationStr} · Mục tiêu: ${grade.target} · Từ gõ sai: ${state.wrongWords}`;
+  document.getElementById('result-sub').textContent = `${modeLabel} · Thời gian thực hiện: ${durationStr} · Mục tiêu: ${grade.target} · Chữ gõ sai: ${state.wrongWords}`;
   const diffEl = document.getElementById('result-diff');
   if(diff===null){ diffEl.innerHTML = '<span class="diff-same">Đây là lần luyện tập đầu tiên của em!</span>'; }
   else if(diff>0){ diffEl.innerHTML = `<span class="diff-up">▲ Tăng ${diff} chữ so với lần gần nhất</span>`; }
@@ -1511,78 +1504,21 @@ async function openTeacherModal(){
 
   document.getElementById('delete-student-btn').onclick = async ()=>{
     if(!selStu.value) return;
-    const ok = await showConfirm(`Xóa toàn bộ kết quả của học sinh "${selStu.value}"?`);
+    const ok = await showConfirm(`Bạn có chắc chắn muốn xóa toàn bộ kết quả của học sinh "${selStu.value}" không?`);
     if(ok){ await deleteByName(selStu.value); await openTeacherModal(); }
   };
   document.getElementById('delete-class-btn').onclick = async ()=>{
     if(!selCls.value) return;
-    const ok = await showConfirm(`Xóa toàn bộ kết quả của lớp "${selCls.value}"?`);
+    const ok = await showConfirm(`Bạn có chắc chắn muốn xóa toàn bộ kết quả của lớp "${selCls.value}" không?`);
     if(ok){ await deleteByClass(selCls.value); await openTeacherModal(); }
   };
   document.getElementById('delete-all-btn').onclick = async ()=>{
-    const ok = await showConfirm('Xóa TẤT CẢ dữ liệu kết quả của mọi học sinh? Hành động này không thể hoàn tác.');
+    const ok = await showConfirm('Bạn có chắc chắn muốn xóa TẤT CẢ dữ liệu kết quả của mọi học sinh không? Hành động này không thể hoàn tác.');
     if(ok){ await deleteAllResults(); await openTeacherModal(); }
-  };
-  document.getElementById('export-backup-btn').onclick = ()=>exportBackupJSON(results);
-  document.getElementById('import-backup-btn').onclick = ()=>document.getElementById('import-backup-input').click();
-  document.getElementById('import-backup-input').onchange = async (e)=>{
-    const files = e.target.files;
-    if(!files || files.length===0) return;
-    const statusEl = document.getElementById('import-status');
-    statusEl.textContent = 'Đang nhập dữ liệu...';
-    const res = await importBackupFiles(files);
-    e.target.value = '';
-    let msg;
-    if(res.filesOk===0){
-      msg = 'Không đọc được tệp nào — vui lòng chọn đúng tệp .json đã sao lưu từ phần mềm này.';
-    } else {
-      msg = `Đã gộp ${res.added} kết quả mới từ ${res.filesOk} tệp (bỏ qua ${res.skipped} kết quả đã có sẵn).`;
-    }
-    await openTeacherModal();
-    document.getElementById('import-status').textContent = msg;
   };
 
   switchTeacherTab(teacherActiveTab);
   document.getElementById('teacher-modal').classList.remove('hidden');
-}
-
-function exportBackupJSON(results){
-  const blob = new Blob([JSON.stringify(results, null, 2)], {type:'application/json'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  const now = new Date();
-  const pad = n=>String(n).padStart(2,'0');
-  const stamp = `${now.getFullYear()}${pad(now.getMonth()+1)}${pad(now.getDate())}_${pad(now.getHours())}${pad(now.getMinutes())}`;
-  a.href = url;
-  a.download = `SaoLuu_KetQua_${stamp}.json`;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  URL.revokeObjectURL(url);
-}
-
-async function importBackupFiles(fileList){
-  const existing = await loadResults();
-  const existingIds = new Set(existing.map(r=>r.id).filter(Boolean));
-  let added = 0, skipped = 0, filesOk = 0;
-  for(const file of fileList){
-    try{
-      const text = await file.text();
-      const arr = JSON.parse(text);
-      if(!Array.isArray(arr)) continue;
-      filesOk++;
-      arr.forEach(r=>{
-        if(!r || !r.name || typeof r.words!=='number') return;
-        if(!r.id) r.id = 'r'+Date.now()+Math.random().toString(36).slice(2,7);
-        if(existingIds.has(r.id)){ skipped++; return; }
-        existingIds.add(r.id);
-        existing.push(r);
-        added++;
-      });
-    }catch(e){ /* bỏ qua tệp không hợp lệ */ }
-  }
-  await saveResults(existing);
-  return {added, skipped, filesOk};
 }
 
 function showConfirm(message){
@@ -1642,7 +1578,7 @@ async function deleteAllResults(){
   await saveResults([]);
 }
 async function handleRowDelete(id){
-  const ok = await showConfirm('Xóa kết quả luyện tập này?');
+  const ok = await showConfirm('Bạn có chắc chắn muốn xóa kết quả luyện tập này không?');
   if(ok){ await deleteResultById(id); await openTeacherModal(); }
 }
 window.handleRowDelete = handleRowDelete;
@@ -1732,7 +1668,7 @@ function exportExcel(rows, filename, includeClass){
     base['Ngày thực hiện']=r.dateStr; base['Thời gian']=r.duration; base['Mục tiêu']=r.mode ? (r.mode+' - '+r.target) : r.target;
     base['Số chữ gõ được']=r.words;
     if(r.isCompetition) base['Số chữ cái gõ được'] = typeof r.letters==='number' ? r.letters : '—';
-    base['Số từ gõ sai'] = wrongCell(r);
+    base['Số chữ gõ sai'] = wrongCell(r);
     base['Số chữ gõ đúng'] = correctCell(r);
     base['Tăng/giảm']= r.diff===null? '—' : (r.diff>0?'+':'')+r.diff;
     return base;
