@@ -166,11 +166,11 @@ h1,h2,h3,.display{font-family:'Baloo 2',sans-serif;}
 #student-form{display:flex; gap:12px; align-items:flex-end; flex-wrap:wrap; border-top:2px dashed var(--gold-300); padding-top:16px;}
 .field{display:flex; flex-direction:column; gap:5px; flex:1; min-width:140px;}
 .field label{font-size:12.5px; color:var(--ink-soft); font-weight:600;}
-.field input{
+.field input, .field select{
   padding:10px 12px; border-radius:10px; border:2px solid #e4d3c0; font-size:14.5px;
-  font-family:'Be Vietnam Pro',sans-serif; outline:none;
+  font-family:'Be Vietnam Pro',sans-serif; outline:none; background:#fff;
 }
-.field input:focus{border-color:var(--red-600);}
+.field input:focus, .field select:focus{border-color:var(--red-600);}
 #start-btn{
   background:linear-gradient(180deg, var(--red-600), var(--red-700));
   color:#fff; border:none; padding:12px 30px; border-radius:14px 4px 14px 4px;
@@ -362,7 +362,21 @@ table.result-table tr:nth-child(even) td{background:#fbf5ea;}
         </div>
         <div class="field">
           <label>Lớp</label>
-          <input type="text" id="stu-class" placeholder="2A">
+          <select id="stu-class">
+            <option value="">-- Chọn lớp --</option>
+            <option value="2/1">2/1</option>
+            <option value="2/2">2/2</option>
+            <option value="2/3">2/3</option>
+            <option value="3/1">3/1</option>
+            <option value="3/2">3/2</option>
+            <option value="3/3">3/3</option>
+            <option value="4/1">4/1</option>
+            <option value="4/2">4/2</option>
+            <option value="4/3">4/3</option>
+            <option value="5/1">5/1</option>
+            <option value="5/2">5/2</option>
+            <option value="5/3">5/3</option>
+          </select>
         </div>
         <button id="start-btn" disabled>Bắt đầu</button>
         <button id="my-results-btn" type="button">📄 Kết quả của tôi</button>
@@ -629,8 +643,10 @@ function buildPassage(min,max){
   }
   let out = '';
   for(let i=0;i<sentences.length;i++){
-    out += sentences[i] + (i < sentences.length-1 ? ' ' : '');
-    if((i+1)%4===0 && i < sentences.length-1) out += '\n';
+    const isLast = i === sentences.length-1;
+    const isParaBreak = (i+1)%4===0 && !isLast;
+    out += sentences[i];
+    if(!isLast) out += isParaBreak ? '\n' : ' ';
   }
   return out;
 }
@@ -727,6 +743,9 @@ let state = {
   wrongWords:0,
   timeLeft:900,
   timerId:null,
+  startTimestamp:null,
+  totalPausedMs:0,
+  pauseStartedAt:null,
   paused:false,
   running:false,
   gameSpawnId:null,
@@ -941,7 +960,7 @@ function validateStart(){
   document.getElementById('start-btn').disabled = !ok;
 }
 document.getElementById('stu-name').addEventListener('input', validateStart);
-document.getElementById('stu-class').addEventListener('input', validateStart);
+document.getElementById('stu-class').addEventListener('change', validateStart);
 document.getElementById('start-btn').addEventListener('click', startExercise);
 document.getElementById('my-results-btn').addEventListener('click', openMyResults);
 
@@ -1165,16 +1184,31 @@ function gameKeyHandler(e){
 }
 
 /* ---------- TIMER / PAUSE / END ---------- */
+/* Đồng hồ tính theo mốc thời gian thực (Date.now()) thay vì đếm lùi từng
+   giây - tránh bị "kẹt" hoặc chạy sai khi trình duyệt giảm tốc độ hẹn giờ
+   lúc tab bị ẩn/ở chế độ nền (một nguyên nhân phổ biến khiến thời gian
+   dừng chạy sau khi tạm dừng rồi tiếp tục). */
+function computeTimeLeft(){
+  const now = Date.now();
+  const pausedMs = state.totalPausedMs + (state.pauseStartedAt ? (now - state.pauseStartedAt) : 0);
+  const elapsedSec = Math.floor((now - state.startTimestamp - pausedMs) / 1000);
+  return Math.max(0, 900 - elapsedSec);
+}
 function startTimer(){
+  state.startTimestamp = Date.now();
+  state.totalPausedMs = 0;
+  state.pauseStartedAt = null;
+  state.timeLeft = 900;
   updateTimerDisplay();
+  clearInterval(state.timerId);
   state.timerId = setInterval(()=>{
     if(state.paused) return;
-    state.timeLeft--;
+    state.timeLeft = computeTimeLeft();
     updateTimerDisplay();
     if(state.timeLeft<=0){
       finishExercise(false);
     }
-  },1000);
+  },500);
 }
 function updateTimerDisplay(){
   const m = Math.floor(state.timeLeft/60), s = state.timeLeft%60;
@@ -1182,6 +1216,16 @@ function updateTimerDisplay(){
 }
 document.getElementById('pause-btn').addEventListener('click', ()=>{
   state.paused = !state.paused;
+  if(state.paused){
+    state.pauseStartedAt = Date.now();
+  } else {
+    if(state.pauseStartedAt){
+      state.totalPausedMs += Date.now() - state.pauseStartedAt;
+      state.pauseStartedAt = null;
+    }
+    state.timeLeft = computeTimeLeft();
+    updateTimerDisplay();
+  }
   document.getElementById('pause-btn').textContent = state.paused ? '▶ Tiếp tục' : '⏸ Tạm dừng';
   if(!state.paused) typeCapture.focus();
 });
