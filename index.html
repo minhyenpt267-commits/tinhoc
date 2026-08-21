@@ -357,10 +357,6 @@ table.result-table tr:nth-child(even) td{background:#fbf5ea;}
       </div>
       <div id="student-form">
         <div class="field">
-          <label>Họ và tên học sinh</label>
-          <input type="text" id="stu-name" placeholder="Nguyễn Văn A">
-        </div>
-        <div class="field">
           <label>Lớp</label>
           <select id="stu-class">
             <option value="">-- Chọn lớp --</option>
@@ -376,6 +372,12 @@ table.result-table tr:nth-child(even) td{background:#fbf5ea;}
             <option value="5/1">5/1</option>
             <option value="5/2">5/2</option>
             <option value="5/3">5/3</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Họ và tên học sinh</label>
+          <select id="stu-name" disabled>
+            <option value="">-- Chọn lớp trước --</option>
           </select>
         </div>
         <button id="start-btn" disabled>Bắt đầu</button>
@@ -529,6 +531,22 @@ const FINGERS = [
 ];
 
 const SPEEDS = [{id:'slow', label:'Chậm', ms:2600}, {id:'mid', label:'Trung bình', ms:1800}, {id:'fast', label:'Nhanh', ms:1100}];
+
+/* Danh sách học sinh theo từng lớp, lấy từ file "Danh sách học sinh toàn trường" nhà trường cung cấp. */
+const STUDENTS_BY_CLASS = {
+  "2/1": ["Nguyễn Hạ An", "Salvatori Mia Hoài An", "Đặng Minh Anh", "Nguyễn Văn Mai Anh", "Nguyễn Hoàng Bách", "Lê Thanh Bình", "Lê Minh Hà", "Lê Ngọc Hân", "Nguyễn Đình Hoàng", "Nguyễn Hữu Huy Hoàng", "Hồ Tấn Hưng", "Lê Anh Khoa", "Vũ Trần Minh Khoa", "Đặng Ngọc Minh Khuê", "Bùi Tấn Linh Lam", "Nguyễn Hoàng Lâm", "Phạm Nguyễn Gia Linh", "Trần Hùng Long", "Lê Nguyễn Tuệ Minh", "Nguyễn Công Minh", "Nguyễn Ngọc Thảo Nhi", "Phạm Hoàng Nhi", "Nguyễn Hồng Kim Phúc", "Trương Lê Bảo Thiên", "Nguyễn Tú Uyên", "Nguyễn Tuệ Lâm"],
+  "2/2": ["Nguyễn Hùng Trường An", "Nguyễn Mạnh An", "Phan Đăng Anh", "Phạm Xuân Bách", "Trần Nam Bình", "Edwards Nguyen Cody", "Đỗ Thành Công", "Tán Trương Từ Dĩnh", "Phan Nhật Khang", "Lê Minh Khôi", "Phạm Đăng Khôi", "Cao Nguyễn Lan Khuê", "Huỳnh Thanh Lam", "Nguyễn Hoàng Lâm", "Ngô Nhã Linh", "Nguyễn Tuệ Mi", "Nguyễn Trần Hà My", "Văn Hoàng Nam", "Nguyễn Tuệ Nghi", "Đậu Thảo Nhi", "Huỳnh Tuệ Nhi", "Võ Đặng Yến Nhi", "Tô Xuân Phúc", "Nguyễn Thị Thanh Phượng", "Nguyễn Hoàng Anh Quân", "Nguyễn Sỹ Quang Tùng", "Nguyễn Ngọc Bảo Uyên"],
+  "2/3": ["Haga Taka Aki", "Trần Ngọc Bảo An", "Phạm Văn Bình", "Ngô Lê Thảo Chi", "Phan Hoàng Quỳnh Chi", "Nguyễn Khải Duy", "Nguyễn Gia Huy", "Trần Gia Hy", "Nguyễn Bảo Khang", "Huỳnh Ngọc Đăng Khoa", "Nguyễn Chu Đăng Khoa", "Lê Tuấn Khôi", "Mai Trung Kiên", "Võ Giai Kỳ", "Trương Phạm Yên Mai", "Nguyễn Huỳnh Na Mi", "Trần Khắc Nguyên", "Trần Diệu Nhi", "Huỳnh Phạm Thế Quân", "Hồ Nguyễn Anh Quốc", "Lê Vũ Khánh Quỳnh", "Choe E Ram", "Trần An Thy", "Đinh Tống Tiểu Trân", "Phan Minh Trí", "Trần Anh Trung", "Nguyễn Lê Bảo Vy", "Ngô Phan Ngọc Diệp"],
+  "3/1": ["Nguyễn Lan Anh", "Nguyễn Phương Anh", "Nguyễn Ngọc Bách", "Nguyễn Hoàng Bảo Châu", "Nguyễn Trần Trúc Chi", "Phạm Hải Đăng", "Nguyễn Ngọc Trà Giang", "Phạm Minh Huy", "Đào Hữu Minh Khang", "Lê Doãn Duy Khoa", "Phạm Nguyễn Bảo Khôi", "Lê Hoàng Quý Khương", "Lương Hoàng Mỹ Kim", "Nguyễn Hải Minh", "Trần Minh Nhật", "Bùi Tấn Trọng Phước", "Đinh Công Gia Thịnh", "Huỳnh Minh Thư", "Nguyễn Hồng Vy", "Nguyễn Trần Thục Vy", "Đào Diệu Yên"],
+  "3/2": ["Vũ Nguyễn Tuệ An", "Đinh Việt Hoàng Anh", "Nguyễn Phúc Bảo", "Phạm Thị Bảo Chi", "Phan Quỳnh Dao", "Nguyễn Ngọc Thiên Di", "Huỳnh Kim Đạt", "Nguyễn Trần Vũ Hân", "Nguyễn Đức Huy", "Hồ Đắc Tiến Hưng", "Trần Phan Hồng Hy", "Nguyễn Đăng Khoa", "Lê Nguyên Lam Khuê", "Nguyễn Đức Tùng Lâm", "Võ Đình Phước Minh", "Võ Hoàng A Na", "Nguyễn Trần Khánh Ngân", "Huỳnh Thị Khánh Nguyên", "Lý An Nguyên", "Trần Tấn Phát", "Trịnh Thái Phúc", "Lê Hoàng Quân", "Huỳnh Bảo Thanh", "Lợi Tấn Thịnh", "Thái Ngọc Cát Tiên", "Huỳnh Võ Thanh Trúc", "Cao Gia Tuệ"],
+  "3/3": ["Võ Nguyễn Duy Anh", "Hồ Minh Bảo Châu", "Phạm Ngọc Khánh Chi", "Phan Như Bảo Chi", "Hồ Cường", "Nguyễn Hoàng Gia", "Đoàn Ngọc Hân", "Phạm Khả Hân", "Dương Trung Hiếu", "Ngô Gia Huy", "Phạm Gia Huy", "Cao Đông Hy", "Trần Phan Minh Hy", "Nguyễn Xuân Khuê", "Nguyễn Đình Lâm", "Nguyễn Cát Khánh Linh", "Võ Hoàng Đan Miên", "Nguyễn Hồng Minh", "Trần Đại Quang Minh", "Nguyễn Khả My", "Trương Thành Nam", "Lê Khánh Nguyên", "Sato Nguyên", "Mai Phạm Gia Phú", "Hoàng Nguyễn Hà Phương", "Cù Duy Thiện"],
+  "4/1": ["Đỗ Lâm Anh", "Nguyễn Trần Minh Anh", "Trần Thủy Bình", "Phạm Hoàng Khánh Chi", "Đào Cao Danh", "Trần Ngọc Diệp", "Nguyễn Minh Đăng", "Lê Võ Khánh Hân", "Nguyễn Phương Bảo Hân", "Nguyễn Trần Gia Hân", "Huỳnh Phương Khanh", "Dương Sỹ Đăng Khoa", "Phan Ngọc Minh Khuê", "Nguyễn Phước Lâm", "Nguyễn Tú Linh", "Thái Uy Long", "Nguyễn Xuân Thanh Mẫn", "Nguyễn Bảo Ngọc", "Nguyễn Hoàng Bảo Ngọc", "Huỳnh Linh Nhi", "Nguyễn Hoàng Thịnh", "Trần Anh Thư", "Nguyễn Hoàng Khánh Tiên", "Lê Công Thiện Trí", "Nguyễn Đức Trí", "Phan Lê Thanh Trúc", "Võ Nhã Uyên"],
+  "4/2": ["Lê Hoài An", "Nguyễn Trần Bảo An", "Phùng Quốc Bảo", "Lê Trúc Hải Bình", "Phạm Gia Bình", "Lê Nguyễn Gia Hân", "Cao Bá Minh Khôi", "Mai Huỳnh Khôi", "Trần Ngọc Tường Lam", "Đặng Ngọc Kỳ Lâm", "Phan Trần Trung Nam", "Võ Hoàng Nam", "Nguyễn Phạm Phương Nghi", "Bùi Tấn Linh Như", "Nguyễn Thế Thiên Phú", "Nguyễn Lê Nhã Thư", "Trần Bá Vũ", "Lê Thị Tường Vy", "Phan Trần Bảo Yên"],
+  "4/3": ["Võ Hoài An", "Huỳnh Thiên Ân", "Hồ Kim Gia Hân", "Nguyễn Ngọc Gia Hân", "Phạm Thị Xuân Hiếu", "Đoàn Mạnh Hùng", "Võ Minh Khang", "Nguyễn Hoàng Mai Khuê", "Trần Nguyễn Khánh Linh", "Trần Hoàng Long", "Trần Nhật Minh", "Nguyễn Phúc Hà My", "Nguyễn Phan Tuệ Nghi", "Phan Tấn Nhân", "Trần Viết Minh Nhật", "Hồ Thiên Sơn", "Lưu Võ Anh Thư", "Phạm Minh Thư", "Hà Duy Minh Triết", "Hồ Minh Vân", "Trần Ngọc La Vy"],
+  "5/1": ["Trần Bảo Anh", "Trần Hữu Minh Huy", "Lê Minh Khang", "Huỳnh Tuệ Lâm", "Lê Vũ Bảo Long", "Nguyễn Vũ Khánh Mai", "Nguyễn Bảo Nam", "Phạm Bảo Nam", "Huỳnh Tùng Nhân", "Nguyễn Cao Lạc Nhi", "Nguyễn Hà Tâm Như", "Nguyễn Minh Trí", "Phạm Viết Thanh Trí", "Lê Diệp Vy", "Vũ Hạ Vy"],
+  "5/2": ["Lê Gia An", "Trương Nam Anh", "Lê Lý Qúy Bảo", "Võ Duy Hưng", "Vũ Hồng Gia Hưng", "Đỗ Trọng Nam Khang", "Phạm Văn Đăng Khoa", "Trần Hoàng Vi Khuê", "Trần Ngọc Diệp Khuê", "Đào Nhật Minh", "Tăng Thiện Nhân", "Trần Nguyễn Tuệ Nhi", "Huỳnh Đức Phát", "Châu Ngọc Thiên Phú", "Nguyễn Văn Minh Phúc", "Nguyễn Hà Minh Thiên", "Phạm Minh Toàn", "Lê Phạm Tuấn Tú", "Hứa Khả Vy"],
+  "5/3": ["Nguyễn Ngọc Châu An", "Trần Lê Tuấn Anh", "Trần Quốc Thiên Ân", "Phan Hữu Đạt", "Hồ Hoài Đức", "Đào Ngọc Thanh Hằng", "Phan Như Bảo Hân", "Vũ Trần Minh Hưng", "Giả Khả Lam", "Trịnh Thái Lâm", "Trần Hồ Gia Minh", "Trần Tăng Thiên Minh", "Huỳnh Ngọc Khánh My", "Nguyễn Ngọc Ju Na", "Huỳnh Mẫn Nghi", "Đoàn Ngọc Nhân", "Đào Ngọc Quỳnh Như", "Trần Ngọc Nhã Phương", "Trần Ngọc Anh Thi", "Nguyễn Diệp Anh Thư", "Nguyễn Trương Minh Thư", "Phạm Thị Bảo Thy", "Phạm Minh Trí", "Trần Anh Tuấn", "Phan Đỗ Đồng Văn"],
+};
 
 const COMPETITION_KHOI = [
   {id:'k3', label:'Khối 3', target:'100-150 chữ/15 phút'},
@@ -959,10 +977,26 @@ function validateStart(){
   }
   document.getElementById('start-btn').disabled = !ok;
 }
-document.getElementById('stu-name').addEventListener('input', validateStart);
-document.getElementById('stu-class').addEventListener('change', validateStart);
+document.getElementById('stu-name').addEventListener('change', validateStart);
+document.getElementById('stu-class').addEventListener('change', ()=>{
+  populateStudentNameOptions();
+  validateStart();
+});
 document.getElementById('start-btn').addEventListener('click', startExercise);
 document.getElementById('my-results-btn').addEventListener('click', openMyResults);
+
+function populateStudentNameOptions(){
+  const cls = document.getElementById('stu-class').value;
+  const nameSelect = document.getElementById('stu-name');
+  const names = STUDENTS_BY_CLASS[cls];
+  if(!cls || !names){
+    nameSelect.innerHTML = '<option value="">-- Chọn lớp trước --</option>';
+    nameSelect.disabled = true;
+    return;
+  }
+  nameSelect.innerHTML = '<option value="">-- Chọn tên của em --</option>' + names.map(n=>`<option value="${n}">${n}</option>`).join('');
+  nameSelect.disabled = false;
+}
 
 async function openMyResults(){
   const name = document.getElementById('stu-name').value.trim();
