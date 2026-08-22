@@ -204,7 +204,6 @@ h1,h2,h3,.display{font-family:'Baloo 2',sans-serif;}
   border:none; border-radius:10px; padding:9px 16px; font-weight:700; cursor:pointer;
   font-family:'Baloo 2',sans-serif; font-size:13.5px;
 }
-#pause-btn{background:var(--gold-500); color:var(--red-900);}
 #end-btn{background:var(--red-600); color:#fff;}
 
 #ex-body{
@@ -400,7 +399,6 @@ table.result-table tr:nth-child(even) td{background:#fbf5ea;}
         <div class="stat"><div class="val" id="ex-wrong" style="color:var(--err);">0</div><div class="lbl">Chữ gõ sai</div></div>
       </div>
       <div class="ex-controls">
-        <button id="pause-btn">⏸ Tạm dừng</button>
         <button id="end-btn">⏹ Kết thúc</button>
       </div>
     </div>
@@ -732,11 +730,6 @@ async function saveResults(list){
   }catch(e){}
   try{ localStorage.setItem('typing_results_cache', JSON.stringify(list)); }catch(e){}
 }
-async function addResult(record){
-  const list = await loadResults();
-  list.push(record);
-  await saveResults(list);
-}
 function updateServerStatusLabel(connected){
   const el = document.getElementById('server-status-label');
   if(!el) return;
@@ -762,9 +755,6 @@ let state = {
   timeLeft:900,
   timerId:null,
   startTimestamp:null,
-  totalPausedMs:0,
-  pauseStartedAt:null,
-  paused:false,
   running:false,
   gameSpawnId:null,
   gameActiveLetter:null,
@@ -1029,7 +1019,6 @@ function startExercise(){
   state.wordsCount = 0;
   state.wrongWords = 0;
   state.gameCatches = 0;
-  state.paused = false;
   state.running = true;
 
   document.getElementById('ex-student').textContent = `${document.getElementById('stu-name').value.trim()} — Lớp ${document.getElementById('stu-class').value.trim()}`;
@@ -1046,7 +1035,6 @@ function startExercise(){
 
   homeScreen.classList.add('hidden');
   exerciseScreen.classList.remove('hidden');
-  document.getElementById('pause-btn').textContent = '⏸ Tạm dừng';
 
   if(grade.kind==='lop2' && state.lop2Mode==='game'){
     textPanel.classList.add('hidden');
@@ -1150,13 +1138,13 @@ function updateTypingDisplay(){
 }
 
 typeCapture.addEventListener('input', ()=>{
-  if(!state.running || state.paused) return;
+  if(!state.running) return;
   if(!textPanel || textPanel.classList.contains('hidden')) return;
   updateTypingDisplay();
 });
 typeCapture.addEventListener('paste', e=>e.preventDefault());
 document.addEventListener('click', (e)=>{
-  if(!exerciseScreen.classList.contains('hidden') && !state.paused && document.getElementById('text-panel').classList.contains('hidden')===false){
+  if(!exerciseScreen.classList.contains('hidden') && document.getElementById('text-panel').classList.contains('hidden')===false){
     typeCapture.focus();
   }
 });
@@ -1170,7 +1158,7 @@ function startGameMode(){
   spawnFallingLetter(f, speed);
 }
 function spawnFallingLetter(f, speed){
-  if(!state.running || state.paused) return;
+  if(!state.running) return;
   const letter = f.letters[Math.floor(Math.random()*f.letters.length)];
   const el = document.createElement('div');
   el.className='falling-letter';
@@ -1182,7 +1170,7 @@ function spawnFallingLetter(f, speed){
   const panelHeight = gamePanel.clientHeight - 40;
   const startTime = Date.now();
   function step(){
-    if(!state.running || state.paused){ requestAnimationFrame(step); return; }
+    if(!state.running){ return; }
     if(state.gameActiveLetter && state.gameActiveLetter.el === el && !state.gameActiveLetter.resolved){
       const elapsed = Date.now()-startTime;
       const progress = Math.min(1, elapsed/speed.ms);
@@ -1199,7 +1187,7 @@ function spawnFallingLetter(f, speed){
   requestAnimationFrame(step);
 }
 function gameKeyHandler(e){
-  if(!state.running || state.paused) return;
+  if(!state.running) return;
   if(document.getElementById('game-panel').classList.contains('hidden')) return;
   const key = e.key.toLowerCase();
   if(state.gameActiveLetter && !state.gameActiveLetter.resolved && key === state.gameActiveLetter.letter){
@@ -1217,26 +1205,21 @@ function gameKeyHandler(e){
   }
 }
 
-/* ---------- TIMER / PAUSE / END ---------- */
+/* ---------- TIMER / END ---------- */
 /* Đồng hồ tính theo mốc thời gian thực (Date.now()) thay vì đếm lùi từng
    giây - tránh bị "kẹt" hoặc chạy sai khi trình duyệt giảm tốc độ hẹn giờ
-   lúc tab bị ẩn/ở chế độ nền (một nguyên nhân phổ biến khiến thời gian
-   dừng chạy sau khi tạm dừng rồi tiếp tục). */
+   lúc tab bị ẩn/ở chế độ nền. */
 function computeTimeLeft(){
   const now = Date.now();
-  const pausedMs = state.totalPausedMs + (state.pauseStartedAt ? (now - state.pauseStartedAt) : 0);
-  const elapsedSec = Math.floor((now - state.startTimestamp - pausedMs) / 1000);
+  const elapsedSec = Math.floor((now - state.startTimestamp) / 1000);
   return Math.max(0, 900 - elapsedSec);
 }
 function startTimer(){
   state.startTimestamp = Date.now();
-  state.totalPausedMs = 0;
-  state.pauseStartedAt = null;
   state.timeLeft = 900;
   updateTimerDisplay();
   clearInterval(state.timerId);
   state.timerId = setInterval(()=>{
-    if(state.paused) return;
     state.timeLeft = computeTimeLeft();
     updateTimerDisplay();
     if(state.timeLeft<=0){
@@ -1248,21 +1231,6 @@ function updateTimerDisplay(){
   const m = Math.floor(state.timeLeft/60), s = state.timeLeft%60;
   document.getElementById('ex-timer').textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
 }
-document.getElementById('pause-btn').addEventListener('click', ()=>{
-  state.paused = !state.paused;
-  if(state.paused){
-    state.pauseStartedAt = Date.now();
-  } else {
-    if(state.pauseStartedAt){
-      state.totalPausedMs += Date.now() - state.pauseStartedAt;
-      state.pauseStartedAt = null;
-    }
-    state.timeLeft = computeTimeLeft();
-    updateTimerDisplay();
-  }
-  document.getElementById('pause-btn').textContent = state.paused ? '▶ Tiếp tục' : '⏸ Tạm dừng';
-  if(!state.paused) typeCapture.focus();
-});
 document.getElementById('end-btn').addEventListener('click', ()=>finishExercise(false));
 
 async function finishExercise(completedFullText){
@@ -1281,12 +1249,7 @@ async function finishExercise(completedFullText){
   const durationStr = `${String(Math.floor(elapsedSec/60)).padStart(2,'0')}:${String(elapsedSec%60).padStart(2,'0')}`;
   const words = state.wordsCount;
   const letters = isGameMode ? state.gameCatches : state.idx;
-
-  const prevList = await loadResults();
-  const prevForStudent = prevList.filter(r=>r.name===name).sort((a,b)=>new Date(a.dateISO)-new Date(b.dateISO));
-  const lastPrev = prevForStudent.length ? prevForStudent[prevForStudent.length-1] : null;
   const correctWords = Math.max(0, words - state.wrongWords);
-  const diff = lastPrev ? correctWords - correctWordsOf(lastPrev) : null;
 
   let modeLabel = grade.name;
   if(!grade.isCompetition && grade.kind==='lop2') modeLabel += state.lop2Mode==='game' ? ' (Trò chơi)' : ' (Luyện gõ)';
@@ -1308,22 +1271,35 @@ async function finishExercise(completedFullText){
     khoiLabel: grade.khoiLabel || '',
     roundLabel: grade.roundLabel || '',
   };
-  await addResult(record);
 
+  /* Hiển thị kết quả NGAY LẬP TỨC bằng dữ liệu đã có sẵn cục bộ, không chờ
+     mạng LAN - để bấm "Kết thúc" luôn phản hồi tức thì. Việc lưu lên máy chủ
+     và tính tăng/giảm so với lần trước sẽ chạy ngầm phía sau. */
   if(completedFullText && state.timeLeft>0){
     celebrate();
   }
-
   document.getElementById('result-title').textContent = completedFullText ? '🎉 Hoàn thành xuất sắc!' : 'Kết quả luyện tập';
   document.getElementById('result-words').textContent = words + ' chữ';
   document.getElementById('result-sub').textContent = `${modeLabel} · Thời gian thực hiện: ${durationStr} · Mục tiêu: ${grade.target} · Chữ gõ sai: ${state.wrongWords}`;
   const diffEl = document.getElementById('result-diff');
-  if(diff===null){ diffEl.innerHTML = '<span class="diff-same">Đây là lần luyện tập đầu tiên của em!</span>'; }
-  else if(diff>0){ diffEl.innerHTML = `<span class="diff-up">▲ Tăng ${diff} chữ so với lần gần nhất</span>`; }
-  else if(diff<0){ diffEl.innerHTML = `<span class="diff-down">▼ Giảm ${Math.abs(diff)} chữ so với lần gần nhất</span>`; }
-  else { diffEl.innerHTML = '<span class="diff-same">Bằng với lần gần nhất</span>'; }
-
+  diffEl.innerHTML = '<span class="diff-same">Đang lưu kết quả...</span>';
   document.getElementById('result-modal').classList.remove('hidden');
+
+  try{
+    const prevList = await loadResults();
+    const prevForStudent = prevList.filter(r=>r.name===name).sort((a,b)=>new Date(a.dateISO)-new Date(b.dateISO));
+    const lastPrev = prevForStudent.length ? prevForStudent[prevForStudent.length-1] : null;
+    const diff = lastPrev ? correctWords - correctWordsOf(lastPrev) : null;
+    prevList.push(record);
+    await saveResults(prevList);
+
+    if(diff===null){ diffEl.innerHTML = '<span class="diff-same">Đây là lần luyện tập đầu tiên của em!</span>'; }
+    else if(diff>0){ diffEl.innerHTML = `<span class="diff-up">▲ Tăng ${diff} chữ so với lần gần nhất</span>`; }
+    else if(diff<0){ diffEl.innerHTML = `<span class="diff-down">▼ Giảm ${Math.abs(diff)} chữ so với lần gần nhất</span>`; }
+    else { diffEl.innerHTML = '<span class="diff-same">Bằng với lần gần nhất</span>'; }
+  }catch(e){
+    diffEl.innerHTML = '<span class="diff-same">Đã lưu kết quả (không tính được mức tăng/giảm)</span>';
+  }
 }
 
 document.getElementById('result-ok-btn').addEventListener('click', ()=>{
