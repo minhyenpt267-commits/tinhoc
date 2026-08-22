@@ -1498,9 +1498,14 @@ async function migrateResults(results){
   return results;
 }
 
-async function openTeacherModal(){
-  let results = await loadResults();
-  results = await migrateResults(results);
+async function openTeacherModal(preloadedResults){
+  let results;
+  if(preloadedResults){
+    results = preloadedResults;
+  } else {
+    results = await loadResults();
+    results = await migrateResults(results);
+  }
   const names = [...new Set(results.map(r=>r.name))].sort();
   const classes = [...new Set(results.map(r=>r.class))].sort();
 
@@ -1559,16 +1564,16 @@ async function openTeacherModal(){
   document.getElementById('delete-student-btn').onclick = async ()=>{
     if(!selStu.value) return;
     const ok = await showConfirm(`Bạn có chắc chắn muốn xóa toàn bộ kết quả của học sinh "${selStu.value}" không?`);
-    if(ok){ await deleteByName(selStu.value); await openTeacherModal(); }
+    if(ok){ const newResults = await deleteByName(selStu.value); await openTeacherModal(newResults); }
   };
   document.getElementById('delete-class-btn').onclick = async ()=>{
     if(!selCls.value) return;
     const ok = await showConfirm(`Bạn có chắc chắn muốn xóa toàn bộ kết quả của lớp "${selCls.value}" không?`);
-    if(ok){ await deleteByClass(selCls.value); await openTeacherModal(); }
+    if(ok){ const newResults = await deleteByClass(selCls.value); await openTeacherModal(newResults); }
   };
   document.getElementById('delete-all-btn').onclick = async ()=>{
     const ok = await showConfirm('Bạn có chắc chắn muốn xóa TẤT CẢ dữ liệu kết quả của mọi học sinh không? Hành động này không thể hoàn tác.');
-    if(ok){ await deleteAllResults(); await openTeacherModal(); }
+    if(ok){ const newResults = await deleteAllResults(); await openTeacherModal(newResults); }
   };
 
   switchTeacherTab(teacherActiveTab);
@@ -1618,22 +1623,29 @@ function showAlert(message){
 
 async function deleteResultById(id){
   const list = await loadResults();
-  await saveResults(list.filter(r=>r.id!==id));
+  const newList = list.filter(r=>r.id!==id);
+  await saveResults(newList);
+  return newList;
 }
 async function deleteByName(name){
   const list = await loadResults();
-  await saveResults(list.filter(r=>r.name!==name));
+  const newList = list.filter(r=>r.name!==name);
+  await saveResults(newList);
+  return newList;
 }
 async function deleteByClass(cls){
   const list = await loadResults();
-  await saveResults(list.filter(r=>r.class!==cls));
+  const newList = list.filter(r=>r.class!==cls);
+  await saveResults(newList);
+  return newList;
 }
 async function deleteAllResults(){
   await saveResults([]);
+  return [];
 }
 async function handleRowDelete(id){
   const ok = await showConfirm('Bạn có chắc chắn muốn xóa kết quả luyện tập này không?');
-  if(ok){ await deleteResultById(id); await openTeacherModal(); }
+  if(ok){ const newResults = await deleteResultById(id); await openTeacherModal(newResults); }
 }
 window.handleRowDelete = handleRowDelete;
 
