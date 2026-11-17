@@ -561,14 +561,13 @@ const COMPETITION_CODES = {
   'k4-loai':'VL4-2026', 'k4-cket':'CK4-2026',
   'k5-loai':'VL5-2026', 'k5-cket':'CK5-2026',
 };
-// Mã "hạt giống" quyết định nội dung bài thi: mỗi khối/vòng có MỘT văn bản duy nhất,
-// mọi học sinh cùng khối/vòng đều gõ đúng văn bản đó. Muốn đổi sang văn bản khác,
-// chỉ cần đổi chuỗi hạt giống tương ứng (ví dụ 'k3-loai-A' thành 'k3-loai-B').
-const COMPETITION_SEEDS = {
-  'k3-loai':'k3-loai-A', 'k3-cket':'k3-cket-A',
-  'k4-loai':'k4-loai-A', 'k4-cket':'k4-cket-A',
-  'k5-loai':'k5-loai-A', 'k5-cket':'k5-cket-A',
-};
+// Mã "hạt giống" quyết định nội dung bài thi: mỗi KHỐI có MỘT văn bản duy nhất; vòng loại
+// và vòng chung kết dùng cùng văn bản đó (vòng loại gõ phần đầu - trên 800 từ, vòng chung
+// kết gõ nhiều hơn - trên 1000 từ). Mọi học sinh cùng khối/vòng gõ giống hệt nhau.
+// Muốn đổi sang văn bản khác, chỉ cần đổi chuỗi hạt giống (ví dụ 'k3-A' thành 'k3-B').
+const COMPETITION_SEEDS = { 'k3':'k3-A', 'k4':'k4-A', 'k5':'k5-A' };
+// Số từ tối thiểu (văn bản dài HƠN số này) của từng vòng
+const COMPETITION_MIN_WORDS = { 'loai':800, 'cket':1000 };
 
 const SENTENCES = [
 "Tự tin là khi em dám giơ tay phát biểu dù câu trả lời có thể chưa đúng.",
@@ -683,6 +682,28 @@ function buildPassage(min,max,rng){
     sentences.push(s);
     words += s.split(/\s+/).filter(Boolean).length;
     if(words >= max) break;
+  }
+  let out = '';
+  for(let i=0;i<sentences.length;i++){
+    const isLast = i === sentences.length-1;
+    const isParaBreak = (i+1)%4===0 && !isLast;
+    out += sentences[i];
+    if(!isLast) out += isParaBreak ? '\n' : ' ';
+  }
+  return out;
+}
+
+/* Văn bản bài thi cố định: cùng khối thì vòng loại và vòng chung kết có cùng nội dung
+   (thứ tự câu giống hệt nhau), chỉ khác độ dài - vòng chung kết dài hơn vòng loại. */
+function buildCompetitionPassage(khoiId, roundId){
+  const seed = COMPETITION_SEEDS[khoiId] || khoiId;
+  const minWords = COMPETITION_MIN_WORDS[roundId] || 800;
+  const pool = shuffle(SENTENCES, seededRng('cuocthi|'+seed));
+  const sentences = [];
+  let words = 0;
+  for(let i=0; i<pool.length && words <= minWords; i++){
+    sentences.push(pool[i]);
+    words += pool[i].split(/\s+/).filter(Boolean).length;
   }
   let out = '';
   for(let i=0;i<sentences.length;i++){
@@ -1072,9 +1093,7 @@ function startExercise(){
     textPanel.classList.remove('hidden');
     const wordRange = grade.kind==='lop2' ? [180,220] : [500,1000];
     if(grade.isCompetition){
-      const seedKey = state.compKhoi+'-'+state.compRound;
-      const seed = COMPETITION_SEEDS[seedKey] || seedKey;
-      state.passage = buildPassage(wordRange[0], wordRange[1], seededRng('cuocthi|'+seed));
+      state.passage = buildCompetitionPassage(state.compKhoi, state.compRound);
     } else {
       state.passage = buildPassage(wordRange[0], wordRange[1]);
     }
